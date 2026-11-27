@@ -728,7 +728,7 @@ UTC 偏移，并按运行的创建日期归属。页面复用现有 `/api/consol
 
 ### Skills 与 Tools
 
-Skills 是 DeerFlow 能做“几乎任何事”的关键。
+Skills 是 DeerFlow 能做“几乎任何事”的关键。InvestAgent 在此基础上提供投研协议、个股/尽调/扫描/复盘技能、证据链门控与持仓日更配方，见[投研指南](docs/guide/invest-research.md)。
 
 标准的 Agent Skill 是一种结构化能力模块，通常就是一个 Markdown 文件，里面定义了工作流、最佳实践，以及相关的参考资源。DeerFlow 自带一批内置 skills，覆盖研究、报告生成、演示文稿制作、网页生成、图像和视频生成等场景。真正有意思的地方在于它的扩展性：你可以加自己的 skills，替换内置 skills，或者把多个 skills 组合成复合工作流。
 

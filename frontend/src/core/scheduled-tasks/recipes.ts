@@ -1,6 +1,11 @@
 import type { ScheduleValue } from "@/components/workspace/scheduled-task-schedule-input";
 
-export type RecipeTitleKey = "trending" | "news" | "issues" | "weekly";
+export type RecipeTitleKey =
+  | "trending"
+  | "news"
+  | "issues"
+  | "weekly"
+  | "portfolioDaily";
 
 export type Recipe = {
   id: string;
@@ -13,9 +18,20 @@ export type Recipe = {
 // i18n (`scheduledTasks.recipes.<titleKey>`), so a recipe applied in Chinese
 // stores Chinese instructions. The schedule's timezone is left empty so the
 // ScheduleInput falls back to the browser-detected timezone when applied.
-// `{{repo}}` style placeholders are intentional — the user fills them in the
-// instructions after applying the recipe.
+// `{{repo}}` / `{{holdings}}` style placeholders are intentional — the user
+// fills them in the instructions after applying the recipe.
 export const RECIPES: Recipe[] = [
+  {
+    id: "portfolio-daily",
+    icon: "📈",
+    titleKey: "portfolioDaily",
+    schedule: {
+      // Weekday 18:30 local — after CN A-share close; browser timezone fills in.
+      schedule_type: "cron",
+      schedule_spec: { cron: "30 18 * * 1-5" },
+      timezone: "",
+    },
+  },
   {
     id: "trending",
     icon: "🔥",

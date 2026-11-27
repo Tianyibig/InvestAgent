@@ -425,11 +425,11 @@ export const enUS: Translations = {
   welcome: {
     greeting: "Hello, again!",
     description:
-      "Welcome to 🦌 DeerFlow, an open source super agent. With built-in and custom skills, DeerFlow helps you search on the web, analyze data, and generate artifacts like slides, web pages and do almost anything.",
+      "Welcome to InvestAgent — a DeerFlow workstation for investment research. Use Analyze / Diligence / Scan / Review, evidence-chain gates, and portfolio daily reviews to turn equity notes, IC memos, and sector scans into auditable artifacts.",
 
     createYourOwnSkill: "Create Your Own Skill",
     createYourOwnSkillDescription:
-      "Create your own skill to release the power of DeerFlow. With customized skills,\nDeerFlow can help you search on the web, analyze data, and generate\n artifacts like slides, web pages and do almost anything.",
+      "Create your own skill to extend InvestAgent. Custom skills can add quote sources, diligence questionnaires, or Wiki archival workflows alongside the built-in research protocol.",
   },
 
   // Clipboard
@@ -644,17 +644,18 @@ export const enUS: Translations = {
     voiceInputNoSpeech: "No speech was detected. Please try again.",
     voiceInputFailed: "Voice input failed. Please try again.",
     mode: "Mode",
-    flashMode: "Flash",
-    flashModeDescription: "Fast and efficient, but may not be accurate",
-    reasoningMode: "Reasoning",
+    flashMode: "Quick",
+    flashModeDescription:
+      "Tape checks and short answers — fast, not a full research note",
+    reasoningMode: "Analyze",
     reasoningModeDescription:
-      "Reasoning before action, balance between time and accuracy",
-    proMode: "Pro",
+      "Think then act; good for single-name views and valuation checks",
+    proMode: "Diligence",
     proModeDescription:
-      "Reasoning, planning and executing, get more accurate results, may take more time",
-    ultraMode: "Ultra",
+      "Plan then execute: protocol card, hypothesis tree, and evidence gates",
+    ultraMode: "Collab DD",
     ultraModeDescription:
-      "Pro mode with subagents to divide work; best for complex multi-step tasks",
+      "Diligence plus parallel subagents — sector scans, IC packs, deep cross-checks",
     reasoningEffort: "Reasoning Effort",
     reasoningEffortMinimal: "Minimal",
     reasoningEffortMinimalDescription: "Retrieval + Direct Output",
@@ -1566,6 +1567,12 @@ export const enUS: Translations = {
     },
     recipes: {
       label: "Quick create",
+      portfolioDaily: {
+        title: "Portfolio daily review",
+        desc: "Post-close holdings/watchlist review (fill {{holdings}})",
+        prompt:
+          "Using invest-research-protocol and portfolio-review, run today's portfolio daily review.\n1) Protocol card: decision = daily monitor; success = flag thesis drift and outliers.\n2) Holdings: {{holdings}} (if empty, read Project / last /mnt/user-data/outputs/portfolio-review-*.md).\n3) Refresh A/HK quotes with stock-quote; note US names without inventing prices.\n4) Write /mnt/user-data/outputs/portfolio-review-{today}.md with snapshot, thesis drift, concentration, hold/trim/add/exit.\n5) Run evidence-chain (threshold 50) on any size-up/trim recommendation.\n6) Chat summary: at most 5 tickers that need action.",
+      },
       trending: {
         title: "GitHub Trending daily",
         desc: "Summarize today's top 10 trending repos",
@@ -1950,7 +1957,7 @@ export const enUS: Translations = {
 
   // Page titles (document title)
   pages: {
-    appName: "DeerFlow",
+    appName: "InvestAgent",
     chats: "Chats",
     newChat: "New chat",
     untitled: "Untitled",

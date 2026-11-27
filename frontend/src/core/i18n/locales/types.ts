@@ -1329,6 +1329,7 @@ export interface Translations {
     };
     recipes: {
       label: string;
+      portfolioDaily: { title: string; desc: string; prompt: string };
       trending: { title: string; desc: string; prompt: string };
       news: { title: string; desc: string; prompt: string };
       issues: { title: string; desc: string; prompt: string };
