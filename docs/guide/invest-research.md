@@ -32,6 +32,14 @@ Analyze / Diligence / Collab DD). Flash remains the right place for
    append entity updates instead of overwriting theses.
 6. **Archive** the presented note onto the Project document shelf (see below).
 
+## Conclusion bar
+
+Equity notes and IC memos should include a fenced `conclusion` (or `~~~conclusion`)
+block near the top with `rating`, `target_price`, `risk`, `as_of`, and optional
+`evidence_score`. The artifact markdown preview pins those fields in a fixed
+strip above the scrolling body. Bullet fields under the H1 still work as a
+fallback for older notes.
+
 ## Analyze → Note → Archive
 
 Projects are the ticker / company / sector container

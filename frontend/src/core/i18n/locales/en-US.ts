@@ -491,6 +491,16 @@ export const enUS: Translations = {
     missingTarget: "This link does not say which artifact to display.",
   },
 
+  researchConclusion: {
+    region: "Research conclusion",
+    rating: "Rating",
+    target: "Target",
+    risk: "Risk",
+    asOf: "As of",
+    evidence: "Evidence",
+    subject: "Subject",
+  },
+
   artifactTable: {
     title: "Table preview",
     header: "First row as header",

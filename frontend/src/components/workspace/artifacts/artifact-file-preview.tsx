@@ -14,6 +14,10 @@ import {
   createHtmlPreviewScrollKey,
   HTML_PREVIEW_SCROLL_MESSAGE_SOURCE,
 } from "@/core/artifacts/preview";
+import {
+  extractResearchConclusion,
+  stripResearchConclusionFence,
+} from "@/core/artifacts/research-conclusion";
 import { rehypeArtifactSourceRanges } from "@/core/artifacts/selection-dom";
 import {
   type ArtifactImageContext,
@@ -32,6 +36,7 @@ import { CitationSourcesPanel } from "../citations/citation-sources-panel";
 
 import { ArtifactDownloadButton } from "./artifact-download-button";
 import { artifactMarkdownPlugins } from "./markdown-preview-plugins";
+import { ResearchConclusionBar } from "./research-conclusion-bar";
 
 export function ArtifactPreviewError({
   filepath,
@@ -182,6 +187,19 @@ export function ArtifactFilePreview({
       language === "markdown" ? extractCitationSources(content ?? "") : [],
     [content, language],
   );
+  const researchConclusion = useMemo(
+    () =>
+      language === "markdown"
+        ? extractResearchConclusion(content ?? "")
+        : null,
+    [content, language],
+  );
+  const markdownBody = useMemo(() => {
+    if (language !== "markdown") return content ?? "";
+    // Keep the fence when selecting text so source ranges stay aligned.
+    if (onTextSelection || !researchConclusion) return content ?? "";
+    return stripResearchConclusionFence(content ?? "");
+  }, [content, language, researchConclusion, onTextSelection]);
 
   useEffect(() => {
     scrollPositionRef.current = { x: 0, y: 0 };
@@ -277,29 +295,41 @@ export function ArtifactFilePreview({
   if (language === "markdown") {
     return (
       <div
-        className="size-full overflow-auto px-4 py-3"
-        onMouseUp={(event) => onTextSelection?.(event.currentTarget)}
-        onKeyUp={(event) => onTextSelection?.(event.currentTarget)}
-        onTouchEnd={(event) => onTextSelection?.(event.currentTarget)}
+        className="flex size-full min-h-0 flex-col"
         data-testid="artifact-markdown-preview"
       >
-        <SafeStreamdown
-          // Streamdown memoizes blocks by content, not the image URL resolver.
-          key={JSON.stringify([scrollKey, filepath, threadId, Boolean(isMock)])}
-          className="min-w-0"
-          {...artifactMarkdownPlugins}
-          mode={onTextSelection ? "static" : undefined}
-          rehypePlugins={
-            onTextSelection
-              ? selectionPlugins
-              : artifactMarkdownPlugins.rehypePlugins
-          }
-          urlTransform={transformUrl}
-          components={toStreamdownComponents({ a: ArtifactLink })}
+        {researchConclusion && (
+          <ResearchConclusionBar conclusion={researchConclusion} />
+        )}
+        <div
+          className="min-h-0 flex-1 overflow-auto px-4 py-3"
+          onMouseUp={(event) => onTextSelection?.(event.currentTarget)}
+          onKeyUp={(event) => onTextSelection?.(event.currentTarget)}
+          onTouchEnd={(event) => onTextSelection?.(event.currentTarget)}
         >
-          {content ?? ""}
-        </SafeStreamdown>
-        <CitationSourcesPanel sources={citationSources} className="mb-4" />
+          <SafeStreamdown
+            // Streamdown memoizes blocks by content, not the image URL resolver.
+            key={JSON.stringify([
+              scrollKey,
+              filepath,
+              threadId,
+              Boolean(isMock),
+            ])}
+            className="min-w-0"
+            {...artifactMarkdownPlugins}
+            mode={onTextSelection ? "static" : undefined}
+            rehypePlugins={
+              onTextSelection
+                ? selectionPlugins
+                : artifactMarkdownPlugins.rehypePlugins
+            }
+            urlTransform={transformUrl}
+            components={toStreamdownComponents({ a: ArtifactLink })}
+          >
+            {markdownBody}
+          </SafeStreamdown>
+          <CitationSourcesPanel sources={citationSources} className="mb-4" />
+        </div>
       </div>
     );
   }

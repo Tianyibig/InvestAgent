@@ -419,6 +419,16 @@ export interface Translations {
     missingTarget: string;
   };
 
+  researchConclusion: {
+    region: string;
+    rating: string;
+    target: string;
+    risk: string;
+    asOf: string;
+    evidence: string;
+    subject: string;
+  };
+
   artifactTable: {
     title: string;
     header: string;

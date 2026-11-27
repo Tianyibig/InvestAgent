@@ -51,6 +51,15 @@ interviewing or scanning materials.
 - As of: YYYY-MM-DD
 - Owner: …
 
+~~~conclusion
+rating: Invest
+risk: High
+as_of: YYYY-MM-DD
+evidence_score: 80
+evidence_threshold: 80
+subject: {Company}
+~~~
+
 ## 1. Executive Summary
 One paragraph: what they do, why now, core risk.
 

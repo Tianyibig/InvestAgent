@@ -467,6 +467,16 @@ export const zhCN: Translations = {
     missingTarget: "该链接没有指明要展示哪个文件。",
   },
 
+  researchConclusion: {
+    region: "研究结论",
+    rating: "评级",
+    target: "目标价",
+    risk: "风险",
+    asOf: "截至",
+    evidence: "证据分",
+    subject: "标的",
+  },
+
   artifactTable: {
     title: "表格预览",
     header: "首行作为表头",

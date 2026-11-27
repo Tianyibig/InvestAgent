@@ -37,6 +37,16 @@ Use for public-company investment views. For private/growth IC packages use
 - As of: YYYY-MM-DD
 - Decision this note informs: ...
 
+~~~conclusion
+rating: Buy
+target_price: ...
+risk: Medium
+as_of: YYYY-MM-DD
+evidence_score: 80
+evidence_threshold: 80
+subject: {Ticker}
+~~~
+
 ## Executive thesis (≤120 words)
 What the company does, why now, what must be true.
 
