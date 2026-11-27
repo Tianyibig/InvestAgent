@@ -63,10 +63,16 @@ materially change the plan.
 | Private / growth DD | `ic-memo` | Ultra |
 | Sector / theme map | `sector-scan` | Ultra |
 | Portfolio / watchlist review | `portfolio-review` | Pro+ |
+| Broad multi-angle evidence | `deep-research` | Ultra |
 | Implied growth from price | `reverse-dcf` | Pro+ |
 | Publish gate | `evidence-chain` | any |
 
 Load the matching specialized skill after the protocol card exists.
+
+When the evidence base is thin or multi-angle (competitors, regulation, TAM
+triangulation), load `deep-research` first and gather with **parallel
+subagents** (primary sources, budgets, Unresolved section) before drafting the
+specialized note.
 
 ## Step 2 — Baseline before narrative
 
@@ -78,7 +84,8 @@ Order of sources:
 4. Broker research
 5. News / IR decks (read IR **last**)
 
-Build a known / unknown list. Do not start valuation until the business model
+Build a known / unknown list. Prefer `deep-research` parallel tracks for items
+2–4 when coverage is broad. Do not start valuation until the business model
 can be stated in one plain paragraph without marketing language.
 
 ## Step 3 — Hypothesis tree (Plan Mode)

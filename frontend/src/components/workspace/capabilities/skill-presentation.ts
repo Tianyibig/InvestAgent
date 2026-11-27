@@ -27,7 +27,7 @@ export const builtinSkillPresentation: Readonly<
 > = {
   "deep-research": {
     title: "深度研究",
-    description: "围绕复杂问题检索、交叉验证资料，整理成有据可查的研究报告。",
+    description: "并行分轨检索并核对一手来源，合成带引用与未决项的研究报告。",
     icon: SearchIcon,
   },
   "data-analysis": {
@@ -47,7 +47,7 @@ export const builtinSkillPresentation: Readonly<
   },
   "frontend-design": {
     title: "前端设计",
-    description: "设计并实现网页与交互界面，兼顾视觉表达和实际使用体验。",
+    description: "按版式匹配开屏、字体纪律与反模板工艺，交付有观点的界面。",
     icon: CodeIcon,
   },
   "image-generation": {
