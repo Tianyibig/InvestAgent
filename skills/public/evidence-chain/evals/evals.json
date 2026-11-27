@@ -1,0 +1,33 @@
+{
+  "skill_name": "evidence-chain",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "这段营收增速30%有依据吗？只有分析师口头说的。",
+      "expected_output": "evidence-chain score 0 with assertion-only evidence; do not treat as conclusion",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Runs evidence_chain.py on the growth claim",
+          "type": "contains"
+        },
+        {
+          "text": "States the claim is not established",
+          "type": "contains"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Gate this IC thesis at threshold 80 before we send the memo.",
+      "expected_output": "evidence-chain with --threshold 80 and fail-below-threshold for publish gate",
+      "files": [],
+      "assertions": [
+        {
+          "text": "Uses threshold 80",
+          "type": "contains"
+        }
+      ]
+    }
+  ]
+}

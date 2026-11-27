@@ -1,198 +1,125 @@
 ---
 name: deep-research
-description: Use for substantial investigations needing current evidence, source comparison, or synthesis across several dimensions. Scale research to the question and requested depth.
+description: >
+  Conduct deep, multi-track research on complex topics by spawning parallel
+  subagents that independently search, verify primary sources, and synthesize
+  cited reports. Use for broad surveys, multi-angle investigations, exhaustive
+  comparisons, or when content generation needs current evidence. Do not use for
+  simple factual lookups. Prefer this skill before equity-research, ic-memo, or
+  sector-scan when the evidence base is still thin.
+license: Apache-2.0
+metadata:
+  adapted_from: https://github.com/google-gemini/demolab/tree/main/skills/deep-research
+  adapted_from_license: Apache-2.0
+  version: "2.0.0"
 ---
 
-# Deep Research Skill
+# Deep Research
 
-## Overview
+Act as a lead researcher: clarify only when needed, gather in parallel, keep
+evidence primary, then synthesize a grounded report with unresolved gaps named.
 
-This skill provides a systematic methodology for conducting thorough web research. Use it when the requested claims need external verification; use supplied material and stable knowledge where sufficient.
+This skill adapts Gemini DemoLab's parallel orchestration
+([google-gemini/demolab](https://github.com/google-gemini/demolab), Apache-2.0)
+to DeerFlow tools (`web_search`, `web_fetch`, task/subagents) and InvestAgent
+publish gates.
 
-## When to Use This Skill
+## When to use
 
-**Consider this skill when depth and external verification are needed:**
+- Multi-angle investigations, surveys, or disputed claims
+- Pre-research for presentations, notes, or frontend that need current facts
+- Thin evidence base before `equity-research`, `ic-memo`, or `sector-scan`
 
-### Research Questions
-- User asks "what is X", "explain X", "research X", "investigate X"
-- User wants to understand a concept, technology, or topic in depth
-- The question requires current, comprehensive information from multiple sources
-- A single web search would be insufficient to answer properly
+**Skip** for single-fact lookups — answer directly or use at most one search.
 
-### Content Generation (Pre-research)
-- Creating presentations (PPT/slides)
-- Creating frontend designs or UI mockups
-- Writing articles, reports, or documentation
-- Producing videos or multimedia content
-- Any content that requires real-world information, examples, or current data
+## Workflow
 
-## Core Principle
+### 1. Orient
 
-Choose effort according to freshness, uncertainty, consequence, and scope. A focused question may be resolved by one authoritative source; broad or disputed claims need independent checks. Stop when requested claims have sufficient support and state remaining gaps.
+Clarify scope only if genuinely ambiguous. If the topic is unfamiliar, run one
+quick `web_search` to map the landscape.
 
-## Research Methodology
+Decompose into **non-overlapping** sub-questions:
 
-### Phase 1: Broad Exploration
+| Depth | Sub-questions |
+| --- | --- |
+| Narrow / single-fact | 0–2 (often inline, no subagents) |
+| Broad topic | 3–5 |
+| Slow / high-thinking models | Cap at 2–3 |
 
-Start with broad searches to understand the landscape:
+For invest runs, align sub-questions with the protocol card decision and
+falsifiers from `invest-research-protocol`.
 
-1. **Initial Survey**: Search for the main topic to understand the overall context
-2. **Identify Dimensions**: From initial results, identify key subtopics, themes, angles, or aspects that need deeper exploration
-3. **Map the Territory**: Note different perspectives, stakeholders, or viewpoints that exist
+### 2. Gather in parallel
 
-Example:
-```
-Topic: "AI in healthcare"
-Initial searches:
-- "AI healthcare applications 2024"
-- "artificial intelligence medical diagnosis"
-- "healthcare AI market trends"
+When subagents are available (Ultra / `subagent_enabled`), spawn concurrent
+research workers in **one turn**. If unavailable, run the tracks yourself with
+the same budgets.
 
-Identified dimensions:
-- Diagnostic AI (radiology, pathology)
-- Treatment recommendation systems
-- Administrative automation
-- Patient monitoring
-- Regulatory landscape
-- Ethical considerations
-```
+Each worker prompt must specify:
 
-### Phase 2: Deep Dive
+- Distinct angle, time frame, and source scope
+- Budget: at most **8–12** `web_search` / tool steps
+- Prefer primary sources over snippets; use `web_fetch` on key URLs
+- Include exact quotes or raw figures for material numbers
+- Return **partial verified findings + remaining gaps** when the budget hits —
+  do not loop
 
-For each important dimension identified, conduct targeted research:
+Use the actual current date from context for time-sensitive queries (month+day
+when the user means "today"; year alone is too coarse).
 
-1. **Specific Queries**: Search with precise keywords for each subtopic
-2. **Multiple Phrasings**: Try different keyword combinations and phrasings
-3. **Fetch Full Content**: Use `web_fetch` to read important sources in full, not just snippets
-4. **Follow References**: When sources mention other important resources, search for those too
+### 3. Keep evidence primary
 
-Example:
-```
-Dimension: "Diagnostic AI in radiology"
-Targeted searches:
-- "AI radiology FDA approved systems"
-- "chest X-ray AI detection accuracy"
-- "radiology AI clinical trials results"
+| Prefer | Deprioritize |
+| --- | --- |
+| Filings, primary data, named studies | Search snippets alone |
+| Full-page `web_fetch` of authoritative URLs | Dual citations of one quote |
+| Dated figures with source | Undated "experts say" |
 
-Then fetch and read:
-- Key research papers or summaries
-- Industry reports
-- Real-world case studies
-```
+Two secondary notes quoting the same primary line count as **one** confirmation.
+Grade invest claims with `evidence-chain` before publish (draft 50 / IC 80).
 
-### Phase 3: Diversity & Validation
+### 4. Resolve gaps without straggler stalls
 
-Ensure comprehensive coverage by seeking diverse information types:
+Read findings as they arrive. If most workers finish and one stalls, cancel the
+stalled worker and continue. Run **one** targeted follow-up pass only for
+important gaps. Spawn a fresh verification worker only for high-stakes or
+data-heavy reports.
 
-| Information Type | Purpose | Example Searches |
-|-----------------|---------|------------------|
-| **Facts & Data** | Concrete evidence | "statistics", "data", "numbers", "market size" |
-| **Examples & Cases** | Real-world applications | "case study", "example", "implementation" |
-| **Expert Opinions** | Authority perspectives | "expert analysis", "interview", "commentary" |
-| **Trends & Predictions** | Future direction | "trends 2024", "forecast", "future of" |
-| **Comparisons** | Context and alternatives | "vs", "comparison", "alternatives" |
-| **Challenges & Criticisms** | Balanced view | "challenges", "limitations", "criticism" |
+Strip `Task Succeeded. Result: ` / `Task failed.` / `Task timed out.` prefixes
+before parsing subagent payloads.
 
-### Phase 4: Synthesis Check
+### 5. Synthesize
 
-Before proceeding to content generation, verify:
+Write the report to `/mnt/user-data/outputs/` when available (or the project
+docs folder). Keep chat to a short pointer plus key decisions.
 
-- [ ] Have I covered the dimensions needed to answer the request?
-- [ ] Have I fetched and read the most important sources in full?
-- [ ] Do I have concrete data, examples, and expert perspectives?
-- [ ] Have I explored both positive aspects and challenges/limitations?
-- [ ] Is my information current and from authoritative sources?
+Required shape:
 
-Investigate material evidence gaps; omit irrelevant checklist items and disclose unresolved limits.
+1. **Top-line** — two sentences: what we know and what it implies
+2. **Findings** — by sub-question, with inline citations (clickable URLs)
+3. **Conflicts** — where sources disagree
+4. **Unresolved** — missing data, failed fetches, budget cuts
+5. **Sources** — dated list; mark primary vs secondary
 
-## Search Strategy Tips
+Use clear, concrete language. Do not invent numbers. State remaining limits.
 
-### Effective Query Patterns
+## Diversity check (before finishing)
 
-```
-# Be specific with context
-❌ "AI trends"
-✅ "enterprise AI adoption trends 2024"
+Cover what the question needs among: facts/data, cases, expert views, trends,
+comparisons, challenges. Omit irrelevant buckets; do not pad.
 
-# Include authoritative source hints
-"[topic] research paper"
-"[topic] McKinsey report"
-"[topic] industry analysis"
+## Anti-patterns
 
-# Search for specific content types
-"[topic] case study"
-"[topic] statistics"
-"[topic] expert interview"
+- Fishing without a decision or research question
+- Stopping on snippets without reading primary pages
+- Waiting forever on one stalled subagent
+- Presenting gaps as settled facts
+- Skipping Unresolved when sources conflict
 
-# Use temporal qualifiers — always use the ACTUAL current year from <current_date>
-"[topic] 2026"   # ← replace with real current year, never hardcode a past year
-"[topic] latest"
-"[topic] recent developments"
-```
+## Related skills
 
-### Temporal Awareness
-
-For time-sensitive questions, use the actual current date and the requested time range when choosing search filters.
-
-`<current_date>` gives you the full date: year, month, day, and weekday (e.g. `2026-02-28, Saturday`). Use the right level of precision depending on what the user is asking:
-
-| User intent | Temporal precision needed | Example query |
-|---|---|---|
-| "today / this morning / just released" | **Month + Day** | `"tech news February 28 2026"` |
-| "this week" | **Week range** | `"technology releases week of Feb 24 2026"` |
-| "recently / latest / new" | **Month** | `"AI breakthroughs February 2026"` |
-| "this year / trends" | **Year** | `"software trends 2026"` |
-
-**Rules:**
-- When the user asks about "today" or "just released", use **month + day + year** in your search queries to get same-day results
-- Never drop to year-only when day-level precision is needed — `"tech news 2026"` will NOT surface today's news
-- Try multiple phrasings: numeric form (`2026-02-28`), written form (`February 28 2026`), and relative terms (`today`, `this week`) across different queries
-
-❌ User asks "what's new in tech today" → searching `"new technology 2026"` → misses today's news
-✅ User asks "what's new in tech today" → searching `"new technology February 28 2026"` + `"tech news today Feb 28"` → gets today's results
-
-### When to Use web_fetch
-
-Use `web_fetch` to read full content when:
-- A search result looks highly relevant and authoritative
-- You need detailed information beyond the snippet
-- The source contains data, case studies, or expert analysis
-- You want to understand the full context of a finding
-
-### Iterative Refinement
-
-Research is iterative. After initial searches:
-1. Review what you've learned
-2. Identify gaps in your understanding
-3. Formulate new, more targeted queries
-4. Repeat until you have comprehensive coverage
-
-## Quality Bar
-
-Your research is sufficient when you can confidently answer:
-- What are the key facts and data points?
-- What are 2-3 concrete real-world examples?
-- What do experts say about this topic?
-- What are the current trends and future directions?
-- What are the challenges or limitations?
-- What makes this topic relevant or important now?
-
-## Common Mistakes to Avoid
-
-- Stopping before important claims have sufficient evidence
-- ❌ Relying on search snippets without reading full sources
-- ❌ Searching only one aspect of a multi-faceted topic
-- ❌ Ignoring contradicting viewpoints or challenges
-- ❌ Using outdated information when current data exists
-- Presenting unsupported claims as established findings
-
-## Output
-
-After completing research, you should have:
-1. A comprehensive understanding of the topic from multiple angles
-2. Specific facts, data points, and statistics
-3. Real-world examples and case studies
-4. Expert perspectives and authoritative sources
-5. Current trends and relevant context
-
-Produce the requested output once its factual claims have adequate support; adapt these phases to the task.
+- Invest: `invest-research-protocol`, `equity-research`, `ic-memo`, `sector-scan`,
+  `evidence-chain`
+- Specialized: `github-deep-research`, `systematic-literature-review`,
+  `consulting-analysis`

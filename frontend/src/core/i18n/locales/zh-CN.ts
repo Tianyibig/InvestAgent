@@ -1,10 +1,10 @@
 import {
+  BriefcaseIcon,
+  ClipboardListIcon,
   CompassIcon,
-  GraduationCapIcon,
   ImageIcon,
-  MicroscopeIcon,
-  PenLineIcon,
-  ShapesIcon,
+  LineChartIcon,
+  RadarIcon,
   SparklesIcon,
   VideoIcon,
 } from "lucide-react";
@@ -708,24 +708,28 @@ export const zhCN: Translations = {
     compactFailed: "上下文压缩失败。",
     suggestions: [
       {
-        suggestion: "写作",
-        prompt: "撰写一篇关于[主题]的博客文章",
-        icon: PenLineIcon,
+        suggestion: "分析",
+        prompt:
+          "按 equity-research 与 invest-research-protocol，对 [ticker] 做个股研究笔记：先写协议卡，再给评级、目标价、Bull/Base/Bear 与证据链门槛。",
+        icon: LineChartIcon,
       },
       {
-        suggestion: "研究",
-        prompt: "深入浅出的研究一下[主题]，并总结发现。",
-        icon: MicroscopeIcon,
+        suggestion: "尽调",
+        prompt:
+          "按 ic-memo 对 [公司·项目] 起草投委会备忘录：市场/产品/竞争/单位经济/团队/估值条款，Invest/Pass/Watch，证据链阈值 80。",
+        icon: ClipboardListIcon,
       },
       {
-        suggestion: "收集",
-        prompt: "从[来源]收集数据并创建报告。",
-        icon: ShapesIcon,
+        suggestion: "扫描",
+        prompt:
+          "按 sector-scan 对 [赛道·主题] 做 360° 扫描：定义与时机、技术路线、价值链、公司图谱、风险与投资结论，并保留检索日志。",
+        icon: RadarIcon,
       },
       {
-        suggestion: "学习",
-        prompt: "学习关于[主题]并创建教程。",
-        icon: GraduationCapIcon,
+        suggestion: "复盘",
+        prompt:
+          "按 portfolio-review 复盘我的持仓/观察名单：[粘贴持仓表]。标注 thesis 漂移、集中度风险，并给出 hold/trim/add/exit 建议。",
+        icon: BriefcaseIcon,
       },
     ],
     suggestionsCreate: [
