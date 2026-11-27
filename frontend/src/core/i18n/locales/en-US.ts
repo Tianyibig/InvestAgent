@@ -1,10 +1,10 @@
 import {
+  BriefcaseIcon,
+  ClipboardListIcon,
   CompassIcon,
-  GraduationCapIcon,
   ImageIcon,
-  MicroscopeIcon,
-  PenLineIcon,
-  ShapesIcon,
+  LineChartIcon,
+  RadarIcon,
   SparklesIcon,
   VideoIcon,
 } from "lucide-react";
@@ -756,25 +756,28 @@ export const enUS: Translations = {
     compactFailed: "Context compaction failed.",
     suggestions: [
       {
-        suggestion: "Write",
-        prompt: "Write a blog post about the latest trends on [topic]",
-        icon: PenLineIcon,
-      },
-      {
-        suggestion: "Research",
+        suggestion: "Analyze",
         prompt:
-          "Conduct a deep dive research on [topic], and summarize the findings.",
-        icon: MicroscopeIcon,
+          "Using equity-research and invest-research-protocol, write an equity note on [ticker]: protocol card first, then rating, target, Bull/Base/Bear, and evidence-chain gates.",
+        icon: LineChartIcon,
       },
       {
-        suggestion: "Collect",
-        prompt: "Collect data from [source] and create a report.",
-        icon: ShapesIcon,
+        suggestion: "Diligence",
+        prompt:
+          "Using ic-memo, draft an IC memo for [company/project]: market, product, competition, unit economics, team, terms; Invest/Pass/Watch with evidence-chain threshold 80.",
+        icon: ClipboardListIcon,
       },
       {
-        suggestion: "Learn",
-        prompt: "Learn about [topic] and create a tutorial.",
-        icon: GraduationCapIcon,
+        suggestion: "Scan",
+        prompt:
+          "Using sector-scan, run a 360° scan of [sector/theme]: definition and timing, tech routes, value chain, company map, risks, investment conclusion, and a search log.",
+        icon: RadarIcon,
+      },
+      {
+        suggestion: "Review",
+        prompt:
+          "Using portfolio-review, review my holdings/watchlist: [paste table]. Flag thesis drift and concentration risk, then recommend hold/trim/add/exit.",
+        icon: BriefcaseIcon,
       },
     ],
     suggestionsCreate: [

@@ -1,14 +1,20 @@
 import {
   BookOpenIcon,
+  BriefcaseIcon,
   ChartNoAxesCombinedIcon,
+  ClipboardListIcon,
   CodeIcon,
   FileSearchIcon,
   ImageIcon,
+  LineChartIcon,
   MicIcon,
   PresentationIcon,
+  RadarIcon,
+  ScaleIcon,
   SearchIcon,
   ShieldCheckIcon,
   SparklesIcon,
+  TrendingUpIcon,
   type LucideIcon,
 } from "lucide-react";
 
@@ -68,6 +74,46 @@ export const builtinSkillPresentation: Readonly<
     title: "系统文献综述",
     description: "系统检索和整理研究文献，梳理主题、证据与尚待解决的问题。",
     icon: FileSearchIcon,
+  },
+  "invest-research-protocol": {
+    title: "投研协议",
+    description: "先定决策与可证伪假设，再按统一门槛推进个股、尽调与扫描。",
+    icon: ScaleIcon,
+  },
+  "equity-research": {
+    title: "个股研究",
+    description: "按协议写上市标的研究笔记：评级、目标价、情景与证据链门槛。",
+    icon: LineChartIcon,
+  },
+  "ic-memo": {
+    title: "投委会备忘录",
+    description: "私有/成长项目尽调：市场到条款全维度，给出 Invest/Pass/Watch。",
+    icon: ClipboardListIcon,
+  },
+  "sector-scan": {
+    title: "赛道扫描",
+    description: "360° 梳理赛道定义、价值链、公司图谱与投资结论，并保留检索日志。",
+    icon: RadarIcon,
+  },
+  "portfolio-review": {
+    title: "持仓复盘",
+    description: "检查 thesis 漂移与集中度风险，给出 hold/trim/add/exit 建议。",
+    icon: BriefcaseIcon,
+  },
+  "reverse-dcf": {
+    title: "反推 DCF",
+    description: "从市价反解隐含增速，把估值要求翻译成可检验的经营条件。",
+    icon: TrendingUpIcon,
+  },
+  "evidence-chain": {
+    title: "证据链",
+    description: "给主张打可验证证据分；草稿门槛 50，发布/投委会门槛 80。",
+    icon: ShieldCheckIcon,
+  },
+  "stock-quote": {
+    title: "行情快查",
+    description: "快速查询 A 股、港股与主要指数最新报价，不替代完整研究笔记。",
+    icon: ChartNoAxesCombinedIcon,
   },
 };
 
