@@ -141,8 +141,29 @@ After the base case:
 ## Step 7 — Persistence
 
 - Append entity updates; do not overwrite prior theses
-- Keep Raw inputs immutable; write synthesis to outputs / project docs
+- Keep Raw inputs immutable; write synthesis to `/mnt/user-data/outputs/`
 - Log forecast errors > 20% into a learning note when reviewing later
+
+## Step 8 — Archive to Project (分析 → Note → 归档)
+
+The Project is the ticker / company / sector container. The document shelf is
+**user-curated** — agents cannot write it directly.
+
+1. **Before deep work:** create or select a Project named `{Ticker} {Company}`
+   (or a sector/watchlist book). Start the chat **inside that Project** (or
+   move the thread with Move to project). Put standing conventions in Project
+   Instructions (locale, rating scale, evidence thresholds).
+2. **After publish gates:** write the note under
+   `/mnt/user-data/outputs/` and call `present_files`.
+3. **Archive:** ask the user to click **保存到项目 / Save to project** on the
+   presented artifact (or Project → Documents → conversation files). Prefer
+   shelf name `{ticker}-{template}-{YYYY-MM-DD}.md` so theses append as new
+   dated files instead of overwriting.
+4. Cross-run retrieval uses `list_project_documents` /
+   `read_project_document` / `search_project_documents` on the next project
+   thread — only after the note is on the shelf.
+5. When a dossier is frozen (IC decided), tell the user they may **Archive**
+   the Project to make the shelf read-only.
 
 ## Anti-patterns
 
@@ -151,9 +172,10 @@ After the base case:
 - Treating dual citations of one management quote as independent proof
 - Reading the IR deck before filings
 - Publishing without Devil's Advocate or evidence score
+- Claiming the note is "archived" when it only lives under thread outputs
 
 ## Related skills
 
-- `equity-research`, `ic-memo`, `sector-scan`
+- `equity-research`, `ic-memo`, `sector-scan`, `portfolio-review`
 - `reverse-dcf`, `stock-quote`, `evidence-chain`
 - `deep-research`, `consulting-analysis`, `chart-visualization`

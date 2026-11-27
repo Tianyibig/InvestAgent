@@ -56,7 +56,8 @@ Do not invent papers or market sizes to fill gaps; record the gap.
 3. Prefer primary industry data and filings over aggregated blog TAM figures.
 4. Build a screening matrix (growth × profitability × valuation or strategic fit).
 5. Devil's Advocate on the sector thesis; evidence-chain on the headline claim.
-6. Save `/mnt/user-data/outputs/{sector}-sector-scan.md`.
+6. Save `/mnt/user-data/outputs/{sector}-sector-scan.md`, then archive to the
+   sector Project shelf per `invest-research-protocol` Step 8 (dated shelf name).
 
 ## Output skeleton
 

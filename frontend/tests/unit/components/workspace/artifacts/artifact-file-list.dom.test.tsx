@@ -43,6 +43,16 @@ rs.mock("@/core/artifacts/api", () => ({
   getArtifactArchiveManifest: archiveState.manifest,
   MAX_ARTIFACT_ARCHIVE_FILES: 50,
 }));
+rs.mock("@/core/threads/hooks", () => ({
+  useThreadMetadata: () => ({ data: null }),
+}));
+rs.mock("@/core/projects/hooks", () => ({
+  useProject: () => ({ data: undefined }),
+  usePromoteThreadFile: () => ({
+    mutate: rs.fn(),
+    isPending: false,
+  }),
+}));
 rs.mock("sonner", () => ({
   toast: { error: archiveState.toastError, success: rs.fn() },
 }));
@@ -176,6 +186,9 @@ describe("ArtifactFileList archive download", () => {
     expect(
       screen.getByRole("button", { name: "Download report.md" }),
     ).toBeTruthy();
+    expect(
+      screen.queryByRole("button", { name: "Save to project" }),
+    ).toBeNull();
   });
   it("offers a branch-local run accepted by the manifest ownership check", async () => {
     archiveState.manifest.mockResolvedValue({ fileCount: 2 });

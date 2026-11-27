@@ -28,8 +28,26 @@ Analyze / Diligence / Collab DD). Flash remains the right place for
 3. Draft with the matching template skill.
 4. Gate material claims with `evidence-chain` — draft threshold **50**, publish /
    IC threshold **80**.
-5. Save notes under `/mnt/user-data/outputs/` (or the Project docs folder). Keep
-   Raw uploads immutable; append entity updates instead of overwriting theses.
+5. Save notes under `/mnt/user-data/outputs/`. Keep Raw uploads immutable;
+   append entity updates instead of overwriting theses.
+6. **Archive** the presented note onto the Project document shelf (see below).
+
+## Analyze → Note → Archive
+
+Projects are the ticker / company / sector container
+([Projects](projects.md)). The shelf is user-curated: agents write outputs, then
+you promote them.
+
+1. Create a Project named `{Ticker} {Company}` (or a sector/watchlist book).
+2. Start the chat **in that Project** (or Move to project).
+3. Run 分析 / 尽调 / 扫描 / 复盘 until publish gates pass and the note is under
+   `/mnt/user-data/outputs/`.
+4. On the artifact card, click **保存到项目 / Save to project** (also available
+   under Project → Documents → conversation files). Prefer a dated shelf name
+   such as `{ticker}-equity-note-2026-11-27.md` so theses append.
+5. Later runs in the same Project can `list_project_documents` /
+   `read_project_document` the shelf. Archive the Project when the dossier is
+   frozen.
 
 ## Portfolio daily review
 
