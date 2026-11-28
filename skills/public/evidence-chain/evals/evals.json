@@ -20,7 +20,7 @@
     {
       "id": 2,
       "prompt": "Gate this IC thesis at threshold 80 before we send the memo.",
-      "expected_output": "evidence-chain with --threshold 80 and fail-below-threshold for publish gate",
+      "expected_output": "evidence-chain with --threshold 80; process exit 0 only when score >= 80",
       "files": [],
       "assertions": [
         {
