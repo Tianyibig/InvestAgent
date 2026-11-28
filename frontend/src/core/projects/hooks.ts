@@ -92,7 +92,10 @@ export function useProjectsConfig({
   });
 }
 
-export function useProject(id: string) {
+export function useProject(
+  id: string,
+  { enabled = true }: { enabled?: boolean } = {},
+) {
   return useQuery<Project>({
     queryKey: [...PROJECTS_QUERY_KEY, "detail", id],
     queryFn: () => getProject(id),
@@ -101,7 +104,7 @@ export function useProject(id: string) {
     // backoff (~7s) in "loading" first. Matches useThreadMetadata /
     // useThreadTokenUsage.
     retry: false,
-    enabled: !isStaticWebsiteOnly(),
+    enabled: enabled && Boolean(id) && !isStaticWebsiteOnly(),
   });
 }
 

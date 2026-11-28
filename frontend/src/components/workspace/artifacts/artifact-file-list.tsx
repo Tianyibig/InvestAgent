@@ -1,5 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { DownloadIcon, LoaderIcon, PackageIcon } from "lucide-react";
+import {
+  DownloadIcon,
+  FolderInputIcon,
+  LoaderIcon,
+  PackageIcon,
+} from "lucide-react";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
@@ -12,10 +17,14 @@ import {
   getArtifactArchiveManifest,
   MAX_ARTIFACT_ARCHIVE_FILES,
 } from "@/core/artifacts/api";
+import { threadFileFromArtifactPath } from "@/core/artifacts/promote-path";
 import { useAuth } from "@/core/auth/AuthProvider";
 import { useI18n } from "@/core/i18n/hooks";
+import { usePromoteThreadFile, useProject } from "@/core/projects/hooks";
 import { installSkill, SkillRequestError } from "@/core/skills/api";
 import { isStaticWebsiteOnly } from "@/core/static-mode";
+import { useThreadMetadata } from "@/core/threads/hooks";
+import { projectIdOfThread } from "@/core/threads/utils";
 import { getFileExtensionDisplayName, getFileName } from "@/core/utils/files";
 import { cn } from "@/lib/utils";
 
@@ -41,7 +50,22 @@ export function ArtifactFileList({
   const { select: selectArtifact, setOpen } = useArtifacts();
   const [downloadingArchive, setDownloadingArchive] = useState(false);
   const [installingFile, setInstallingFile] = useState<string | null>(null);
+  const [promotingFile, setPromotingFile] = useState<string | null>(null);
   const staticWebsiteOnly = isStaticWebsiteOnly();
+  const threadMetadata = useThreadMetadata(threadId, {
+    enabled: !staticWebsiteOnly,
+  });
+  const projectId = threadMetadata.data
+    ? projectIdOfThread(threadMetadata.data)
+    : null;
+  const { data: project } = useProject(projectId ?? "", {
+    enabled: Boolean(projectId),
+  });
+  const promoteFile = usePromoteThreadFile(projectId ?? "");
+  const canSaveToProject =
+    Boolean(projectId) &&
+    !staticWebsiteOnly &&
+    project?.status !== "archived";
   const { data: archiveManifest } = useQuery({
     queryKey: ["artifact-archive-manifest", threadId, runId],
     queryFn: () => getArtifactArchiveManifest({ threadId, runId: runId! }),
@@ -90,6 +114,41 @@ export function ArtifactFileList({
       }
     },
     [threadId, installingFile, t],
+  );
+
+  const handleSaveToProject = useCallback(
+    (e: React.MouseEvent, filepath: string) => {
+      e.stopPropagation();
+      e.preventDefault();
+      if (!projectId || promotingFile) return;
+      const source = threadFileFromArtifactPath(filepath);
+      if (!source) return;
+
+      setPromotingFile(filepath);
+      promoteFile.mutate(
+        {
+          thread_id: threadId,
+          kind: source.kind,
+          name: source.name,
+        },
+        {
+          onSuccess: (result) => {
+            toast.success(t.projects.savedToProject(result.document.name));
+          },
+          onError: (error) => {
+            toast.error(
+              error instanceof Error && error.message
+                ? error.message
+                : t.projects.saveToProjectFailed,
+            );
+          },
+          onSettled: () => {
+            setPromotingFile(null);
+          },
+        },
+      );
+    },
+    [projectId, promotingFile, promoteFile, threadId, t],
   );
 
   const handleDownloadArchive = useCallback(async () => {
@@ -186,6 +245,24 @@ export function ArtifactFileList({
                     <PackageIcon className="size-4" />
                   )}
                   {t.common.install}
+                </Button>
+              )}
+              {canSaveToProject && threadFileFromArtifactPath(file) && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  disabled={promotingFile === file || promoteFile.isPending}
+                  onClick={(e) => handleSaveToProject(e, file)}
+                  aria-label={t.projects.saveToProject}
+                >
+                  {promotingFile === file ? (
+                    <LoaderIcon className="size-4 animate-spin" />
+                  ) : (
+                    <FolderInputIcon className="size-4" />
+                  )}
+                  <span className="hidden sm:inline">
+                    {t.projects.saveToProject}
+                  </span>
                 </Button>
               )}
               <ArtifactDownloadButton

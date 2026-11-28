@@ -27,7 +27,8 @@ Multi-name holdings or a watchlist, not a first-time IC pack. For one ticker use
    correlated risks.
 5. Evidence-chain any action claim that would change size (threshold 50 draft /
    80 before size-up or exit memo).
-6. Write `/mnt/user-data/outputs/portfolio-review-{date}.md`.
+6. Write `/mnt/user-data/outputs/portfolio-review-{date}.md`, then archive to
+   the Portfolio / book Project shelf per `invest-research-protocol` Step 8.
 
 ## Output template
 

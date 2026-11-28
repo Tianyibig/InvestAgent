@@ -7,17 +7,26 @@ English | [中文](README_zh.md) | [日本語](README_ja.md) | [Français](READM
 <a href="https://trendshift.io/repositories/14699" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14699" alt="bytedance%2Fdeer-flow | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 > On February 28th, 2026, DeerFlow claimed the 🏆 #1 spot on GitHub Trending following the launch of version 2. Thanks a million to our incredible community — you made this happen! 💪🔥
 
-DeerFlow (**D**eep **E**xploration and **E**fficient **R**esearch **Flow**) is an open-source **super agent harness** that orchestrates **sub-agents**, **memory**, and **sandboxes** to do almost anything — powered by **extensible skills**.
+# InvestAgent
+
+**InvestAgent** is a single-person **industry research and investment analysis**
+platform. It is a fork of [DeerFlow](https://github.com/bytedance/deer-flow)
+(the open-source super agent harness). It is **not** a trading or brokerage
+system and **not** a generic DeerFlow deployment: buy-side research skills live
+under [`skills/public/`](skills/public/) (protocol, equity notes, IC memos,
+sector scans, portfolio review, reverse DCF, evidence chain, CN/HK quotes). See
+[Invest research](docs/guide/invest-research.md).
+
+The harness below is DeerFlow's. Upstream credit stays for the agent runtime;
+product work for this repository is InvestAgent.
 
 https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 > [!NOTE]
-> **DeerFlow 2.0 is a ground-up rewrite.** It shares no code with v1. If you're looking for the original Deep Research framework, it's maintained on the [`1.x` branch](https://github.com/bytedance/deer-flow/tree/main-1.x) — contributions there are still welcome. Active development has moved to 2.0.
-
-## Official Website
-
-Learn more and see **real demos** on our [**official website**](https://deerflow.tech).
-The landing-page case studies open as allowlisted, read-only showcases without requiring a sign-in.
+> **Upstream:** DeerFlow 2.0 is a ground-up rewrite. The original Deep Research
+> framework is on the [`1.x` branch](https://github.com/bytedance/deer-flow/tree/main-1.x).
+> [deerflow.tech](https://deerflow.tech) is the **upstream DeerFlow** site and
+> demos — not InvestAgent's homepage.
 
 ## Sister Projects
 
@@ -48,7 +57,7 @@ DeerFlow has newly integrated the intelligent search and crawling toolset indepe
 If you use Claude Code, Codex, Cursor, Windsurf, or another coding agent, you can hand it the setup instructions in one sentence:
 
 ```text
-Help me clone DeerFlow if needed, then bootstrap it for local development by following https://raw.githubusercontent.com/bytedance/deer-flow/main/Install.md
+Help me clone InvestAgent if needed, then bootstrap it for local development by following https://raw.githubusercontent.com/Tianyibig/InvestAgent/main/Install.md
 ```
 
 That prompt is intended for coding agents. It tells the agent to clone the repo if needed, choose Docker when available, and stop with the exact next command plus any missing config the user still needs to provide.
@@ -56,12 +65,12 @@ That prompt is intended for coding agents. It tells the agent to clone the repo 
 ## Quick Start
 
 ```bash
-git clone https://github.com/bytedance/deer-flow.git
-cd deer-flow
+git clone https://github.com/Tianyibig/InvestAgent.git
+cd InvestAgent
 make setup          # interactive wizard: writes config.yaml and .env (about 2 minutes)
 ```
 
-Then start DeerFlow with Docker (recommended) or run it locally:
+Then start InvestAgent with Docker (recommended) or run it locally:
 
 ```bash
 # Docker
@@ -116,6 +125,7 @@ Each guide is the full reference for its topic. Open the one you need.
 | boxd machines, bounded output copies and cleanup retries | [boxd sandbox provider](backend/packages/harness/deerflow/community/boxd_sandbox/README.md) |
 | BytePlus veFaaS cloud sandboxes, SigV4 control plane and optional TOS mounts | [veFaaS sandbox provider](backend/packages/harness/deerflow/community/vefaas_sandbox/README.md) |
 | Skills, built-in tools, script workflows, Claude Code integration | [Skills & Tools](docs/guide/skills-and-tools.md) |
+| InvestAgent research skills, evidence gates, portfolio daily review | [Invest research](docs/guide/invest-research.md) |
 | MCP servers and model-specific image handling | [MCP Server](docs/guide/mcp.md), [Image results](backend/docs/MCP_SERVER.md#image-results-and-model-capabilities) |
 | Sub-agents, task delegation and optional SQLite checkpoint history | [Sub-Agents](docs/guide/subagents.md), [Inspect one thread's child history](docs/guide/subagents.md#inspect-one-threads-child-history), [Tool restrictions](docs/guide/subagents.md#tool-restrictions) |
 | Agent teams, SQLite/PostgreSQL persistence and shutdown behavior | [Agent teams extension](examples/deerflow-extension-agent-teams/README.md) |

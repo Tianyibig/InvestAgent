@@ -2,6 +2,9 @@
 
 DeerFlow now includes a first-class scheduled-task MVP in the workspace.
 
+InvestAgent adds a **Portfolio daily review** Quick-create recipe (weekday
+18:30 local). See [Invest research](invest-research.md#portfolio-daily-review).
+
 Editing a one-time task's title or prompt preserves its original execution time, including seconds and the selected occurrence during a daylight-saving clock rollback. Changing its date, time, or timezone recalculates the execution time. Switching tasks while editing loads the selected task's own title, prompt, and schedule.
 
 An unchanged one-time execution time can still be saved within `scheduler.min_once_delay_seconds` of its run. New execution times and reactivated finished tasks must satisfy that minimum delay.

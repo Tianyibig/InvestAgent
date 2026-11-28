@@ -405,11 +405,11 @@ export const zhCN: Translations = {
   welcome: {
     greeting: "你好，欢迎回来！",
     description:
-      "欢迎使用 🦌 DeerFlow，一个完全开源的超级智能体。通过内置和自定义的 Skills，\nDeerFlow 可以帮你搜索网络、分析数据，还能为你生成幻灯片、\n图片、视频、播客及网页等，几乎可以做任何事情。",
+      "欢迎使用 InvestAgent——面向投研的 DeerFlow 工作台。用分析 / 尽调 / 扫描 / 复盘入口，\n配合证据链门控与持仓日更，把个股笔记、IC 备忘录和赛道扫描沉淀成可审计产物。",
 
     createYourOwnSkill: "创建你自己的 Agent SKill",
     createYourOwnSkillDescription:
-      "创建你的 Agent Skill 来释放 DeerFlow 的潜力。通过自定义技能，DeerFlow\n可以帮你搜索网络、分析数据，还能为你生成幻灯片、\n网页等作品，几乎可以做任何事情。",
+      "创建你的 Agent Skill 来扩展 InvestAgent。自定义技能可补足行情源、尽调问卷、\n归档到 Wiki 等工作流，与内置投研协议一起使用。",
   },
 
   // Clipboard
@@ -465,6 +465,16 @@ export const zhCN: Translations = {
     previewFailed: "无法预览此文件，但仍可下载原始文件。",
     viewSource: "查看原始文件",
     missingTarget: "该链接没有指明要展示哪个文件。",
+  },
+
+  researchConclusion: {
+    region: "研究结论",
+    rating: "评级",
+    target: "目标价",
+    risk: "风险",
+    asOf: "截至",
+    evidence: "证据分",
+    subject: "标的",
   },
 
   artifactTable: {
@@ -607,15 +617,15 @@ export const zhCN: Translations = {
     voiceInputNoSpeech: "没有检测到语音，请重试。",
     voiceInputFailed: "语音输入失败，请重试。",
     mode: "模式",
-    flashMode: "闪速",
-    flashModeDescription: "快速且高效的完成任务，但可能不够精准",
-    reasoningMode: "思考",
-    reasoningModeDescription: "思考后再行动，在时间与准确性之间取得平衡",
-    proMode: "Pro",
-    proModeDescription: "思考、计划再执行，获得更精准的结果，可能需要更多时间",
-    ultraMode: "Ultra",
+    flashMode: "速答",
+    flashModeDescription: "行情快查、短问答；快但不替代完整研究笔记",
+    reasoningMode: "研判",
+    reasoningModeDescription: "先想清楚再动手，适合单标的研判与估值核对",
+    proMode: "尽调",
+    proModeDescription: "计划后再执行：协议卡、假设树与证据链齐全的研究流程",
+    ultraMode: "协作尽调",
     ultraModeDescription:
-      "继承自 Pro 模式，可调用子代理分工协作，适合复杂多步骤任务，能力最强",
+      "尽调能力 + 子代理并行分轨，适合赛道扫描、尽调包与深度交叉验证",
     reasoningEffort: "推理深度",
     reasoningEffortMinimal: "最低",
     reasoningEffortMinimalDescription: "检索 + 直接输出",
@@ -1472,6 +1482,12 @@ export const zhCN: Translations = {
     },
     recipes: {
       label: "快速创建",
+      portfolioDaily: {
+        title: "持仓日更",
+        desc: "收盘后复盘持仓/观察名单（填入 {{holdings}}）",
+        prompt:
+          "按 invest-research-protocol 与 portfolio-review 做今日持仓日更。\n1) 写协议卡：决策=日更监控；成功标准=异常持仓与 thesis 漂移已标注。\n2) 持仓表：{{holdings}}（若为空，读取 Project/上次 /mnt/user-data/outputs/portfolio-review-*.md）。\n3) 用 stock-quote 刷新 A/HK 行情；美股仅作备注，勿编造价格。\n4) 输出 /mnt/user-data/outputs/portfolio-review-{今天日期}.md：snapshot、thesis 漂移、集中度、hold/trim/add/exit。\n5) 对任何加仓/减仓建议跑 evidence-chain（threshold 50）。\n6) 对话摘要只列需动作的标的，最多 5 条。",
+      },
       trending: {
         title: "GitHub Trending 日榜",
         desc: "总结今日 Trending 前十仓库",
@@ -1841,7 +1857,7 @@ export const zhCN: Translations = {
 
   // Page titles (document title)
   pages: {
-    appName: "DeerFlow",
+    appName: "InvestAgent",
     chats: "对话",
     newChat: "新对话",
     untitled: "未命名",

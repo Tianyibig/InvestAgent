@@ -23,7 +23,9 @@ Use for public-company investment views. For private/growth IC packages use
 3. Fill the note template below with dated sources.
 4. Add Bull / Base / Bear and, when FCFF is usable, a `reverse-dcf` check.
 5. Run `evidence-chain` on the rating thesis claim (threshold 50 draft / 80 publish).
-6. Save to `/mnt/user-data/outputs/{ticker}-equity-note.md`.
+6. Save to `/mnt/user-data/outputs/{ticker}-equity-note.md`, then follow
+   `invest-research-protocol` Step 8 to archive into the ticker Project shelf
+   (dated `shelf_name`, append — do not overwrite).
 
 ## Output template
 
@@ -34,6 +36,16 @@ Use for public-company investment views. For private/growth IC packages use
 - Target price (12m): ...
 - As of: YYYY-MM-DD
 - Decision this note informs: ...
+
+~~~conclusion
+rating: Buy
+target_price: ...
+risk: Medium
+as_of: YYYY-MM-DD
+evidence_score: 80
+evidence_threshold: 80
+subject: {Ticker}
+~~~
 
 ## Executive thesis (≤120 words)
 What the company does, why now, what must be true.

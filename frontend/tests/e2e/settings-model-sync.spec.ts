@@ -135,10 +135,12 @@ for (const agent of [false, true]) {
       if (field === "effort") {
         await chooseEffort(removeModel ? /^Max/ : /^High/);
       } else {
-        await page.getByRole("button", { name: "Pro", exact: true }).click();
+        await page
+          .getByRole("button", { name: "Diligence", exact: true })
+          .click();
         await page
           .getByRole("menuitem")
-          .filter({ hasText: /^Ultra/ })
+          .filter({ hasText: /^Collab DD/ })
           .click();
       }
       await expect

@@ -419,6 +419,16 @@ export interface Translations {
     missingTarget: string;
   };
 
+  researchConclusion: {
+    region: string;
+    rating: string;
+    target: string;
+    risk: string;
+    asOf: string;
+    evidence: string;
+    subject: string;
+  };
+
   artifactTable: {
     title: string;
     header: string;
@@ -1329,6 +1339,7 @@ export interface Translations {
     };
     recipes: {
       label: string;
+      portfolioDaily: { title: string; desc: string; prompt: string };
       trending: { title: string; desc: string; prompt: string };
       news: { title: string; desc: string; prompt: string };
       issues: { title: string; desc: string; prompt: string };

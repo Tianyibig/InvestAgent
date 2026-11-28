@@ -9,17 +9,24 @@
 <a href="https://trendshift.io/repositories/14699" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14699" alt="bytedance%2Fdeer-flow | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 > 2026 年 2 月 28 日，DeerFlow 2 发布后登上 GitHub Trending 第 1 名。非常感谢社区的支持，这是大家一起做到的。
 
-DeerFlow（**D**eep **E**xploration and **E**fficient **R**esearch **Flow**）是一个开源的 **super agent harness**。它把 **sub-agents**、**memory** 和 **sandbox** 组织在一起，再配合可扩展的 **skills**，让 agent 可以完成几乎任何事情。
+# InvestAgent
+
+**InvestAgent** 是面向**单人行业研究与投资分析**的平台，基于
+[DeerFlow](https://github.com/bytedance/deer-flow)（开源 super agent harness）
+分叉而来。它**不是**交易/券商系统，也**不是**通用 DeerFlow 部署：买方投研技能在
+[`skills/public/`](skills/public/)（投研协议、个股笔记、IC 备忘录、赛道扫描、
+持仓复盘、反推 DCF、证据链、A/HK 行情）。详见
+[投研指南](docs/guide/invest-research.md)。
+
+下文保留 DeerFlow 运行时说明；本仓库的产品定位是 InvestAgent。
 
 https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 > [!NOTE]
-> **DeerFlow 2.0 是一次彻底重写。** 它和 v1 没有共用代码。如果你要找的是最初的 Deep Research 框架，可以前往 [`1.x` 分支](https://github.com/bytedance/deer-flow/tree/main-1.x)。那里仍然欢迎贡献；当前的主要开发已经转向 2.0。
-
-## 官网
-
-想了解更多，或者直接看**真实演示**，可以访问[**官网**](https://deerflow.tech)。
-首页精选案例已配置为免登录白名单只读演示。
+> **上游：** DeerFlow 2.0 是一次彻底重写。最初的 Deep Research 框架在
+> [`1.x` 分支](https://github.com/bytedance/deer-flow/tree/main-1.x)。
+> [deerflow.tech](https://deerflow.tech) 是**上游 DeerFlow** 的站点与演示，
+> 不是 InvestAgent 的主页。
 
 ## 姐妹项目
 
@@ -48,7 +55,6 @@ DeerFlow 新近集成了 BytePlus 自研的智能搜索与抓取工具集——[
 ## 目录
 
 - [🦌 DeerFlow - 2.0](#-deerflow---20)
-  - [官网](#官网)
   - [姐妹项目](#姐妹项目)
   - [BytePlus Agent Plan 与火山引擎方舟 Coding Plan](#byteplus-agent-plan-与火山引擎方舟-coding-plan)
   - [InfoQuest](#infoquest)
@@ -100,7 +106,7 @@ DeerFlow 新近集成了 BytePlus 自研的智能搜索与抓取工具集——[
 如果你在用 Claude Code、Codex、Cursor、Windsurf 或其他 coding agent，可以直接把下面这句话发给它：
 
 ```text
-如果还没 clone DeerFlow，就先 clone，然后按照 https://raw.githubusercontent.com/bytedance/deer-flow/main/Install.md 把它的本地开发环境初始化好
+如果还没 clone InvestAgent，就先 clone，然后按照 https://raw.githubusercontent.com/Tianyibig/InvestAgent/main/Install.md 把它的本地开发环境初始化好
 ```
 
 这条提示词是给 coding agent 用的。它会在需要时先 clone 仓库，优先选择 Docker，完成初始化，并在结束时告诉你下一条启动命令，以及还缺哪些配置需要你补充。
@@ -128,16 +134,16 @@ YAML 同名模型优先，已有任务保留原配置快照。托管模型使用
 
 ### 配置
 
-1. **克隆 DeerFlow 仓库**
+1. **克隆 InvestAgent 仓库**
 
    ```bash
-   git clone https://github.com/bytedance/deer-flow.git
-   cd deer-flow
+   git clone https://github.com/Tianyibig/InvestAgent.git
+   cd InvestAgent
    ```
 
 2. **运行安装向导（推荐）**
 
-   在项目根目录（`deer-flow/`）执行：
+   在项目根目录（`InvestAgent/`）执行：
 
    ```bash
    make setup
@@ -728,7 +734,7 @@ UTC 偏移，并按运行的创建日期归属。页面复用现有 `/api/consol
 
 ### Skills 与 Tools
 
-Skills 是 DeerFlow 能做“几乎任何事”的关键。
+Skills 是 DeerFlow 能做“几乎任何事”的关键。InvestAgent 在此基础上提供投研协议、个股/尽调/扫描/复盘技能、证据链门控与持仓日更配方，见[投研指南](docs/guide/invest-research.md)。
 
 标准的 Agent Skill 是一种结构化能力模块，通常就是一个 Markdown 文件，里面定义了工作流、最佳实践，以及相关的参考资源。DeerFlow 自带一批内置 skills，覆盖研究、报告生成、演示文稿制作、网页生成、图像和视频生成等场景。真正有意思的地方在于它的扩展性：你可以加自己的 skills，替换内置 skills，或者把多个 skills 组合成复合工作流。
 

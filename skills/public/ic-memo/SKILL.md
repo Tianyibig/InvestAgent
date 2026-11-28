@@ -38,7 +38,8 @@ interviewing or scanning materials.
 3. Fill the memo template; mark gaps with `[gap]` rather than inventing.
 4. Build Bull / Base / Bear MOIC or IRR ranges.
 5. Devil's Advocate + evidence-chain on the invest thesis (threshold 80 for IC).
-6. Write `/mnt/user-data/outputs/{project}-ic-memo.md`.
+6. Write `/mnt/user-data/outputs/{project}-ic-memo.md`, then archive to the
+   deal Project shelf per `invest-research-protocol` Step 8 (dated shelf name).
 
 ## Output template
 
@@ -49,6 +50,15 @@ interviewing or scanning materials.
 - Round / instrument: …
 - As of: YYYY-MM-DD
 - Owner: …
+
+~~~conclusion
+rating: Invest
+risk: High
+as_of: YYYY-MM-DD
+evidence_score: 80
+evidence_threshold: 80
+subject: {Company}
+~~~
 
 ## 1. Executive Summary
 One paragraph: what they do, why now, core risk.

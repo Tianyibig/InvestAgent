@@ -191,7 +191,7 @@ async function expectSidecarModelPinnedToSubmit(page: Page) {
       return {
         formLeft: Math.round(formBox.left),
         formRight: Math.round(formBox.right),
-        mode: buttons.find((button) => button.label === "Pro"),
+        mode: buttons.find((button) => button.label === "Diligence"),
         model,
         submit,
         gap: model && submit ? submit.left - model.right : null,
@@ -280,7 +280,7 @@ async function expectSidecarModelHiddenWhenCompact(page: Page) {
   });
 
   expect(metrics).not.toBeNull();
-  expect(metrics!.labels).toContain("Pro");
+  expect(metrics!.labels).toContain("Diligence");
   expect(metrics!.labels).toContain("Send");
   expect(metrics!.labels).not.toContain("DeepSeek V4 Pro");
   expect(metrics!.overflows).toBe(false);
@@ -802,7 +802,7 @@ test.describe("Side chat", () => {
       sidecarInputForm.getByTestId("sidecar-add-attachments-button"),
     ).toBeVisible();
     await expect(
-      sidecarInputForm.getByRole("button", { name: "Pro", exact: true }),
+      sidecarInputForm.getByRole("button", { name: "Diligence", exact: true }),
     ).toBeVisible();
     await expect(
       sidecarInputForm.getByRole("button", { name: /DeepSeek V4 Pro/i }),
@@ -822,11 +822,11 @@ test.describe("Side chat", () => {
     ).toBeVisible();
     await expectSidecarModelPinnedToSubmit(page);
     await sidecarInputForm
-      .getByRole("button", { name: "Pro", exact: true })
+      .getByRole("button", { name: "Diligence", exact: true })
       .click();
-    await page.getByRole("menuitem").filter({ hasText: "Flash" }).click();
+    await page.getByRole("menuitem").filter({ hasText: "Quick" }).click();
     await expect(
-      sidecarInputForm.getByRole("button", { name: "Flash", exact: true }),
+      sidecarInputForm.getByRole("button", { name: "Quick", exact: true }),
     ).toBeVisible();
     await sidecarInputForm
       .getByRole("button", { name: /DeepSeek V4 Pro/i })
