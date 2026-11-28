@@ -1,0 +1,11 @@
+{
+  "repo": "https://github.com/Tianyibig/InvestAgent.git",
+  "mirror_used": "https://codeload.github.com/Tianyibig/InvestAgent/tar.gz/refs/heads/main",
+  "reason": "github.com git transport blocked on this host; codeload tarball reachable",
+  "ref": "main",
+  "commit": "cccadd17293b68b6acf3d614bca22801b04a8268",
+  "upstream_baseline": "bytedance/deer-flow v2.2.0",
+  "package_version": "2.3.0-dev",
+  "fetched_at": "2026-11-25T16:48:45.302Z",
+  "file_count": 4808
+}
