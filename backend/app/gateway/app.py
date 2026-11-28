@@ -40,6 +40,7 @@ from app.gateway.routers import (
     integrations,
     knowledge,
     mcp,
+    mcp_agent_auth,
     mcp_tasks,
     mcp_user_oauth,
     memory,
@@ -361,6 +362,24 @@ async def _run_startup_trash_sweep(app: FastAPI, startup_config) -> None:
             )
     except Exception:
         logger.warning("Trash retention sweep skipped", exc_info=True)
+
+
+async def _run_startup_queued_upload_sweep(app: FastAPI) -> None:
+    try:
+        from app.gateway.run_input_cleanup import cleanup_abandoned_queued_uploads
+        from deerflow.config.paths import get_paths
+
+        store = getattr(app.state, "run_store", None)
+        if store is not None:
+            removed = await cleanup_abandoned_queued_uploads(store, get_paths())
+            if removed:
+                logger.info("Removed %d abandoned queued upload stage(s)", removed)
+    except Exception:
+        logger.warning("Queued upload stage cleanup skipped", exc_info=True)
+
+
+async def _run_startup_storage_sweeps(app: FastAPI, startup_config) -> None:
+    await asyncio.gather(_run_startup_trash_sweep(app, startup_config), _run_startup_queued_upload_sweep(app))
 
 
 async def _shutdown_startup_trash_sweep(app: FastAPI) -> None:
@@ -764,15 +783,10 @@ async def _gateway_lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         # Must run AFTER langgraph_runtime so app.state.store is available for thread migration
         await _ensure_admin_user(app)
 
-        # Phase-2 trash tier (§8.3): one retention sweep at startup, beside
-        # the lazy trigger on the trash listing — no daemon, no scheduler.
-        # Runs after langgraph_runtime so app.state.project_document_repo is
-        # available. The per-user reconciliation walks every row and file, so
-        # it is scheduled as a background task: gateway readiness never waits
-        # on it, a failure is logged by the task itself, and shutdown gives the
-        # in-flight sweep a bounded graceful budget before cancelling it; any
-        # already-started file worker drains before the runtime is torn down.
-        app.state.startup_trash_sweep_task = asyncio.create_task(_run_startup_trash_sweep(app, startup_config))
+        # Run both storage sweeps after their repositories are ready, without
+        # delaying gateway readiness. Shutdown drains in-flight writes before
+        # tearing the runtime down.
+        app.state.startup_trash_sweep_task = asyncio.create_task(_run_startup_storage_sweeps(app, startup_config))
 
         # Best-effort per-document summary generation.
         # Workers start only when projects.summaries_enabled is true; the
@@ -1374,6 +1388,8 @@ This gateway provides runtime endpoints for agent runs plus custom endpoints for
 
     # MCP API is mounted at /api/mcp
     app.include_router(capabilities.router)
+    # Runtime MCP agent credential grants (admin) at /api/mcp/agent-auth
+    app.include_router(mcp_agent_auth.router)
     app.include_router(mcp.router)
     app.include_router(personal_mcp.router)
     app.include_router(mcp_user_oauth.router)

@@ -20,6 +20,7 @@ import copy
 import gc
 import inspect
 import logging
+import math
 import os
 import sys
 import threading
@@ -73,6 +74,7 @@ from deerflow.runtime.context_keys import (
 )
 from deerflow.runtime.events.message_identity import attach_message_seq, message_identity
 from deerflow.runtime.events.producer import current_producer, publisher_scope, run_producer_context
+from deerflow.runtime.events.store.base import RunEventStoreNotCommittedError
 from deerflow.runtime.goal import (
     DEFAULT_MAX_GOAL_CONTINUATIONS,
     DEFAULT_MAX_NO_PROGRESS_CONTINUATIONS,
@@ -930,12 +932,18 @@ class _SubagentEventBuffer:
     #: Flush once this many events are buffered, bounding memory and reload lag on
     #: a single deep subagent without paying a per-step lock.
     FLUSH_THRESHOLD = 25
+    MAX_WRITE_ATTEMPTS = 3
 
     def __init__(self, event_store: Any | None, thread_id: str, run_id: str) -> None:
         self._event_store = event_store
         self._thread_id = thread_id
         self._run_id = run_id
         self._pending: list[dict[str, Any]] = []
+        self._persistence_stopped = False
+        self._consecutive_failures = 0
+        self._unconfirmed_events = 0
+        self._skipped_events = 0
+        self._affected_tasks: set[str] = set()
 
     async def add(self, chunk: Any) -> None:
         """Buffer one custom stream chunk; flush on a terminal event or threshold."""
@@ -950,50 +958,90 @@ class _SubagentEventBuffer:
         record = subagent_run_event(chunk)
         if record is None:
             return
+        if self._persistence_stopped:
+            self._skipped_events += 1
+            self._remember_task(record)
+            return
         self._pending.append({"thread_id": self._thread_id, "run_id": self._run_id, **record})
         if record["event_type"] == "subagent.end" or len(self._pending) >= self.FLUSH_THRESHOLD:
             await self.flush()
 
     async def flush(self) -> None:
-        """Persist buffered events in one ``put_batch`` call; swallow store errors."""
+        """Drain one batch; retry only a proven uncommitted write.
+
+        A failed acknowledgement can follow a successful commit. Release that
+        batch and fence this buffer's later writes
+        instead of duplicating history or overtaking an unknown predecessor.
+        Live SSE delivery is independent and remains best-effort throughout.
+        """
         if self._event_store is None or not self._pending:
             return
         batch = self._pending
         self._pending = []
         write_task = asyncio.create_task(self._event_store.put_batch(batch))
         cancellation: asyncio.CancelledError | None = None
-        failure: Exception | None = None
-        while True:
+        while not write_task.done():
             try:
-                await asyncio.shield(write_task)
-                break
+                # wait() neither cancels the owned write nor raises its outcome.
+                # This distinguishes caller cancellation from store cancellation
+                # even when both happen during the same event-loop iteration.
+                await asyncio.wait({write_task})
             except asyncio.CancelledError as exc:
                 host_task = asyncio.current_task()
-                if host_task is None or not host_task.cancelling():
-                    # The store task itself was cancelled. It did not confirm
-                    # durability, so retain the batch for a later flush.
-                    self._pending = batch + self._pending
-                    raise
                 if cancellation is None:
                     cancellation = exc
-                while host_task.cancelling():
+                while host_task is not None and host_task.cancelling():
                     host_task.uncancel()
-            except Exception as exc:
-                failure = exc
-                break
 
-        if failure is not None:
-            # Re-buffer the failed batch (ahead of any events queued since) so a
-            # transient store error does not silently drop subagent step events.
-            self._pending = batch + self._pending
+        try:
+            write_task.result()
+        except (Exception, asyncio.CancelledError) as failure:
+            # Only this explicit store contract proves replay is safe. Generic
+            # exceptions and store-originated cancellation are ambiguous, even
+            # if they look like transient transport failures.
+            self._consecutive_failures += 1
+            retryable = isinstance(failure, RunEventStoreNotCommittedError)
+            self._persistence_stopped = not retryable or self._consecutive_failures >= self.MAX_WRITE_ATTEMPTS
+            if self._persistence_stopped:
+                self._unconfirmed_events += len(batch) + len(self._pending)
+                for event in batch + self._pending:
+                    self._remember_task(event)
+                self._pending.clear()
+            else:
+                self._pending = batch + self._pending
             logger.warning(
-                "Run %s: failed to persist %d subagent step event(s)",
+                "Run %s: failed to persist %d subagent step event(s); %s",
                 self._run_id,
                 len(batch),
+                "persistence stopped (unknown outcome or retry limit)" if self._persistence_stopped else "not committed, retained for retry",
                 exc_info=(type(failure), failure, failure.__traceback__),
             )
+        else:
+            self._consecutive_failures = 0
         if cancellation is not None:
             raise cancellation
+
+    def _remember_task(self, event: dict[str, Any]) -> None:
+        task_id = event.get("metadata", {}).get("task_id")
+        if isinstance(task_id, str) and len(self._affected_tasks) < 20:
+            self._affected_tasks.add(task_id)
+
+    @property
+    def writes_confirmed(self) -> bool:
+        """Whether the producer can close after the final flush has settled."""
+        return not self._persistence_stopped and not self._pending
+
+    def log_summary(self) -> None:
+        if not self.writes_confirmed:
+            for event in self._pending:
+                self._remember_task(event)
+            logger.warning(
+                "Run %s: subagent history incomplete; unconfirmed=%d skipped=%d task_ids_sample=%s",
+                self._run_id,
+                self._unconfirmed_events + len(self._pending),
+                self._skipped_events,
+                sorted(self._affected_tasks),
+            )
 
 
 def _bind_trace_id(config: dict[str, Any], runtime_ctx: dict[str, Any]) -> str:
@@ -1079,6 +1127,27 @@ async def _drain_run_finalization(task: asyncio.Task[None], *, on_host_cancel: C
             raise
     if deferred is not None:
         raise deferred
+
+
+def _run_error_frame(message: str, exc: BaseException) -> dict[str, object]:
+    """Build the run ``error`` event, keeping a structured error's retry fields.
+
+    Errors such as ``SandboxCapacityExceededError`` carry a machine-readable
+    ``details`` dict. Clients get its code and retry hint as fields instead of
+    parsing them out of the message.
+    """
+    frame: dict[str, object] = {"message": message, "name": type(exc).__name__}
+    details = getattr(exc, "details", None)
+    if isinstance(details, dict) and isinstance(details.get("code"), str):
+        frame["code"] = details["code"]
+        if isinstance(details.get("retryable"), bool):
+            frame["retryable"] = details["retryable"]
+        retry_after = details.get("retry_after_seconds")
+        # A NaN or infinite hint would be written as a bare token the SDK
+        # rejects, losing the whole frame; omit it and keep the rest.
+        if isinstance(retry_after, int | float) and not isinstance(retry_after, bool) and math.isfinite(retry_after):
+            frame["retry_after_seconds"] = retry_after
+    return frame
 
 
 @run_producer_context
@@ -1178,7 +1247,7 @@ async def run_agent(
     # the verdict alone.
     goal_participated = False
     produced_output_paths: list[str] | None = None
-    terminal_error_frame: dict[str, str] | None = None
+    terminal_error_frame: dict[str, object] | None = None
     # Journal construction moved ahead of preflight so every terminal run can
     # emit a receipt. Completion persistence keeps its prior boundary: before
     # #4272 the journal did not exist until preflight had succeeded, so early
@@ -2179,10 +2248,7 @@ async def run_agent(
         if cancel_action is not None:
             await _finish_cancellation(cancel_action, restore_checkpoint=not checkpoint_resume_rejected)
         elif not record.ownership_lost:
-            error_frame = {
-                "message": error_msg,
-                "name": type(exc).__name__,
-            }
+            error_frame = _run_error_frame(error_msg, exc)
             if record.status not in (RunStatus.pending, RunStatus.running) and getattr(record, "terminal_status_persisted", True):
                 await bridge.publish(
                     run_id,
@@ -2257,7 +2323,10 @@ async def run_agent(
                 # Persist any subagent step events still buffered (#3779) — including on
                 # abort/exception paths, where the stream loop broke before its own flush.
                 if not record.ownership_lost and subagent_events is not None:
-                    await subagent_events.flush()
+                    try:
+                        await subagent_events.flush()
+                    finally:
+                        subagent_events.log_summary()
 
                 if not record.ownership_lost and event_store is not None and pre_run_workspace_snapshot is not None:
                     try:
@@ -2557,7 +2626,7 @@ async def run_agent(
                                 raise RuntimeError(evidence_failure)
 
                         evidence_receipt = await journal.finish_evidence(before_receipt=confirm_terminal)
-                        if evidence_receipt is not None and (subagent_events is None or not subagent_events._pending):
+                        if evidence_receipt is not None and (subagent_events is None or subagent_events.writes_confirmed):
                             from deerflow.runtime.events.store.db import DbRunEventStore
 
                             if isinstance(event_store, DbRunEventStore) and current_producer() is not None:
