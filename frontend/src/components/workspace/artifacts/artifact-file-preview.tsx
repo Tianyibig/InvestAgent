@@ -18,6 +18,10 @@ import {
   extractResearchConclusion,
   stripResearchConclusionFence,
 } from "@/core/artifacts/research-conclusion";
+import {
+  extractResearchQuotes,
+  stripResearchQuoteFence,
+} from "@/core/artifacts/research-quote";
 import { rehypeArtifactSourceRanges } from "@/core/artifacts/selection-dom";
 import {
   type ArtifactImageContext,
@@ -37,6 +41,7 @@ import { CitationSourcesPanel } from "../citations/citation-sources-panel";
 import { ArtifactDownloadButton } from "./artifact-download-button";
 import { artifactMarkdownPlugins } from "./markdown-preview-plugins";
 import { ResearchConclusionBar } from "./research-conclusion-bar";
+import { ResearchQuoteCard } from "./research-quote-card";
 
 export function ArtifactPreviewError({
   filepath,
@@ -189,17 +194,23 @@ export function ArtifactFilePreview({
   );
   const researchConclusion = useMemo(
     () =>
-      language === "markdown"
-        ? extractResearchConclusion(content ?? "")
-        : null,
+      language === "markdown" ? extractResearchConclusion(content ?? "") : null,
+    [content, language],
+  );
+  const researchQuotes = useMemo(
+    () =>
+      language === "markdown" ? extractResearchQuotes(content ?? "") : null,
     [content, language],
   );
   const markdownBody = useMemo(() => {
     if (language !== "markdown") return content ?? "";
-    // Keep the fence when selecting text so source ranges stay aligned.
-    if (onTextSelection || !researchConclusion) return content ?? "";
-    return stripResearchConclusionFence(content ?? "");
-  }, [content, language, researchConclusion, onTextSelection]);
+    // Keep fences when selecting text so source ranges stay aligned.
+    if (onTextSelection) return content ?? "";
+    let body = content ?? "";
+    if (researchConclusion) body = stripResearchConclusionFence(body);
+    if (researchQuotes) body = stripResearchQuoteFence(body);
+    return body;
+  }, [content, language, onTextSelection, researchConclusion, researchQuotes]);
 
   useEffect(() => {
     scrollPositionRef.current = { x: 0, y: 0 };
@@ -301,6 +312,7 @@ export function ArtifactFilePreview({
         {researchConclusion && (
           <ResearchConclusionBar conclusion={researchConclusion} />
         )}
+        {researchQuotes && <ResearchQuoteCard quotes={researchQuotes} />}
         <div
           className="min-h-0 flex-1 overflow-auto px-4 py-3"
           onMouseUp={(event) => onTextSelection?.(event.currentTarget)}

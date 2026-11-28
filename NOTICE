@@ -14,3 +14,25 @@ That project is licensed under the MIT License. The copyright and permission
 notices in LICENSE are preserved and must stay with copies of the software.
 InvestAgent is the product name. The upstream project is credited here and in
 LICENSE; it is not the name of this product.
+
+Research market data
+--------------------
+
+The stock-quote skill can read A-share and Hong Kong quotes through
+replaceable providers. None of these prints are an official exchange feed.
+Records are tagged source_class=data (evidence tier 80).
+
+- AKShare (https://github.com/akfamily/akshare), MIT License.
+  Copyright AKFamily. Optional extra `deerflow-harness[akshare]`; not
+  required for the default install. Quotes are scraped vendor data.
+  Required transitive packages reviewed for this extra use MIT, BSD,
+  Apache-2.0, ISC, or MPL-2.0 terms (including certifi under MPL-2.0 and
+  tqdm under MIT AND MPL-2.0). This repository does not add an AGPL
+  dependency for quotes.
+
+- Tencent delayed quotes use the unofficial public endpoint
+  https://qt.gtimg.cn. That endpoint is not a licensed market-data feed.
+  Prints may be delayed.
+
+- Tushare Pro is not installed and is disabled by default. It requires a
+  token and credits and is not fully open data.

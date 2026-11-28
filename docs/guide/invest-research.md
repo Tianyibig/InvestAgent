@@ -17,7 +17,10 @@ Empty-state chips map to public skills:
 
 Modes are labeled for research work: **速答 / 研判 / 尽调 / 协作尽调** (Quick /
 Analyze / Diligence / Collab DD). Flash remains the right place for
-`stock-quote` tape checks only.
+`stock-quote` tape checks only. Quotes come from the replaceable A-share /
+Hong Kong connector ([data connectors](data-connectors.md)): AKShare when
+that optional extra is installed, otherwise the delayed Tencent endpoint.
+Every print is `data` (tier 80), not an official feed.
 
 ## Protocol and publish gates
 
@@ -74,7 +77,8 @@ Scheduled Tasks → **Quick create** → **持仓日更 / Portfolio daily review
 
 `invest-research-protocol`, `equity-research`, `ic-memo`, `sector-scan`,
 `portfolio-review`, `reverse-dcf`, `evidence-chain`, `stock-quote`,
-`deep-research`.
+`deep-research`. Quote providers and the fundamentals hook:
+[data connectors](data-connectors.md).
 
 DemoLab craft fused into `deep-research` and `frontend-design` is attributed in
 each skill's `ORIGIN.md` (Apache-2.0).

@@ -15,7 +15,8 @@
 [上游项目](https://github.com/bytedance/deer-flow)。它**不是**交易/券商系统：买方投研技能在
 [`skills/public/`](skills/public/)（投研协议、个股笔记、IC 备忘录、赛道扫描、
 持仓复盘、反推 DCF、证据链、A/HK 行情）。详见
-[投研指南](docs/guide/invest-research.md)。
+[投研指南](docs/guide/invest-research.md) 与
+[行情数据连接层](docs/guide/data-connectors.md)。
 
 下文说明该运行时。本仓库的产品名称是 InvestAgent。
 

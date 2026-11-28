@@ -278,7 +278,8 @@ export const enUS: Translations = {
       notice:
         "Discover integrations for your team. Connect accounts and configure access when you need them.",
       configured: "Configured",
-      nativeHint: "Supported by InvestAgent · requires deployment configuration",
+      nativeHint:
+        "Supported by InvestAgent · requires deployment configuration",
       guideHint: "Setup reference · not connected",
       unknownStatus: "Status unavailable",
       notConnected: "Not connected",
@@ -499,6 +500,15 @@ export const enUS: Translations = {
     asOf: "As of",
     evidence: "Evidence",
     subject: "Subject",
+  },
+
+  researchQuote: {
+    region: "Research quotes",
+    asOf: "As of",
+    tier: "Tier",
+    delayed: "Delayed",
+    dataNotOfficial: "Data, not official",
+    unavailable: "Unavailable",
   },
 
   artifactTable: {
@@ -1044,7 +1054,8 @@ export const enUS: Translations = {
       `Chat notification attempt ${attempt} failed; InvestAgent will retry with backoff.`,
     notificationStopped:
       "Chat notification delivery stopped after repeated or permanent failures.",
-    trackingDegraded: "Status checks are delayed; InvestAgent is still retrying.",
+    trackingDegraded:
+      "Status checks are delayed; InvestAgent is still retrying.",
     viewDetails: "View details",
     hideDetails: "Hide details",
     detailsFailed: "Couldn't load task details",

@@ -1,164 +1,112 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Fetch CN/HK quotes from the public Tencent quote endpoint.
+"""Fetch CN/HK research quotes from a replaceable provider.
 
-Stdlib only. Live calls need network. Tests inject a fake opener.
+Default provider is AKShare when the optional extra is installed. Otherwise
+the script falls back to the unofficial delayed Tencent endpoint. Validation
+(whitelist, 20-code cap, URL-encoding, US rejection) stays in front of fetch.
 
-Quotes are unofficial Tencent prints and may be delayed. This is not a
-broker feed and does not place orders.
+Stdlib on the fallback path. AKShare is imported only inside its provider.
+Tests inject a fake opener for Tencent. This is not a broker feed.
 
 Exit codes:
-  0 — success
-  2 — usage, validation, or request/parse failure
+  0 — success (partial per-ticker errors are included in the payload)
+  2 — usage, validation, unknown provider, or every ticker failed
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
-from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 
-# Host is fixed — do not make it configurable.
-QUOTE_HOST = "qt.gtimg.cn"
-ENDPOINT_TEMPLATE = "https://{host}/q={codes}"
-MAX_CODES = 20
+_SCRIPTS_DIR = Path(__file__).resolve().parent
+if str(_SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPTS_DIR))
 
-CODE_RE = re.compile(r"^(?:sh|sz)\d{6}$|^hk\d{5}$")
-US_HINT_RE = re.compile(
-    r"^(?:us[_-]?)?[a-z]{1,5}$|^(?:nyse|nasdaq)[:/].+$",
-    re.I,
+from connectors.registry import (  # noqa: E402
+    ENV_QUOTE_PROVIDER,
+    ProviderUnavailable,
+    records_as_dicts,
+    resolve_provider,
+)
+from connectors.schema import QuoteRecord  # noqa: E402
+from connectors.tencent import (  # noqa: E402
+    DISCLAIMER,
+    ENDPOINT_TEMPLATE,
+    QUOTE_HOST,
+    Opener,
+    build_url,
+    default_opener,
+    fetch_quotes,
+    parse_body,
+)
+from connectors.validate import MAX_CODES, normalize_codes  # noqa: E402
+
+__all__ = [
+    "DISCLAIMER",
+    "ENDPOINT_TEMPLATE",
+    "ENV_QUOTE_PROVIDER",
+    "MAX_CODES",
+    "QUOTE_HOST",
+    "build_url",
+    "default_opener",
+    "fetch_quotes",
+    "main",
+    "normalize_codes",
+    "parse_body",
+    "render_table",
+]
+
+AKSHARE_DISCLAIMER = (
+    "AKShare (MIT) scraped East Money quotes. source_class=data (tier 80), "
+    "not an official exchange feed. Not a broker feed — research use only."
 )
 
-# Field indexes in the `~`-separated Tencent payload (0-based).
-IDX_NAME = 1
-IDX_CODE = 2
-IDX_LAST = 3
-IDX_PREV_CLOSE = 4
-IDX_OPEN = 5
-IDX_VOLUME = 6
-IDX_AMOUNT = 7
-IDX_CHANGE_PCT = 32
 
-DISCLAIMER = (
-    "Unofficial Tencent quotes (qt.gtimg.cn); may be delayed. "
-    "Not a broker feed — research use only."
-)
-
-Opener = Callable[[str], bytes]
-
-
-def default_opener(url: str) -> bytes:
-    request = urllib.request.Request(
-        url,
-        headers={"User-Agent": "InvestAgent-stock-quote/1.0"},
-    )
-    with urllib.request.urlopen(request, timeout=15) as response:
-        return response.read()
-
-
-def normalize_codes(raw: str) -> list[str]:
-    """Whitelist CN/HK codes; reject illegal or US tickers instead of dropping."""
-    parts = [part.strip().lower() for part in raw.split(",") if part.strip()]
-    if not parts:
-        raise ValueError("no codes provided")
-    if len(parts) > MAX_CODES:
-        raise ValueError(f"at most {MAX_CODES} codes per request")
-
-    codes: list[str] = []
-    for part in parts:
-        if CODE_RE.fullmatch(part):
-            codes.append(part)
-            continue
-        if US_HINT_RE.fullmatch(part) or part.startswith("us"):
-            raise ValueError(
-                f"US ticker rejected: {part!r}. "
-                "This skill only accepts sh/sz (6 digits) and hk (5 digits); "
-                "use a dedicated US quote flow or web research."
-            )
-        raise ValueError(
-            f"illegal code: {part!r}. "
-            "Allowed: sh######, sz######, hk##### (comma-separated, max "
-            f"{MAX_CODES})."
-        )
-    return codes
-
-
-def build_url(codes: list[str]) -> str:
-    """URL-encode the code list; host stays hardcoded."""
-    encoded = urllib.parse.quote(",".join(codes), safe=",")
-    return ENDPOINT_TEMPLATE.format(host=QUOTE_HOST, codes=encoded)
-
-
-def parse_body(body: bytes) -> list[dict[str, Any]]:
-    text = body.decode("gbk", errors="replace")
-    rows: list[dict[str, Any]] = []
-    for line in text.splitlines():
-        line = line.strip()
-        if not line or '="' not in line:
-            continue
-        try:
-            payload = line.split('="', 1)[1]
-            if payload.endswith('";'):
-                payload = payload[:-2]
-            elif payload.endswith('"'):
-                payload = payload[:-1]
-            fields = payload.split("~")
-        except (IndexError, ValueError):
-            continue
-        if len(fields) <= IDX_CHANGE_PCT:
-            continue
-        rows.append(
-            {
-                "name": fields[IDX_NAME],
-                "code": fields[IDX_CODE],
-                "last": fields[IDX_LAST],
-                "prev_close": fields[IDX_PREV_CLOSE],
-                "open": fields[IDX_OPEN],
-                "volume_lots": fields[IDX_VOLUME],
-                "amount": fields[IDX_AMOUNT],
-                "change_pct": fields[IDX_CHANGE_PCT],
-            }
-        )
-    return rows
-
-
-def fetch_quotes(codes: list[str], opener: Opener | None = None) -> list[dict[str, Any]]:
-    open_bytes = opener or default_opener
-    url = build_url(codes)
-    try:
-        body = open_bytes(url)
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"quote request failed: {exc}") from exc
-    rows = parse_body(body)
-    if not rows:
-        raise RuntimeError("quote response contained no parseable rows")
-    return rows
-
-
-def render_table(rows: list[dict[str, Any]]) -> str:
+def render_table(rows: list[dict[str, Any]], disclaimer: str = DISCLAIMER) -> str:
     lines = [
-        f"> {DISCLAIMER}",
+        f"> {disclaimer}",
         "",
         "| Name | Code | Last | Change % | Prev close |",
         "| --- | --- | ---: | ---: | ---: |",
     ]
     for row in rows:
+        name = row["name"] or (row.get("error") or "")
         lines.append(
-            f"| {row['name']} | {row['code']} | {row['last']} | "
+            f"| {name} | {row['code']} | {row['last']} | "
             f"{row['change_pct']} | {row['prev_close']} |"
         )
+    lines.extend(
+        [
+            "",
+            "```quote",
+            json.dumps({"quotes": rows}, ensure_ascii=False),
+            "```",
+        ]
+    )
     return "\n".join(lines)
+
+
+def _disclaimer(provider_name: str) -> str:
+    if provider_name == "tencent_delayed":
+        return DISCLAIMER
+    return AKSHARE_DISCLAIMER
+
+
+def _top_level_source(provider_name: str) -> str:
+    """Keep the historical Tencent host string on the legacy path."""
+    if provider_name == "tencent_delayed":
+        return QUOTE_HOST
+    return provider_name
 
 
 def main(argv: list[str] | None = None, opener: Opener | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="CN/HK quotes via Tencent API (unofficial; may be delayed)"
+        description=(
+            "CN/HK research quotes (AKShare when installed, else delayed Tencent)"
+        )
     )
     parser.add_argument(
         "--codes",
@@ -170,28 +118,38 @@ def main(argv: list[str] | None = None, opener: Opener | None = None) -> int:
 
     try:
         codes = normalize_codes(args.codes)
-        rows = fetch_quotes(codes, opener=opener)
+        provider, note = resolve_provider(opener=opener)
+        records: list[QuoteRecord] = provider.get_quotes(codes)
     except ValueError as exc:
+        print(f"[!] {exc}", file=sys.stderr)
+        return 2
+    except ProviderUnavailable as exc:
         print(f"[!] {exc}", file=sys.stderr)
         return 2
     except RuntimeError as exc:
         print(f"[!] {exc}", file=sys.stderr)
         return 2
 
+    if records and all(record.error for record in records):
+        print(f"[!] {records[0].error}", file=sys.stderr)
+        return 2
+
+    rows = records_as_dicts(records)
+    disclaimer = _disclaimer(provider.name)
     if args.json:
-        print(
-            json.dumps(
-                {
-                    "quotes": rows,
-                    "disclaimer": DISCLAIMER,
-                    "source": QUOTE_HOST,
-                },
-                ensure_ascii=False,
-                indent=2,
-            )
-        )
+        payload: dict[str, Any] = {
+            "quotes": rows,
+            "disclaimer": disclaimer,
+            "source": _top_level_source(provider.name),
+            "provider": provider.name,
+        }
+        if note:
+            payload["provider_note"] = note
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:
-        print(render_table(rows))
+        print(render_table(rows, disclaimer=disclaimer))
+        if note:
+            print(f"\n> {note}")
     return 0
 
 

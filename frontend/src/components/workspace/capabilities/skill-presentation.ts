@@ -87,12 +87,14 @@ export const builtinSkillPresentation: Readonly<
   },
   "ic-memo": {
     title: "投委会备忘录",
-    description: "私有/成长项目尽调：市场到条款全维度，给出 Invest/Pass/Watch。",
+    description:
+      "私有/成长项目尽调：市场到条款全维度，给出 Invest/Pass/Watch。",
     icon: ClipboardListIcon,
   },
   "sector-scan": {
     title: "赛道扫描",
-    description: "360° 梳理赛道定义、价值链、公司图谱与投资结论，并保留检索日志。",
+    description:
+      "360° 梳理赛道定义、价值链、公司图谱与投资结论，并保留检索日志。",
     icon: RadarIcon,
   },
   "portfolio-review": {
@@ -112,7 +114,8 @@ export const builtinSkillPresentation: Readonly<
   },
   "stock-quote": {
     title: "行情快查",
-    description: "快速查询 A 股、港股与主要指数最新报价，不替代完整研究笔记。",
+    description:
+      "查询 A 股与港股报价，并标出来源、证据档位和是否延时。不替代研究笔记。",
     icon: ChartNoAxesCombinedIcon,
   },
 };

@@ -110,6 +110,11 @@ monocle = ["monocle_apptrace>=0.8.8"]
 browser = ["playwright>=1.40"]
 # Optional Chinese tokenization for the FTS5 memory retrieval adapter.
 memory-zh = ["jieba>=0.42.1"]
+# A-share / HK research quotes for skills/public/stock-quote. Optional because
+# AKShare pulls pandas, curl_cffi, and mini-racer. The skill falls back to the
+# stdlib Tencent endpoint when this extra is absent. AKShare is MIT; scraped
+# prints are source_class=data, not an official feed.
+akshare = ["akshare>=1.16.72"]
 
 [build-system]
 requires = ["hatchling"]

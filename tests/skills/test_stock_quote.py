@@ -94,7 +94,20 @@ def test_parse_body(quote):
     assert rows[0]["change_pct"] == "1.23"
 
 
-def test_main_json_with_fake_opener(quote, capsys):
+def _forbid_akshare(monkeypatch):
+    module = sys.modules.get("connectors.akshare_provider")
+    if module is None:
+        return
+
+    def boom(_tickers):
+        raise AssertionError("AKShare was called")
+
+    monkeypatch.setattr(module, "fetch_akshare_spots", boom)
+
+
+def test_main_json_with_fake_opener(quote, capsys, monkeypatch):
+    monkeypatch.setenv(quote.ENV_QUOTE_PROVIDER, "tencent_delayed")
+    _forbid_akshare(monkeypatch)
     seen: list[str] = []
 
     def opener(url: str) -> bytes:
@@ -104,13 +117,28 @@ def test_main_json_with_fake_opener(quote, capsys):
     code = quote.main(["--codes", "sh600519", "--json"], opener=opener)
     assert code == 0
     payload = json.loads(capsys.readouterr().out)
-    assert payload["quotes"][0]["code"] == "600519"
+    row = payload["quotes"][0]
+    assert row["code"] == "600519"
+    assert row["ticker"] == "sh600519"
+    assert row["market"] == "sh"
+    assert row["source"] == "tencent_delayed"
+    assert row["source_class"] == "data"
+    assert row["source_tier"] == 80
+    assert row["delayed"] is True
+    assert row["as_of"]
+    assert row["retrieved_at"]
+    assert row["error"] is None
+    assert row["evidence_citation"].endswith("@data:tencent_delayed")
     assert "Unofficial Tencent" in payload["disclaimer"]
     assert payload["source"] == "qt.gtimg.cn"
+    assert payload["provider"] == "tencent_delayed"
     assert seen and seen[0].startswith("https://qt.gtimg.cn/q=")
 
 
-def test_main_table_with_fake_opener(quote, capsys):
+def test_main_table_with_fake_opener(quote, capsys, monkeypatch):
+    monkeypatch.setenv(quote.ENV_QUOTE_PROVIDER, "tencent_delayed")
+    _forbid_akshare(monkeypatch)
+
     def opener(_url: str) -> bytes:
         return SAMPLE
 
@@ -120,6 +148,9 @@ def test_main_table_with_fake_opener(quote, capsys):
     assert "Kweichow Moutai" in out
     assert "1800.00" in out
     assert "Unofficial Tencent" in out
+    assert "```quote" in out
+    assert '"source_class": "data"' in out
+    assert '"source_tier": 80' in out
 
 
 def test_main_rejects_us_via_cli(quote, capsys):

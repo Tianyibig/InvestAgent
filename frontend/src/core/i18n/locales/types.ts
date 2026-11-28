@@ -429,6 +429,15 @@ export interface Translations {
     subject: string;
   };
 
+  researchQuote: {
+    region: string;
+    asOf: string;
+    tier: string;
+    delayed: string;
+    dataNotOfficial: string;
+    unavailable: string;
+  };
+
   artifactTable: {
     title: string;
     header: string;
