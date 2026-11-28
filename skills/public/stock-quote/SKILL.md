@@ -4,7 +4,8 @@ description: >
   Fetch real-time or latest quotes for A-shares, Hong Kong stocks, ETFs, and
   major China indices via the public Tencent quote API (no API key). Trigger on
   查股价, 行情, quote, stock price, ETF price, 上证, 创业板, or when the user
-  only needs a fast tape check rather than a full equity note.
+  only needs a fast tape check rather than a full equity note. Rejects US
+  tickers; output is unofficial and may be delayed.
 compatibility: Python 3.10+; network required for live quotes; urllib stdlib.
 ---
 
@@ -14,9 +15,10 @@ compatibility: Python 3.10+; network required for live quotes; urllib stdlib.
 
 Fast quotes and index prints. For thesis work hand off to `equity-research`.
 For US Mag7 / VIX boards prefer a dedicated US flow or web research — this
-skill targets the Tencent `qt.gtimg.cn` endpoint used for CN/HK symbols.
+skill targets the Tencent `qt.gtimg.cn` endpoint used for CN/HK symbols and
+**rejects** US tickers with a clear error.
 
-## Codes
+## Codes (whitelist)
 
 | Market | Format | Example |
 | --- | --- | --- |
@@ -25,6 +27,10 @@ skill targets the Tencent `qt.gtimg.cn` endpoint used for CN/HK symbols.
 | Hong Kong | `hk` + 5 digits | `hk00700` |
 | SSE Composite | `sh000001` | |
 | ChiNext | `sz399006` | |
+
+Illegal codes are **rejected** (not silently dropped). Cap **20** codes per
+call. The request host is hardcoded to `qt.gtimg.cn`; the code list is
+URL-encoded before the request.
 
 ## Command
 
@@ -43,11 +49,12 @@ python /mnt/skills/public/stock-quote/scripts/quote.py \
 ## Reporting
 
 Print a compact table: name, last, change %, previous close, volume note.
+Label every response as **unofficial Tencent quotes that may be delayed**.
 Mark after-hours / delayed HK prints when the API returns stale session data.
-Cap a single call at 20 codes.
 
 ## Notes
 
 - Live network call; if it fails, report the error and stop — do not invent prices.
 - Encoding from the endpoint is GBK; the script decodes it.
+- Not a broker / order / funding API — research tape checks only.
 - Prefer this over browser scraping for CN/HK tape checks.
