@@ -1,6 +1,6 @@
 ---
 title: Integration Guide
-description: DeerFlow Harness is not only a standalone application. It is a Python library you can import and use inside your own backend, API server, automation system, or multi-agent orchestrator.
+description: InvestAgent Harness is not only a standalone application. It is a Python library you can import and use inside your own backend, API server, automation system, or multi-agent orchestrator.
 ---
 
 import { Callout } from "nextra/components";
@@ -8,12 +8,12 @@ import { Callout } from "nextra/components";
 # Integration Guide
 
 <Callout type="info" emoji="🔌">
-  DeerFlow Harness can be embedded into any Python application. This guide
-  covers the integration patterns for using DeerFlow as a library inside your
+  InvestAgent Harness can be embedded into any Python application. This guide
+  covers the integration patterns for using InvestAgent as a library inside your
   own system.
 </Callout>
 
-DeerFlow Harness is not only a standalone application. It is a Python library you can import and use inside your own backend, API server, automation system, or multi-agent orchestrator.
+InvestAgent Harness is not only a standalone application. It is a Python library you can import and use inside your own backend, API server, automation system, or multi-agent orchestrator.
 
 ## Embedding DeerFlowClient
 
@@ -102,14 +102,14 @@ result = research_client.chat(
 
 ## Integrating with FastAPI
 
-DeerFlow Gateway is itself a FastAPI application. You can mount it as a sub-application or router:
+InvestAgent Gateway is itself a FastAPI application. You can mount it as a sub-application or router:
 
 ```python
 from fastapi import FastAPI
 
 app = FastAPI()
 
-# Mount the DeerFlow gateway router
+# Mount the InvestAgent gateway router
 from app.gateway.app import app as gateway_app
 app.mount("/deerflow", gateway_app)
 ```
@@ -138,7 +138,7 @@ async def chat(thread_id: str, body: dict):
 
 ## Integrating with LangGraph
 
-DeerFlow Harness is built on LangGraph. The Lead Agent is a standard LangGraph graph. You can compose it with your own LangGraph nodes and graphs:
+InvestAgent Harness is built on LangGraph. The Lead Agent is a standard LangGraph graph. You can compose it with your own LangGraph nodes and graphs:
 
 ```python
 from deerflow.agents.lead_agent.agent import make_lead_agent
@@ -164,7 +164,7 @@ Set `DEER_FLOW_CONFIG_PATH` before constructing the client and keep it set for s
 
 ## MCP server integration
 
-DeerFlow can expose its agent as an MCP server, allowing other MCP-compatible systems to call it as a tool. Refer to the DeerFlow repository for MCP server integration examples.
+InvestAgent can expose its agent as an MCP server, allowing other MCP-compatible systems to call it as a tool. Refer to the InvestAgent repository for MCP server integration examples.
 
 <Cards num={2}>
   <Cards.Card title="Customization" href="/docs/harness/customization" />

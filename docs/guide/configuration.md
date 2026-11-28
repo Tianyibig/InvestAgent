@@ -100,7 +100,7 @@ streams simulate chunks from a non-streaming response, while no-tool streams sta
 Newline compatibility preserves literal escapes inside backtick and tilde code
 fences, including unclosed fences, in complete and streamed replies.
 
-1. **Clone the DeerFlow repository**
+1. **Clone the InvestAgent repository**
 
    ```bash
    git clone https://github.com/bytedance/deer-flow.git
@@ -119,7 +119,7 @@ fences, including unclosed fences, in complete and streamed replies.
 
    The wizard also lets you configure an optional web search provider, or skip it for now.
 
-   [DeepSeek web search](../../backend/docs/CONFIGURATION.md#deepseek-web-search) uses `deerflow.community.deepseek.tools:web_search_tool`. Configure `DEEPSEEK_API_KEY` in the Gateway environment and replace the active `web_search` entry with the example in `config.example.yaml`. Set `thinking: true` for multi-step thinking search, independently of the main DeerFlow model. The default is `false`. Results include a generated answer and screened, deduplicated source links.
+   [DeepSeek web search](../../backend/docs/CONFIGURATION.md#deepseek-web-search) uses `deerflow.community.deepseek.tools:web_search_tool`. Configure `DEEPSEEK_API_KEY` in the Gateway environment and replace the active `web_search` entry with the example in `config.example.yaml`. Set `thinking: true` for multi-step thinking search, independently of the main InvestAgent model. The default is `false`. Results include a generated answer and screened, deduplicated source links.
 
    Brave web search preserves valid entries in mixed result lists. Malformed response containers or lists containing no usable entries return a structured format error; missing, null, or empty results keep the existing "No results found" response. Format errors also log the malformed container's path and type, or the absence of usable result objects, without including search queries, credentials, or payload values.
 
@@ -153,7 +153,7 @@ fences, including unclosed fences, in complete and streamed replies.
 
    Browserless fetch and capture accept positive finite request timeouts in seconds. Invalid values fall back to 30 seconds. See [Browserless configuration](../../backend/docs/CONFIGURATION.md#delegated-fetch-backend-isolation).
 
-   Self-hosted Browserless, Crawl4AI, Firecrawl, and fastCRW fetch backends require outbound isolation from private, loopback, link-local, and cloud-metadata networks before setting `network_isolation_confirmed: true` on each tool. DeerFlow rejects private or unverifiable backends by default because those services handle redirects, DNS resolution, and subresources themselves. `allow_private_addresses` permits intentional internal target URLs and does not bypass the backend check. See [delegated fetch deployment](../../backend/docs/CONFIGURATION.md#delegated-fetch-backend-isolation); `make doctor` reports backend configurations that would be refused.
+   Self-hosted Browserless, Crawl4AI, Firecrawl, and fastCRW fetch backends require outbound isolation from private, loopback, link-local, and cloud-metadata networks before setting `network_isolation_confirmed: true` on each tool. InvestAgent rejects private or unverifiable backends by default because those services handle redirects, DNS resolution, and subresources themselves. `allow_private_addresses` permits intentional internal target URLs and does not bypass the backend check. See [delegated fetch deployment](../../backend/docs/CONFIGURATION.md#delegated-fetch-backend-isolation); `make doctor` reports backend configurations that would be refused.
 
    Crawl4AI `web_fetch` accepts an optional `max_chars` tool setting (positive integer, default 4096) for its output cap. A page cut at the cap ends with a note giving the kept and total length, so the agent knows the page goes on. Outputs above `tool_output.externalize_min_chars` are still externalized to a file.
 
@@ -217,7 +217,7 @@ fences, including unclosed fences, in complete and streamed replies.
    > **Advanced / manual configuration**: If you prefer to edit `config.yaml` directly, run `make config` instead to copy the full template. Optional dependency auto-detection accepts UTF-8 configuration files with or without a byte-order mark (BOM). It checks an existing `DEER_FLOW_CONFIG_PATH` first, then `DEER_FLOW_PROJECT_ROOT/config.yaml`, before the checkout's default locations. Local startup also accepts the project-root configuration when the checkout has no `config.yaml`. See `config.example.yaml` for the complete reference including CLI-backed providers (Codex CLI, Claude Code OAuth), OpenRouter, Responses API, subagent runtime caps such as `subagents.max_total_per_run`, and more.
 
    Optional per-model pricing must use one currency across all priced models.
-   DeerFlow disables Console cost estimates when currencies are mixed rather
+   InvestAgent disables Console cost estimates when currencies are mixed rather
    than presenting an invalid aggregate.
    For older runs without a per-model usage breakdown, Console attributes the
    recorded total and input token counts to the run's model.
@@ -369,12 +369,12 @@ fences, including unclosed fences, in complete and streamed replies.
 
    When thinking is disabled on a legacy profile, blank `extra_body`, `thinking`, and nested `extra_body.thinking` keys in a `when_thinking_enabled` template are treated as absent during dialect inference. When thinking is enabled, template values are forwarded as configured.
 
-   Models whose provider contract differs from DeerFlow's generic thinking/effort assumptions can declare a per-model mapping-valued `reasoning:` block (thinking `unsupported`/`optional`/`required`, the accepted effort values with aliases and a default, the payload dialect, and the reasoning-history requirement). The setup wizard's Z.AI GLM-5.3-Flash profile uses it: thinking stays on for every foreground and background call, and the effort selector offers the model's own `low`/`high`/`max` levels. Ollama's existing boolean `reasoning: true` remains a native provider setting and is forwarded to ChatOllama. When migrating a profile to a custom effort `path`, remove any old `reasoning_effort` setting from the profile and thinking templates; configuration validation rejects the leftover key. The chat UI drops a remembered provider-specific effort when switching to a legacy model that does not advertise it. Profiles without the block keep their existing provider behavior. See `config.example.yaml` for the shape and the equivalent manual configuration.
+   Models whose provider contract differs from InvestAgent's generic thinking/effort assumptions can declare a per-model mapping-valued `reasoning:` block (thinking `unsupported`/`optional`/`required`, the accepted effort values with aliases and a default, the payload dialect, and the reasoning-history requirement). The setup wizard's Z.AI GLM-5.3-Flash profile uses it: thinking stays on for every foreground and background call, and the effort selector offers the model's own `low`/`high`/`max` levels. Ollama's existing boolean `reasoning: true` remains a native provider setting and is forwarded to ChatOllama. When migrating a profile to a custom effort `path`, remove any old `reasoning_effort` setting from the profile and thinking templates; configuration validation rejects the leftover key. The chat UI drops a remembered provider-specific effort when switching to a legacy model that does not advertise it. Profiles without the block keep their existing provider behavior. See `config.example.yaml` for the shape and the equivalent manual configuration.
 
-   For vLLM 0.19.0, use `deerflow.models.vllm_provider:VllmChatModel`. For Qwen-style reasoning models, DeerFlow toggles reasoning with `extra_body.chat_template_kwargs.enable_thinking` and preserves vLLM's non-standard `reasoning` field across multi-turn tool-call conversations. Legacy `thinking` configs are normalized automatically for backward compatibility, without modifying model defaults or caller-owned `extra_body` dictionaries; a reused dictionary can change the legacy switch between requests. If the endpoint reports a cumulative usage snapshot on every streaming chunk, set `cumulative_stream_usage: true` so DeerFlow converts those snapshots into per-chunk deltas; the option is disabled by default and leaves usage unchanged when a stable completion id is unavailable. Reasoning models may also require the server to be started with `--reasoning-parser ...`. If your local vLLM deployment accepts any non-empty API key, you can still set `VLLM_API_KEY` to a placeholder value.
+   For vLLM 0.19.0, use `deerflow.models.vllm_provider:VllmChatModel`. For Qwen-style reasoning models, InvestAgent toggles reasoning with `extra_body.chat_template_kwargs.enable_thinking` and preserves vLLM's non-standard `reasoning` field across multi-turn tool-call conversations. Legacy `thinking` configs are normalized automatically for backward compatibility, without modifying model defaults or caller-owned `extra_body` dictionaries; a reused dictionary can change the legacy switch between requests. If the endpoint reports a cumulative usage snapshot on every streaming chunk, set `cumulative_stream_usage: true` so InvestAgent converts those snapshots into per-chunk deltas; the option is disabled by default and leaves usage unchanged when a stable completion id is unavailable. Reasoning models may also require the server to be started with `--reasoning-parser ...`. If your local vLLM deployment accepts any non-empty API key, you can still set `VLLM_API_KEY` to a placeholder value.
 
    When prompt caching is enabled for a model configured with
-   `deerflow.models.claude_provider:ClaudeChatModel`, DeerFlow preserves thinking
+   `deerflow.models.claude_provider:ClaudeChatModel`, InvestAgent preserves thinking
    and redacted-thinking history without placing cache breakpoints directly on
    those blocks. Extended-thinking tool follow-ups can keep using prompt caching.
 
@@ -412,9 +412,9 @@ fences, including unclosed fences, in complete and streamed replies.
    - CLI credential JSON files accept UTF-8 with or without a BOM, independently of the host locale. `make doctor` accepts the same files when checking CLI authentication. Invalid text encoding is treated as an unreadable source; Claude Code can still try its default file after an invalid override.
    - ACP agent entries are separate from model providers — if you configure `acp_agents.codex`, point it at a Codex ACP adapter such as `npx -y @zed-industries/codex-acp`
    - The ACP agent `command` is resolved before the agent starts, so npm-installed launchers work on Windows too: `npx` or `mcode` is spawned as its `npx.cmd`/`mcode.cmd` shim instead of failing with a command-not-found error, and an absolute path such as `C:\Users\me\AppData\Roaming\npm\mcode` resolves to the `mcode.cmd` shim beside npm's extensionless shell script instead of failing with `WinError 193`. The lookup uses the `PATH` the agent subprocess will actually see (`acp_agents.<name>.env.PATH` when set, otherwise the Gateway's) and hands the spawn an absolute path, so a relative `PATH` entry cannot be re-interpreted inside the agent's own workspace. Relative launchers (for example `bin/mcode`) are resolved from the Gateway working directory. Install launchers outside writable task workspaces and use an absolute path if the Gateway working directory can vary. If a configured path fails to launch, check that the file exists and the Gateway account can execute it.
-   - Set `acp_agents.<name>.model` to an external agent's model ID to select it after session creation and before the prompt. DeerFlow uses an advertised `category: model` select option, or a select option with ID `model` if its category is omitted. For these options, the model must be an advertised choice and the agent must confirm it as the current selection before DeerFlow sends the prompt. If no model option is advertised, DeerFlow uses the legacy `session/set_model` interface. A rejected selection fails the invocation before the prompt; omitting `model` keeps the agent's default.
-   - Each ACP agent's `timeout_seconds` (default: 1800) is one shared budget for initialization, session creation, model selection, and the prompt, starting after the subprocess launches. On timeout, DeerFlow aborts the invocation and closes the subprocess before returning an error. Workspace/MCP preparation and subprocess cleanup are outside this budget. A transport timeout raised before the deadline is reported separately.
-   - If an ACP agent exits before answering (for example because it is not authenticated or a configured argument is wrong), DeerFlow reports its exit code within a few seconds instead of waiting for `timeout_seconds`, and records the exit status in the Gateway log. DeerFlow drains agent stderr continuously to keep the subprocess responsive.
+   - Set `acp_agents.<name>.model` to an external agent's model ID to select it after session creation and before the prompt. InvestAgent uses an advertised `category: model` select option, or a select option with ID `model` if its category is omitted. For these options, the model must be an advertised choice and the agent must confirm it as the current selection before InvestAgent sends the prompt. If no model option is advertised, InvestAgent uses the legacy `session/set_model` interface. A rejected selection fails the invocation before the prompt; omitting `model` keeps the agent's default.
+   - Each ACP agent's `timeout_seconds` (default: 1800) is one shared budget for initialization, session creation, model selection, and the prompt, starting after the subprocess launches. On timeout, InvestAgent aborts the invocation and closes the subprocess before returning an error. Workspace/MCP preparation and subprocess cleanup are outside this budget. A transport timeout raised before the deadline is reported separately.
+   - If an ACP agent exits before answering (for example because it is not authenticated or a configured argument is wrong), InvestAgent reports its exit code within a few seconds instead of waiting for `timeout_seconds`, and records the exit status in the Gateway log. InvestAgent drains agent stderr continuously to keep the subprocess responsive.
    - Keep Gateway launch configuration writable only by operators. ACP launchers run with the Gateway OS user, independently of the thread sandbox provider.
    - MiniMax Code speaks ACP directly. Install and authenticate it, then add it as an ACP agent:
 
@@ -432,9 +432,9 @@ fences, including unclosed fences, in complete and streamed replies.
        auto_approve_permissions: false
    ```
 
-   `mcode` must be on the Gateway process's `PATH`; installing it only on the Docker host does not make it available inside the Gateway container. DeerFlow invokes it through `invoke_acp_agent` in a per-thread ACP workspace and forwards enabled MCP servers. Keep `auto_approve_permissions: false` for untrusted tasks; enable it only when mcode must edit files or run commands and you trust the task.
+   `mcode` must be on the Gateway process's `PATH`; installing it only on the Docker host does not make it available inside the Gateway container. InvestAgent invokes it through `invoke_acp_agent` in a per-thread ACP workspace and forwards enabled MCP servers. Keep `auto_approve_permissions: false` for untrusted tasks; enable it only when mcode must edit files or run commands and you trust the task.
 
-   Pi can be used as an external coding agent through the community `pi-acp` adapter. The adapter launches the separate `pi` executable, so install both packages in the Gateway environment before starting DeerFlow. `pi-acp` currently requires Node.js 22+ and pi 0.81.0+:
+   Pi can be used as an external coding agent through the community `pi-acp` adapter. The adapter launches the separate `pi` executable, so install both packages in the Gateway environment before starting InvestAgent. `pi-acp` currently requires Node.js 22+ and pi 0.81.0+:
 
    ```bash
    npm install --global @earendil-works/pi-coding-agent
@@ -507,7 +507,7 @@ the exception type, without backend error details.
 
 ## Using Multiple Providers
 
-LangSmith and Langfuse attach as LangChain callbacks, so you can enable both and DeerFlow reports each run to both. If an enabled provider is missing required credentials or fails to initialize, DeerFlow fails fast and names it. Monocle uses a global OpenTelemetry provider rather than a callback; Langfuse shares that provider, so all three can run together. Because both span processors sit on the same shared provider, Monocle's exporters also see Langfuse's spans when both are enabled.
+LangSmith and Langfuse attach as LangChain callbacks, so you can enable both and InvestAgent reports each run to both. If an enabled provider is missing required credentials or fails to initialize, InvestAgent fails fast and names it. Monocle uses a global OpenTelemetry provider rather than a callback; Langfuse shares that provider, so all three can run together. Because both span processors sit on the same shared provider, Monocle's exporters also see Langfuse's spans when both are enabled.
 
 For Docker deployments, tracing is disabled by default. Set `LANGSMITH_TRACING=true` and `LANGSMITH_API_KEY` in your `.env` to enable it.
 
@@ -551,7 +551,7 @@ models:
     api_key: not-required
 ```
 
-For containerized DeerFlow, loopback refers to the container. Use a host-reachable
+For containerized InvestAgent, loopback refers to the container. Use a host-reachable
 endpoint such as `http://host.docker.internal:8000/v1` on Docker Desktop, and
 configure the server to listen on an interface reachable from that container.
 For Web setup, use **Custom OpenAI-compatible** with the same endpoint and model

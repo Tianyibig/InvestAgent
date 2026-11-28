@@ -1,4 +1,4 @@
-# 🦌 DeerFlow - 2.0
+# InvestAgent
 
 [English](./README.md) | [中文](./README_zh.md) | 日本語 | [Français](./README_fr.md) | [Русский](./README_ru.md) | [Português](./README_pt.md) | [한국어](./README_ko.md)
 
@@ -7,24 +7,24 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 <a href="https://trendshift.io/repositories/14699" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14699" alt="bytedance%2Fdeer-flow | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-> 2026年2月28日、バージョン2のリリースに伴い、DeerFlowはGitHub Trendingで🏆 第1位を獲得しました。素晴らしいコミュニティの皆さん、ありがとうございます！💪🔥
+> 2026年2月28日、上流プロジェクト https://github.com/bytedance/deer-flow はバージョン2のリリース後、GitHub Trendingで第1位になりました。
 
-DeerFlow（**D**eep **E**xploration and **E**fficient **R**esearch **Flow**）は、**サブエージェント**、**メモリ**、**サンドボックス**を統合し、**拡張可能なスキル**によってあらゆるタスクを実行できるオープンソースの**スーパーエージェントハーネス**です。
+InvestAgent は、一次・二次市場を対象にした一人用の産業調査・投資分析プラットフォームです。エージェント実行環境は上流プロジェクト [deer-flow](https://github.com/bytedance/deer-flow) を基にしています。取引・証券システムではありません。
 
 https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 > [!NOTE]
-> **DeerFlow 2.0はゼロからの完全な書き直しです。** v1とコードを共有していません。オリジナルのDeep Researchフレームワークをお探しの場合は、[`1.x`ブランチ](https://github.com/bytedance/deer-flow/tree/main-1.x)で引き続きメンテナンスされています。現在の開発は2.0に移行しています。
+> **InvestAgent 2.0はゼロからの完全な書き直しです。** v1とコードを共有していません。オリジナルのDeep Researchフレームワークをお探しの場合は、[`1.x`ブランチ](https://github.com/bytedance/deer-flow/tree/main-1.x)で引き続きメンテナンスされています。現在の開発は2.0に移行しています。
 
-## 公式ウェブサイト
+## リポジトリ
 
-**実際のデモ**は[**公式ウェブサイト**](https://deerflow.tech)でご覧いただけます。
+製品のソースは [InvestAgent](https://github.com/Tianyibig/InvestAgent) です。ランタイムの上流は [deer-flow](https://github.com/bytedance/deer-flow) です。
 
 ## 姉妹プロジェクト
 
 <img width="446" height="280" alt="image" align="middle" src="https://github.com/user-attachments/assets/077edef4-d560-41af-bb0d-d0a5f14fcc20" />
 
-- [**LLM Space**](https://github.com/deer-flow/llm-space) - DeerFlow の秘密兵器をご紹介 — agent のアイデアをプロトタイピングし、ハーネスの各ステップを検査し、失敗を再生し、パフォーマンスをベンチマークするためのデスクトップツールです。
+- [**LLM Space**](https://github.com/deer-flow/llm-space) - InvestAgent の秘密兵器をご紹介 — agent のアイデアをプロトタイピングし、ハーネスの各ステップを検査し、失敗を再生し、パフォーマンスをベンチマークするためのデスクトップツールです。
 
 ## ByteDance Volcengine のコーディングプラン
 
@@ -46,7 +46,7 @@ DeerFlowは、BytePlusが独自に開発したインテリジェント検索・�
 
 ## 目次
 
-- [🦌 DeerFlow - 2.0](#-deerflow---20)
+- [InvestAgent](#investagent)
   - [公式ウェブサイト](#公式ウェブサイト)
   - [ByteDance Volcengine のコーディングプラン](#bytedance-volcengine-のコーディングプラン)
   - [InfoQuest](#infoquest)
@@ -91,7 +91,7 @@ DeerFlowは、BytePlusが独自に開発したインテリジェント検索・�
 Claude Code、Codex、Cursor、Windsurf などの coding agent を使っているなら、次の一文をそのまま渡せます。
 
 ```text
-DeerFlow がまだ clone されていなければ先に clone してから、https://raw.githubusercontent.com/bytedance/deer-flow/main/Install.md に従ってローカル開発環境を初期化してください
+InvestAgent がまだ clone されていなければ先に clone してから、https://raw.githubusercontent.com/bytedance/deer-flow/main/Install.md に従ってローカル開発環境を初期化してください
 ```
 
 このプロンプトは coding agent 向けです。必要なら先にリポジトリを clone し、Docker が使える場合は Docker を優先して初期セットアップを行い、最後に次の起動コマンドと不足している設定項目だけを返します。
@@ -516,7 +516,7 @@ DeerFlowはDeep Researchフレームワークとして始まり、コミュニ�
 
 そこで、ゼロから再構築しました。
 
-DeerFlow 2.0は、もはやつなぎ合わせるフレームワークではありません。バッテリー同梱、完全に拡張可能なスーパーエージェントハーネスです。LangGraphとLangChainの上に構築され、エージェントが必要とするすべてを標準搭載しています：ファイルシステム、メモリ、スキル、サンドボックス実行、そして複雑なマルチステップタスクのためのプランニングとサブエージェントの生成機能。
+InvestAgent 2.0は、もはやつなぎ合わせるフレームワークではありません。バッテリー同梱、完全に拡張可能なスーパーエージェントハーネスです。LangGraphとLangChainの上に構築され、エージェントが必要とするすべてを標準搭載しています：ファイルシステム、メモリ、スキル、サンドボックス実行、そして複雑なマルチステップタスクのためのプランニングとサブエージェントの生成機能。
 
 そのまま使うもよし。分解して自分のものにするもよし。
 
@@ -752,7 +752,7 @@ DeerFlowには現在、ワークスペース内でファーストクラスのス
 
 `deerflow`は、シェルに暮らす人々のためのターミナルネイティブなワークベンチです。**組み込み**で`DeerFlowClient`上で実行され、Gateway、フロントエンド、nginx、Dockerは不要ですが、DeerFlowの他の部分と同じ`config.yaml`、checkpointer、スキル、メモリ、MCP、サンドボックス設定を尊重します。
 
-![DeerFlow TUI](docs/tui/tui-preview.svg)
+![InvestAgent TUI](docs/tui/tui-preview.svg)
 
 ```bash
 uv pip install 'deerflow-harness[tui]'        # オプションの'textual'依存関係
@@ -816,7 +816,7 @@ DeerFlowはオープンソースコミュニティの素晴らしい成果の上
 
 ### 主要コントリビューター
 
-`DeerFlow`のコア著者に心からの感謝を捧げます。そのビジョン、情熱、献身がこのプロジェクトに命を吹き込みました：
+`InvestAgent`のコア著者に心からの感謝を捧げます。そのビジョン、情熱、献身がこのプロジェクトに命を吹き込みました：
 
 - **[Daniel Walnut](https://github.com/hetaoBackend/)**
 - **[Henry Li](https://github.com/magiccube/)**

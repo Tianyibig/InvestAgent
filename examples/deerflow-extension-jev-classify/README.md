@@ -10,7 +10,7 @@ the design are in [RFC #5653](https://github.com/bytedance/deer-flow/issues/5653
 
 ## Install and configure
 
-From `backend/` in a compatible DeerFlow deployment:
+From `backend/` in a compatible InvestAgent deployment:
 
 ```sh
 uv run deerflow extensions install ../examples/deerflow-extension-jev-classify --yes

@@ -60,7 +60,7 @@ package copy takes precedence. Backend tests check that the snapshot is current.
 
 ## Edit, test, check, then install
 
-1. Copy the selected example outside the DeerFlow checkout. Rename its Python
+1. Copy the selected example outside the InvestAgent checkout. Rename its Python
    package, distribution and `deerflow.extensions` entry point. For a full-stack
    plugin, also choose its own namespace and browser module name.
 2. Follow the example's README to configure its dependencies and run its tests.
@@ -68,7 +68,7 @@ package copy takes precedence. Backend tests check that the snapshot is current.
    with a `tests/` directory, CI installs the package with its `dev` extra next
    to this checkout's `deerflow-extension-api`, then runs `pytest`, `ruff check`
    and `ruff format --check`.
-3. From the DeerFlow checkout root, prepare the backend environment with
+3. From the InvestAgent checkout root, prepare the backend environment with
    `make -C backend install`, then check the package:
 
    ```bash

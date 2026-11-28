@@ -16,10 +16,11 @@ test("aboutMarkdown heading interpolates the app version", async () => {
   const { aboutMarkdown } =
     await import("@/components/workspace/settings/about-content");
   // The heading link text carries the version stamp.
-  expect(aboutMarkdown).toContain("[About DeerFlow 9.9.9-test]");
-  // Milestone copy in the acknowledgments refers to the 1.0/2.0 product
-  // generations and must NOT be parameterized.
-  expect(aboutMarkdown).toContain("DeerFlow 1.0 and 2.0");
+  expect(aboutMarkdown).toContain("[About InvestAgent 9.9.9-test]");
+  expect(aboutMarkdown).toContain(
+    "[Daniel Walnut](https://github.com/hetaoBackend/)",
+  );
+  expect(aboutMarkdown).not.toContain("deerflow.tech");
 });
 
 test("aboutMarkdown heading reflects the package version when env is unset", async () => {
@@ -27,8 +28,8 @@ test("aboutMarkdown heading reflects the package version when env is unset", asy
   const { APP_VERSION } = await import("@/version");
   const { aboutMarkdown } =
     await import("@/components/workspace/settings/about-content");
-  // Positive: the heading carries the real resolved version. This catches an
-  // empty or undefined APP_VERSION interpolation (`About DeerFlow ]` /
-  // `About DeerFlow undefined]`), not just removal of the old literal.
-  expect(aboutMarkdown).toContain(`[About DeerFlow ${APP_VERSION}]`);
+  // The heading carries the resolved version, not an empty or undefined stamp.
+  expect(aboutMarkdown).toContain(`[About InvestAgent ${APP_VERSION}]`);
+  expect(aboutMarkdown).not.toContain("About InvestAgent ]");
+  expect(aboutMarkdown).not.toContain("About InvestAgent undefined");
 });

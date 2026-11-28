@@ -2,7 +2,7 @@
 
 An independently installable extension for the phase 3 read-only delivery of
 [#6269](https://github.com/bytedance/deer-flow/issues/6269). It uses the existing
-DeerFlow scope selector, generic `knowledge_search`, shared citation validation,
+InvestAgent scope selector, generic `knowledge_search`, shared citation validation,
 source budgets, delegation and history rendering. No extra frontend is needed.
 
 The API mapping is checked against **WeKnora v0.8.3**, commit
@@ -14,15 +14,15 @@ for the exact environment, checks and limits.
 ## Choosing this extension or MCP
 
 Use [WeKnora's built-in MCP server](https://github.com/Tencent/WeKnora/blob/3e22822c1d2397be730c458c7539d0eb8c113a24/website-docs/03-features/08-mcp.md)
-when you want to expose WeKnora tools to DeerFlow or another MCP client.
-Choose this read-only extension when you want DeerFlow's native knowledge-base
+when you want to expose WeKnora tools to InvestAgent or another MCP client.
+Choose this read-only extension when you want InvestAgent's native knowledge-base
 and document scope selector, shared citations, and retrieval evidence preserved
 across delegated tasks and conversation replay.
 
 ## Install and configure
 
 Requires a host containing phase 2 (#6904), extension-api >=0.2.7, and an indexed
-WeKnora v0.8.3 workspace. From the DeerFlow repository root:
+WeKnora v0.8.3 workspace. From the InvestAgent repository root:
 
 ```bash
 make extension-install SOURCE=/absolute/path/to/deer-flow/examples/deerflow-extension-weknora
@@ -76,7 +76,7 @@ then ask a question matching indexed content. Sources show the retrieved title,
 excerpt and base name. This adapter does not invent page numbers or source URLs
 from chunk offsets, storage paths or response indexes.
 
-`user_ids` are exact server-authenticated DeerFlow IDs, not display names or
+`user_ids` are exact server-authenticated InvestAgent IDs, not display names or
 model-supplied values. Resolve them from your deployment's user administration;
 for an unauthenticated/single-user installation use its actual runtime user ID.
 The default `access_mode: users` requires a nonempty list; missing, null or empty
@@ -86,7 +86,7 @@ credential environment variable. Configure each endpoint/tenant only once.
 
 ### Shared read-only access for dynamic users
 
-For a knowledge base intentionally shared with every authenticated DeerFlow user,
+For a knowledge base intentionally shared with every authenticated InvestAgent user,
 replace `user_ids` on that connection with **explicit** `access_mode: authenticated`:
 
 ```yaml
@@ -223,7 +223,7 @@ against v0.8.3's `internal/handler/knowledgebase.go`, `internal/handler/session/
 This package registers the current `RetrievalProvider` contract rather than
 importing the older branch's provider discovery or native citation format.
 Uploads, deletion, processing management, Wiki/Graph management, a knowledge management
-page and new DeerFlow ACL persistence remain outside the read-only delivery.
+page and new InvestAgent ACL persistence remain outside the read-only delivery.
 Shared-contract durable batch source forwarding retains the existing core
 limitation; ordinary subagent forwarding uses the shared evidence path.
 

@@ -2,7 +2,7 @@
 
 ## Sandbox Mode
 
-DeerFlow supports multiple sandbox execution modes:
+InvestAgent supports multiple sandbox execution modes:
 - **Local Workspace** (files through workspace tools and configured mounts)
 - **Docker Execution** (runs sandbox code in isolated Docker containers)
 - **Docker Execution with Kubernetes** (runs sandbox code in Kubernetes pods via provisioner service)
@@ -318,7 +318,7 @@ multi-process quota: use it only when one Gateway process owns the provider and
 `replicas` fits the Kubernetes ResourceQuota.
 
 `E2BSandboxProvider` uses `wait` as its default overflow policy. It waits for
-`acquire_timeout`, then fails the agent turn. DeerFlow does not retry the turn
+`acquire_timeout`, then fails the agent turn. InvestAgent does not retry the turn
 automatically. Clients can use the structured error to schedule a retry.
 
 Use `burst` with `burst_limit` to permit bounded extra VMs. The `wait` and
@@ -388,7 +388,7 @@ Shutdown races retry remote cleanup after a transient kill failure.
 Reset destroys tracked active and warm E2B VMs. The old provider instance
 cannot accept new acquisitions.
 
-DeerFlow doesn't just *talk* about doing things. It has its own computer.
+InvestAgent doesn't just *talk* about doing things. It has its own computer.
 
 Each task gets its own execution environment with a full filesystem view — skills, workspace, uploads, outputs. The agent reads, writes, and edits files. It can view images and, when configured safely, execute shell commands.
 
@@ -463,9 +463,9 @@ conservative metadata validation, not a guarantee of content equality or tamper 
 
 Sandbox image downloads enforce the 20 MiB vision limit while reading, including model-context rereads. Oversized streams stop at the first over-limit chunk. Custom sandbox providers must accept and enforce the `download_file(..., max_bytes=...)` keyword; older implementations fail the image read instead of falling back to an unrestricted download.
 
-Image bytes loaded for a vision-model call are transient: DeerFlow removes the hidden base64 message after the model consumes it so later checkpoints do not keep duplicating that payload.
+Image bytes loaded for a vision-model call are transient: InvestAgent removes the hidden base64 message after the model consumes it so later checkpoints do not keep duplicating that payload.
 
-After each run, DeerFlow records a workspace change summary for the run-owned `workspace` and `outputs` directories. The Web UI shows a compact "files changed" badge on the assistant turn; opening it reveals created, modified, and deleted files with text diffs when safe to display. Uploads are excluded because they are user inputs, not agent-generated changes, and stdio MCP temporary/debug files under the DeerFlow-owned `.mcp/` namespace are excluded because they are process-internal state (like `.git/` and `node_modules/`, any directory named `.mcp` is excluded at any depth). Large, binary, or sensitive-looking files are shown as metadata only.
+After each run, InvestAgent records a workspace change summary for the run-owned `workspace` and `outputs` directories. The Web UI shows a compact "files changed" badge on the assistant turn; opening it reveals created, modified, and deleted files with text diffs when safe to display. Uploads are excluded because they are user inputs, not agent-generated changes, and stdio MCP temporary/debug files under the DeerFlow-owned `.mcp/` namespace are excluded because they are process-internal state (like `.git/` and `node_modules/`, any directory named `.mcp` is excluded at any depth). Large, binary, or sensitive-looking files are shown as metadata only.
 
 If a file disappears while being hashed, the scan omits that file and continues
 recording the others. A concurrent scratch-file removal therefore does not

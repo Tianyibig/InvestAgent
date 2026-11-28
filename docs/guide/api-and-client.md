@@ -78,7 +78,7 @@ the saved group selection.
 
 `DeerFlowClient.stream()` includes `summary_text` in each `values` event. This is the current compacted context summary, or `None` when absent. Consumers can record changes without reading checkpoint internals; repeated snapshots may carry the same summary, and an initial snapshot may already contain one from an earlier turn.
 
-DeerFlow can be used as an embedded Python library without running the full HTTP services. The `DeerFlowClient` provides direct in-process access to all agent and Gateway capabilities, returning the same response schemas as the HTTP Gateway API.
+InvestAgent can be used as an embedded Python library without running the full HTTP services. The `DeerFlowClient` provides direct in-process access to all agent and Gateway capabilities, returning the same response schemas as the HTTP Gateway API.
 
 The HTTP Gateway exposes `DELETE /api/threads/{thread_id}` to remove a thread's
 files, checkpoints, and metadata. If checkpoint deletion fails, the Gateway
@@ -100,7 +100,7 @@ Deleting the complete thread removes the watermark and resets allocation.
 
 Thread IDs may be supplied by callers and do not have to be UUIDs. Explicit
 IDs must contain 1–64 ASCII letters, digits, hyphens, or underscores
-(`^[A-Za-z0-9_-]{1,64}$`). DeerFlow generates a UUID only when `thread_id` is
+(`^[A-Za-z0-9_-]{1,64}$`). InvestAgent generates a UUID only when `thread_id` is
 omitted or `None`; an explicitly supplied empty string is invalid.
 Concurrent `POST /api/threads` requests and automatic run metadata creation share
 same-ID admission in one Gateway, preserving the first thread's metadata and status.
@@ -110,7 +110,7 @@ Existing route-addressable threads created under older, looser rules remain
 readable and deletable, but cannot start new runs or create new filesystem or
 sandbox state. Legacy deletion skips local path cleanup when the ID is not
 safe under the canonical contract. For canonical legacy threads whose
-conversation exists only in LangGraph checkpoints, DeerFlow seeds an empty
+conversation exists only in LangGraph checkpoints, InvestAgent seeds an empty
 run-event feed from the checkpoint before the first new run so
 `/messages/page` keeps both the old and new turns.
 

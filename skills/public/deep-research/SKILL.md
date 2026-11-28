@@ -21,7 +21,7 @@ evidence primary, then synthesize a grounded report with unresolved gaps named.
 
 This skill adapts Gemini DemoLab's parallel orchestration
 ([google-gemini/demolab](https://github.com/google-gemini/demolab), Apache-2.0)
-to DeerFlow tools (`web_search`, `web_fetch`, task/subagents) and InvestAgent
+to InvestAgent tools (`web_search`, `web_fetch`, task/subagents) and InvestAgent
 publish gates.
 
 ## When to use

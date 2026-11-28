@@ -1,12 +1,14 @@
 # Security Policy
 
-## Supported Versions
+## Supported versions
 
-As deer-flow doesn't provide an official release yet, please use the latest version to receive security updates.
-Currently, we have two branches to maintain:
-* main branch for deer-flow 2.x
-* main-1.x branch for deer-flow 1.x
+InvestAgent tracks the latest `main` branch of this repository.
 
-## Reporting a Vulnerability
+## Reporting a vulnerability
 
-Please go to https://github.com/bytedance/deer-flow/security to report the vulnerability you find.
+Report vulnerabilities in this repository:
+
+https://github.com/Tianyibig/InvestAgent/security
+
+The agent runtime is derived from https://github.com/bytedance/deer-flow.
+Issues that exist only in that upstream project can also be reported there.

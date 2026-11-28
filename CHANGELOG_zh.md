@@ -1,6 +1,8 @@
 # 更新日志
 
-本文件记录 DeerFlow 的所有重要变更。
+本文件记录 InvestAgent 的重要变更。
+
+下文的历史条目来自上游项目 https://github.com/bytedance/deer-flow，并保留该项目的名称。
 
 格式参考 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，
 版本号遵循 [语义化版本规范](https://semver.org/lang/zh-CN/)。

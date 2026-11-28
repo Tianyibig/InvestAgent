@@ -68,7 +68,7 @@ narrowing it.
 
 ## Install and configure
 
-From the DeerFlow checkout root:
+From the InvestAgent checkout root:
 
 ```sh
 make extension-install SOURCE=examples/deerflow-extension-skill-evolution

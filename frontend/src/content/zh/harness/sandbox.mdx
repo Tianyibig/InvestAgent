@@ -8,7 +8,7 @@ import { Callout, Tabs } from "nextra/components";
 # 沙箱
 
 <Callout type="info" emoji="📦">
-  沙箱是 Agent 进行文件和命令操作的隔离工作区。它让 DeerFlow
+  沙箱是 Agent 进行文件和命令操作的隔离工作区。它让 InvestAgent
   能够采取真实行动，而不仅仅是对话。
 </Callout>
 
@@ -16,7 +16,7 @@ import { Callout, Tabs } from "nextra/components";
 
 ## 沙箱模式
 
-DeerFlow 支持五种沙箱模式，选择适合你部署的一种：
+InvestAgent 支持五种沙箱模式，选择适合你部署的一种：
 
 ### LocalSandbox（默认）
 
@@ -57,7 +57,7 @@ sandbox:
 
 ### E2B 云端沙箱
 
-命令在 [E2B](https://e2b.dev) 云端的 micro-VM 中执行。每个线程通过 metadata 绑定到一个独立的 e2b 沙箱，因此即使 Gateway 重启或在多进程之间，同一个 DeerFlow 线程也始终复用同一个 e2b 沙箱。当达到配置的空闲超时时，e2b 会自动回收云端 VM。
+命令在 [E2B](https://e2b.dev) 云端的 micro-VM 中执行。每个线程通过 metadata 绑定到一个独立的 e2b 沙箱，因此即使 Gateway 重启或在多进程之间，同一个 InvestAgent 线程也始终复用同一个 e2b 沙箱。当达到配置的空闲超时时，e2b 会自动回收云端 VM。
 
 - **适合**：托管/Serverless 部署、不想自行运维 Docker 或 Kubernetes 的团队、开箱即用需要真实 Jupyter 内核的工作流。
 - **取舍**：需要访问 e2b 控制面网络以及一个 API Key；挂载只能在沙箱启动时**一次性上传**（云端沙箱无法做主机 bind-mount）。
@@ -104,14 +104,14 @@ sandbox:
 在 [e2b.dev/dashboard](https://e2b.dev/dashboard) 申请 API Key，然后在 `config.yaml` 中直接配置 `sandbox.api_key`，或在 `.env` 中导出 `E2B_API_KEY`。
 
 <Callout type="info">
-  因为 e2b 是远程沙箱，DeerFlow 的虚拟前缀 `/mnt/user-data`
+  因为 e2b 是远程沙箱，InvestAgent 的虚拟前缀 `/mnt/user-data`
   会被自动重映射到云端 VM 的 `home_dir`（默认 `/home/user`）。
   原本读写 `/mnt/user-data/...` 的工具无需任何改动即可正常工作。
 </Callout>
 
 ### BytePlus veFaaS 云端沙箱
 
-命令在 [BytePlus 函数服务（veFaaS）](https://www.byteplus.com/en/product/vefaas?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow) Serverless 云端沙箱中运行，使用 `all-in-one-sandbox` 镜像（参见 [veFaaS 文档](https://docs.byteplus.com/en/docs/vefaas/what-is-vefaas?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow)）。DeerFlow 直接基于 `httpx` 通过 veFaaS OpenAPI（`Version=2024-06-06`，SigV4 签名）管理控制面，无需额外安装云厂商 SDK，数据面复用 `AioSandbox` 客户端。
+命令在 [BytePlus 函数服务（veFaaS）](https://www.byteplus.com/en/product/vefaas?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow) Serverless 云端沙箱中运行，使用 `all-in-one-sandbox` 镜像（参见 [veFaaS 文档](https://docs.byteplus.com/en/docs/vefaas/what-is-vefaas?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow)）。InvestAgent 直接基于 `httpx` 通过 veFaaS OpenAPI（`Version=2024-06-06`，SigV4 签名）管理控制面，无需额外安装云厂商 SDK，数据面复用 `AioSandbox` 客户端。
 
 - **适合**：Serverless 生产部署、多租户云端工作负载、希望降低冷启动耗时（支持**推测预热 `prewarm`**、**镜像预热 `precache_images`**、**空闲暂停/自动唤醒 `pause_on_idle`**），以及需要通过**线程级快照 `snapshot_on_idle`** 或 **TOS 对象存储挂载**持久化工作区的团队。
 - **取舍**：需要准备 BytePlus veFaaS 沙箱应用与 SigV4 访问密钥；多 Worker Gateway 共享同一个 veFaaS 应用时必须启用 `ownership.type: redis`。
@@ -214,7 +214,7 @@ sandbox:
       read_only: true
 ```
 
-如果配置的 `host_path` 对 gateway 进程不可见，DeerFlow 会记录错误日志并忽略该挂载。
+如果配置的 `host_path` 对 gateway 进程不可见，InvestAgent 会记录错误日志并忽略该挂载。
 
 ## 输出截断
 

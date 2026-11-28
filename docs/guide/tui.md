@@ -1,6 +1,6 @@
 # Terminal Workbench (TUI)
 
-`deerflow` is a terminal-native workbench for people who live in the shell. It runs **embedded** over `DeerFlowClient` — no Gateway, frontend, nginx, or Docker required — while honoring the same `config.yaml`, checkpointer, skills, memory, MCP, and sandbox settings as the rest of DeerFlow.
+`deerflow` is a terminal-native workbench for people who live in the shell. It runs **embedded** over `DeerFlowClient` — no Gateway, frontend, nginx, or Docker required — while honoring the same `config.yaml`, checkpointer, skills, memory, MCP, and sandbox settings as the rest of InvestAgent.
 
 Parallel synchronous stdio MCP calls use independent sessions on their own event
 loops. They do not cancel each other's connections, but they do not share
@@ -9,7 +9,7 @@ server-side state; session reuse requires the same loop. See the
 Manually managed event loops must drain pending session owners before closing;
 the normal `asyncio.run()` path does this automatically.
 
-![DeerFlow TUI](../../docs/tui/tui-preview.svg)
+![InvestAgent TUI](../../docs/tui/tui-preview.svg)
 
 ```bash
 uv pip install 'deerflow-harness[tui]'        # optional 'textual' dependency

@@ -7,7 +7,7 @@ A notice reads on its own, in the owner's language, with one item per line:
    otherwise hide it;
 3. ``Result: {summary}``, the same one-line run summary the tasks page shows,
    only when the agent replied (a run that succeeded or missed its goal);
-4. where to look: ``Open DeerFlow → Scheduled tasks for details.``
+4. where to look: ``Open InvestAgent → Scheduled tasks for details.``
 
 It carries no task, run or thread IDs, no URLs (most deployments run on
 localhost or a LAN, so a link would be dead on the phone that receives it), no
@@ -192,9 +192,9 @@ _TEXT: dict[str, dict[str, str]] = {
         "human_input_requested": "Waiting for your input in the conversation.",
         "question": "Question: {question}",
         "result": "Result: {summary}",
-        "closing": "Open DeerFlow → Scheduled tasks for details.",
-        "runtime_closing": "Open DeerFlow → Conversations for details.",
-        "human_input_closing": "Open DeerFlow → Conversations to continue.",
+        "closing": "Open InvestAgent → Scheduled tasks for details.",
+        "runtime_closing": "Open InvestAgent → Conversations for details.",
+        "human_input_closing": "Open InvestAgent → Conversations to continue.",
         "sentence_gap": " ",
     },
     "zh-CN": {
@@ -227,9 +227,9 @@ _TEXT: dict[str, dict[str, str]] = {
         "human_input_requested": "正在等待你在对话中确认或补充信息。",
         "question": "待确认：{question}",
         "result": "结果：{summary}",
-        "closing": "在 DeerFlow 的定时任务页查看详情。",
-        "runtime_closing": "在 DeerFlow 的对话页查看详情。",
-        "human_input_closing": "在 DeerFlow 的对话页继续处理。",
+        "closing": "在 InvestAgent 的定时任务页查看详情。",
+        "runtime_closing": "在 InvestAgent 的对话页查看详情。",
+        "human_input_closing": "在 InvestAgent 的对话页继续处理。",
         "sentence_gap": "",
     },
 }

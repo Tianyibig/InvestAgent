@@ -53,7 +53,7 @@ All routes have this prefix:
 /api/extensions/knowledge-management/connections/{connection}/bases/{base}
 ```
 
-`connection` is the operator-defined connection ID; `base` is the native Provider base ID. Browser clients use DeerFlow's authenticated API and normal CSRF mechanism.
+`connection` is the operator-defined connection ID; `base` is the native Provider base ID. Browser clients use InvestAgent's authenticated API and normal CSRF mechanism.
 
 | Method and suffix | Request | Result |
 | --- | --- | --- |
@@ -70,7 +70,7 @@ Manual ingestion explicitly publishes the source, so it enters the upstream proc
 {"kind":"manual","title":"Guide","content":"Cedar evidence","processing":{"chunk_size":512,"chunk_overlap":64}}
 ```
 
-URL ingestion delegates fetching and SSRF enforcement to WeKnora's validated URL-ingestion endpoint; DeerFlow does not fetch the URL:
+URL ingestion delegates fetching and SSRF enforcement to WeKnora's validated URL-ingestion endpoint; InvestAgent does not fetch the URL:
 
 ```json
 {"kind":"url","url":"https://example.com/guide","title":"Guide"}

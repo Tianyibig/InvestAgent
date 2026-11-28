@@ -1,10 +1,10 @@
-# DeerFlow extension example
+# InvestAgent extension example
 
 For the shared edit → test → packaging check → install workflow, see the
 [existing-example guide](../README.md).
 
 This directory is a compact, standalone Python package showing five of the
-nine DeerFlow extension contribution kinds: middleware, task lifecycle,
+nine InvestAgent extension contribution kinds: middleware, task lifecycle,
 system-model observer, service, and router. It depends on the public
 `deerflow-extension-api` contract and never imports `deerflow.*` or `app.*`.
 
@@ -93,13 +93,13 @@ uv run --no-project ruff format --check .
 ```
 
 The tests use only the public contract plus this package's declared dependencies;
-the DeerFlow harness and Gateway application are not imported. CI runs these
+the InvestAgent harness and Gateway application are not imported. CI runs these
 commands whenever this package or `deerflow-extension-api` changes, so a contract
 addition that the test registry does not implement fails the pull request.
 
-## Install and load it in DeerFlow
+## Install and load it in InvestAgent
 
-From the DeerFlow checkout root, install this directory through the extension
+From the InvestAgent checkout root, install this directory through the extension
 manager. Use an absolute path because the Make wrapper invokes the manager from
 `backend/`:
 
@@ -127,7 +127,7 @@ plugins:
     config: {}
 ```
 
-Start or restart DeerFlow after installation:
+Start or restart InvestAgent after installation:
 
 ```bash
 make dev

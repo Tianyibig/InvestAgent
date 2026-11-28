@@ -1,4 +1,4 @@
-# 🦌 DeerFlow - 2.0
+# InvestAgent
 
 [English](./README.md) | [中文](./README_zh.md) | [日本語](./README_ja.md) | [Français](./README_fr.md) | [Русский](./README_ru.md) | [Português](./README_pt.md) | 한국어
 
@@ -7,18 +7,18 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 <a href="https://trendshift.io/repositories/14699" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14699" alt="bytedance%2Fdeer-flow | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-> 2026년 2월 28일, DeerFlow는 버전 2 출시 이후 GitHub Trending에서 🏆 1위를 차지했습니다. 놀라운 커뮤니티 여러분께 진심으로 감사드립니다. 여러분이 이 일을 해냈습니다! 💪🔥
+> 2026년 2월 28일, 업스트림 프로젝트 https://github.com/bytedance/deer-flow 가 버전 2 출시 이후 GitHub Trending 1위를 차지했습니다.
 
-DeerFlow(**D**eep **E**xploration and **E**fficient **R**esearch **Flow**)는 **서브에이전트**, **메모리**, **샌드박스**를 오케스트레이션하여 거의 모든 일을 해낼 수 있는 오픈소스 **슈퍼 에이전트 하네스**이며, **확장 가능한 스킬**로 동작합니다.
+InvestAgent(**D**eep **E**xploration and **E**fficient **R**esearch **Flow**)는 **서브에이전트**, **메모리**, **샌드박스**를 오케스트레이션하여 거의 모든 일을 해낼 수 있는 오픈소스 **슈퍼 에이전트 하네스**이며, **확장 가능한 스킬**로 동작합니다.
 
 https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 > [!NOTE]
-> **DeerFlow 2.0은 처음부터 완전히 새로 작성되었습니다.** v1과 공유하는 코드는 전혀 없습니다. 기존 Deep Research 프레임워크를 찾고 있다면 [`1.x` 브랜치](https://github.com/bytedance/deer-flow/tree/main-1.x)를 참고하세요. 이 프레임워크는 해당 브랜치에서 계속 유지 관리되며, 그 브랜치에 대한 기여도 여전히 환영합니다. 활발한 개발은 2.0으로 옮겨졌습니다.
+> **InvestAgent 2.0은 처음부터 완전히 새로 작성되었습니다.** v1과 공유하는 코드는 전혀 없습니다. 기존 Deep Research 프레임워크를 찾고 있다면 [`1.x` 브랜치](https://github.com/bytedance/deer-flow/tree/main-1.x)를 참고하세요. 이 프레임워크는 해당 브랜치에서 계속 유지 관리되며, 그 브랜치에 대한 기여도 여전히 환영합니다. 활발한 개발은 2.0으로 옮겨졌습니다.
 
 ## 공식 웹사이트
 
-[**공식 웹사이트**](https://deerflow.tech)에서 더 자세히 알아보고 **실제 데모**를 확인하세요.
+제품 저장소는 [InvestAgent](https://github.com/Tianyibig/InvestAgent) 입니다. 런타임 업스트림은 [deer-flow](https://github.com/bytedance/deer-flow) 입니다.
 랜딩 페이지의 사례 연구는 허용 목록에 등록된 읽기 전용 쇼케이스로 열리며, 로그인이 필요하지 않습니다.
 
 ## 자매 프로젝트
@@ -29,7 +29,7 @@ https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 ## ByteDance Volcengine의 Coding Plan
 
-- DeerFlow 실행에는 Doubao-Seed-2.0-Code, DeepSeek v3.2, Kimi 2.5 사용을 적극 권장합니다
+- InvestAgent 실행에는 Doubao-Seed-2.0-Code, DeepSeek v3.2, Kimi 2.5 사용을 적극 권장합니다
 - [자세히 알아보기](https://www.byteplus.com/en/activity/codingplan?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow)
 - [中国大陆地区的开发者请点击这里](https://www.volcengine.com/activity/codingplan?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow)
 
@@ -49,7 +49,7 @@ DeerFlow는 BytePlus가 독자적으로 개발한 지능형 검색 및 크롤링
 
 ## 목차
 
-- [🦌 DeerFlow - 2.0](#-deerflow---20)
+- [InvestAgent](#investagent)
   - [공식 웹사이트](#공식-웹사이트)
   - [자매 프로젝트](#자매-프로젝트)
   - [ByteDance Volcengine의 Coding Plan](#bytedance-volcengine의-coding-plan)
@@ -122,7 +122,7 @@ DeerFlow는 BytePlus가 독자적으로 개발한 지능형 검색 및 크롤링
 Claude Code, Codex, Cursor, Windsurf 또는 다른 코딩 에이전트를 사용한다면, 설정 지침을 한 문장으로 전달할 수 있습니다:
 
 ```text
-Help me clone DeerFlow if needed, then bootstrap it for local development by following https://raw.githubusercontent.com/bytedance/deer-flow/main/Install.md
+Help me clone InvestAgent if needed, then bootstrap it for local development by following https://raw.githubusercontent.com/bytedance/deer-flow/main/Install.md
 ```
 
 이 프롬프트는 코딩 에이전트용입니다. 에이전트에게 필요하면 저장소를 클론하고, 가능하면 Docker를 선택하며, 다음에 실행할 정확한 명령과 사용자가 아직 제공해야 하는 누락된 설정을 알려 준 뒤 멈추도록 지시합니다.
@@ -139,7 +139,7 @@ Google의 공식 Gemini OpenAI 호환 엔드포인트에는 [Gemini 추론 프�
 
 MindIE XML 도구 호출은 [인자 파싱 및 줄바꿈 호환성 가이드](backend/docs/CONFIGURATION.md#mindie-xml-tool-arguments)를 참고하세요. 동기 및 비동기 스트림 모두 이 호환성을 유지합니다. 도구가 활성화된 스트림은 비스트리밍 응답에서 청크를 시뮬레이션하며, 도구가 없는 스트림은 네이티브 스트림 그대로 유지됩니다.
 
-1. **DeerFlow 저장소 클론**
+1. **InvestAgent 저장소 클론**
 
    ```bash
    git clone https://github.com/bytedance/deer-flow.git
@@ -354,7 +354,7 @@ DeerFlow를 실행할 방식을 고를 때 아래 표를 실용적인 출발점�
 | Docker 개발 / `make docker-start` | 4 vCPU, 8 GB RAM, 25 GB 여유 SSD | 8 vCPU, 16 GB RAM | 이미지 빌드, 바인드 마운트, 샌드박스 컨테이너에는 순수 로컬 개발보다 더 많은 여유 자원이 필요합니다. |
 | 장기 실행 서버 / `make up` | 8 vCPU, 16 GB RAM, 40 GB 여유 SSD | 16 vCPU, 32 GB RAM | 공유 사용, 멀티 에이전트 실행, 보고서 생성, 또는 더 무거운 샌드박스 워크로드에 권장됩니다. |
 
-- 이 수치는 DeerFlow 자체만을 기준으로 합니다. 로컬 LLM도 함께 호스팅한다면 그 서비스의 사양은 별도로 산정하세요.
+- 이 수치는 InvestAgent 자체만을 기준으로 합니다. 로컬 LLM도 함께 호스팅한다면 그 서비스의 사양은 별도로 산정하세요.
 - 상시 운영 서버에는 Linux와 Docker 조합을 권장합니다. macOS와 Windows는 개발 또는 평가 환경으로 사용하는 것이 가장 좋습니다.
 - CPU나 메모리 사용률이 계속 최대치에 머문다면 먼저 동시 실행 수를 줄이고, 그다음 한 단계 위의 사양으로 옮기세요.
 
@@ -399,7 +399,7 @@ make down   # Stop and remove containers
 
 `make up`이 `make docker-start` 이후에 쓰기 불가능한 런타임 홈 또는 읽을 수 없는 영속 저장된 시크릿을 보고하면, 출력된 `sudo chown -R <uid>:<gid> '<home>'` 복구 명령을 실행한 뒤 재시도하세요. 이 검사는 셸이나 `.env`에서 지정한 시크릿 재정의를 존중하고, 읽을 수 있는 읽기 전용 시크릿 파일을 허용하며, 시크릿을 읽거나 생성하지 않고도 `make down`을 사용할 수 있게 둡니다.
 
-영속 저장이 필요한 배포에서는 `database.backend`를 `sqlite` 또는 `postgres`로 설정하세요. 선택한 백엔드는 LangGraph 체크포인터, LangGraph Store, DeerFlow 애플리케이션 데이터가 함께 사용합니다. 더 이상 권장되지 않는(deprecated) `checkpointer` 섹션이 있으면 하위 호환성을 위해 앞의 두 가지를 재정의합니다.
+영속 저장이 필요한 배포에서는 `database.backend`를 `sqlite` 또는 `postgres`로 설정하세요. 선택한 백엔드는 LangGraph 체크포인터, LangGraph Store, InvestAgent 애플리케이션 데이터가 함께 사용합니다. 더 이상 권장되지 않는(deprecated) `checkpointer` 섹션이 있으면 하위 호환성을 위해 앞의 두 가지를 재정의합니다.
 
 Gateway는 시작 시 일부 기존 데이터베이스에 영향을 주는 누락된 run-change 스키마를 자동으로 복구합니다(#5516). 이 복구는 실행 이력과 기존 변경 위치를 보존하며, 복구를 이전 버전으로 다운그레이드해도 그 버전에 필요한 스키마와 위치가 유지됩니다.
 
@@ -543,7 +543,7 @@ uv run langgraph dev --allow-blocking
 
 `if_not_exists="create"`를 사용하는 독립 실행형 실행은 새로 생성된 스레드에 검색 가능한 태그를 포함한 설정과 실행 메타데이터를 보존하며, 키가 중복되면 실행 메타데이터가 우선합니다. 스레드 소유권과 MCP 인카네이션(incarnation)은 서버가 소유하며, 이후 실행이 스레드의 생성 메타데이터를 대체하지 않습니다.
 
-LangGraph Studio나 직접 실행한 LangGraph Server를 통해 `backend/langgraph.json`을 호출하는 워크플로에서는, DeerFlow가 해당 런타임이 게시한 인증된 식별 정보를 받아 커스텀 에이전트 설정/SOUL, 사용자 스킬과 스킬 정책, 업로드, 스레드 데이터, 메모리 읽기/쓰기에 사용합니다. 이를 통해 인증된 실행이 공유 `default` 파일 시스템 버킷에 섞이지 않으며, 서버가 소유한 식별 정보가 클라이언트가 보낸 일반적인 `user_id` 값보다 우선합니다. 이메일 주소 같은 외부 식별 정보는 DeerFlow 저장소에 접근하기 전에 충돌에 강하고 디렉터리 이름으로 안전한 안정적인 사용자 ID로 매핑됩니다. 기본 DeerFlow 서비스 토폴로지는 여전히 위에서 설명한 Gateway 내장 런타임입니다.
+LangGraph Studio나 직접 실행한 LangGraph Server를 통해 `backend/langgraph.json`을 호출하는 워크플로에서는, DeerFlow가 해당 런타임이 게시한 인증된 식별 정보를 받아 커스텀 에이전트 설정/SOUL, 사용자 스킬과 스킬 정책, 업로드, 스레드 데이터, 메모리 읽기/쓰기에 사용합니다. 이를 통해 인증된 실행이 공유 `default` 파일 시스템 버킷에 섞이지 않으며, 서버가 소유한 식별 정보가 클라이언트가 보낸 일반적인 `user_id` 값보다 우선합니다. 이메일 주소 같은 외부 식별 정보는 InvestAgent 저장소에 접근하기 전에 충돌에 강하고 디렉터리 이름으로 안전한 안정적인 사용자 ID로 매핑됩니다. 기본 InvestAgent 서비스 토폴로지는 여전히 위에서 설명한 Gateway 내장 런타임입니다.
 
 Gateway 실행은 `/mnt/user-data/outputs` 아래에서 생성되거나 수정된 아티팩트에 대해 네이티브 전달을 자동으로 강제합니다. `present_files`는 현재 실행이 생성한 출력을 하나 이상 제시해야 하며, 종료 `run.delivery` 영수증이 영속 저장되어야 합니다. 가상 아티팩트 경로는 출력 디렉터리 경계를 검증하기 전에, 출력을 생성한 것과 동일한 인증된 사용자 및 스레드 범위 안에서 해석됩니다. 출력 아티팩트를 생성하지 않는 실행은 일반적인 대화 동작을 유지합니다.
 
@@ -651,7 +651,7 @@ MCP 라우팅 힌트를 사용하면 다른 도구를 금지하지 않으면서 
 
 OpenViking 사용자는 소유자에 바인딩된 USER API 키로 `/mcp`의 공식 Streamable HTTP 엔드포인트를 등록할 수 있습니다. 네이티브 `forget` 도구는 기능 동등성을 위해 노출됩니다. 삭제는 되돌릴 수 없으므로 사용자의 명시적인 확인을 받은 뒤에만 호출해야 합니다. DeerFlow는 그 확인을 강제하지 않습니다. 모델이 명시적으로 선택하는 이 MCP 도구 경로는 별도의 자동 OpenViking 메모리 백엔드와 함께 실행될 수 있으며, 자동 턴 수집이나 회상을 대체하지 않습니다. [OpenViking MCP 도구 설정](backend/docs/MCP_SERVER.md#openviking-mcp-tools)을 참고하세요.
 
-Gateway는 MCP 서버의 일반 `submit` / `status` / `cancel` 도구를 영속 백그라운드 작업으로 변환할 수 있습니다. 에이전트에는 설정된 submit 도구와 DeerFlow 로컬 작업 ID만 보입니다. 원격 ID는 submit 호출이 반환되기 전에 영속 저장되며, status와 cancel은 런타임 내부에서만 사용됩니다. 폴링은 워커 간 리스, 지수 재시도 백오프, 범위가 지정된 MCP 세션, 크기가 제한된 결과 저장소, 재시작 복구를 사용합니다. status 도구의 `isError`는 크기가 제한된 진단 정보로 보관되고 재시도됩니다. 서버는 원격 작업의 영구적인 결과를 `status: "failed"`가 포함된 일반 구조화 결과로 보고합니다. 원격 폴링 힌트는 24시간을 상한으로 하는 유한한 양수이고, 아티팩트 참조 JSON은 64 KiB로 제한되며, 작업 및 서버 식별자는 영속 저장 전에 영속 SQL 컬럼 길이 제한에 맞는지 검증됩니다. 입력 요청과 종료 업데이트는 멱등 에이전트 실행(run)을 통해 현재 채팅을 깨우며, `list_background_tasks`와 `cancel_background_task`를 사용하면 에이전트가 사용자에게 원격 핸들을 묻지 않고도 작업을 관리할 수 있습니다. 현재 스레드의 작업은 `GET /api/threads/{thread_id}/mcp-tasks`, 그 상세 엔드포인트, `POST /api/threads/{thread_id}/mcp-tasks/{task_id}/cancel`로 확인할 수 있습니다. 작업 런타임이 실제로 시작되면, 웹 UI는 채팅 헤더에서 같은 안전한 로컬 뷰를 제공하며 실시간 상태 새로 고침, 취소, 그리고 필요할 때 조회하는 결과, 아티팩트, 입력 요청, 상태 오류, 취소 재시도 세부 정보를 보여 줍니다. 기본 비활성화 상태이거나 메모리 백엔드를 쓰는 배포에서는 이 UI가 숨겨지며 작업 엔드포인트를 폴링하지 않습니다. 실패한 원격 취소는 백오프와 함께 대기열에 남아 있으며, 크기가 제한된 최신 오류와 시도 횟수가 펼친 작업 카드에 계속 표시됩니다. `config.yaml`에서 `mcp_tasks`를 활성화하고, `extensions_config.json`에서 `task_toolsets`를 정확한 원래 도구 이름으로 설정한 뒤, SQL 데이터베이스 백엔드(`sqlite` 또는 `postgres`)를 사용하세요. 작업이 활성화된 서버의 연결, 인증, 인터셉터, 타임아웃, 바인딩을 변경하면 Gateway를 재시작해야 합니다. 그래야 에이전트의 도구 검색과 백그라운드 호출이 서로 다른 설정 버전을 사용하지 않습니다. `input_required`는 현재 알림 전용입니다. DeerFlow는 요청을 표시할 수는 있지만 아직 사용자의 답변을 원격 작업으로 다시 보낼 수는 없습니다.
+Gateway는 MCP 서버의 일반 `submit` / `status` / `cancel` 도구를 영속 백그라운드 작업으로 변환할 수 있습니다. 에이전트에는 설정된 submit 도구와 InvestAgent 로컬 작업 ID만 보입니다. 원격 ID는 submit 호출이 반환되기 전에 영속 저장되며, status와 cancel은 런타임 내부에서만 사용됩니다. 폴링은 워커 간 리스, 지수 재시도 백오프, 범위가 지정된 MCP 세션, 크기가 제한된 결과 저장소, 재시작 복구를 사용합니다. status 도구의 `isError`는 크기가 제한된 진단 정보로 보관되고 재시도됩니다. 서버는 원격 작업의 영구적인 결과를 `status: "failed"`가 포함된 일반 구조화 결과로 보고합니다. 원격 폴링 힌트는 24시간을 상한으로 하는 유한한 양수이고, 아티팩트 참조 JSON은 64 KiB로 제한되며, 작업 및 서버 식별자는 영속 저장 전에 영속 SQL 컬럼 길이 제한에 맞는지 검증됩니다. 입력 요청과 종료 업데이트는 멱등 에이전트 실행(run)을 통해 현재 채팅을 깨우며, `list_background_tasks`와 `cancel_background_task`를 사용하면 에이전트가 사용자에게 원격 핸들을 묻지 않고도 작업을 관리할 수 있습니다. 현재 스레드의 작업은 `GET /api/threads/{thread_id}/mcp-tasks`, 그 상세 엔드포인트, `POST /api/threads/{thread_id}/mcp-tasks/{task_id}/cancel`로 확인할 수 있습니다. 작업 런타임이 실제로 시작되면, 웹 UI는 채팅 헤더에서 같은 안전한 로컬 뷰를 제공하며 실시간 상태 새로 고침, 취소, 그리고 필요할 때 조회하는 결과, 아티팩트, 입력 요청, 상태 오류, 취소 재시도 세부 정보를 보여 줍니다. 기본 비활성화 상태이거나 메모리 백엔드를 쓰는 배포에서는 이 UI가 숨겨지며 작업 엔드포인트를 폴링하지 않습니다. 실패한 원격 취소는 백오프와 함께 대기열에 남아 있으며, 크기가 제한된 최신 오류와 시도 횟수가 펼친 작업 카드에 계속 표시됩니다. `config.yaml`에서 `mcp_tasks`를 활성화하고, `extensions_config.json`에서 `task_toolsets`를 정확한 원래 도구 이름으로 설정한 뒤, SQL 데이터베이스 백엔드(`sqlite` 또는 `postgres`)를 사용하세요. 작업이 활성화된 서버의 연결, 인증, 인터셉터, 타임아웃, 바인딩을 변경하면 Gateway를 재시작해야 합니다. 그래야 에이전트의 도구 검색과 백그라운드 호출이 서로 다른 설정 버전을 사용하지 않습니다. `input_required`는 현재 알림 전용입니다. DeerFlow는 요청을 표시할 수는 있지만 아직 사용자의 답변을 원격 작업으로 다시 보낼 수는 없습니다.
 
 `task_toolsets`가 있는 배포 수준 HTTP/SSE 서버에서는 검색, 일반 도구, 백그라운드 작업 호출이 도구 캐시 초기화 이후를 포함해 하나의 Gateway 프로세스 안에서 OAuth 토큰 상태를 공유합니다. 교체된 리프레시 토큰은 메모리에만 남으며, 설정에 다시 기록되거나 프로세스 간에 공유되지 않습니다. 재시작 후에는 설정된 리프레시 토큰이 여전히 유효해야 합니다.
 
@@ -668,7 +668,7 @@ DeerFlow는 메시징 앱에서 작업을 받을 수 있습니다. 채널은 설
 
 채널 재시작을 취소하면 대기 중인 설정 리로드가 폐기되므로, 그 이후에 적용된 최신 런타임 설정이 유지됩니다.
 
-DeerFlow는 사용자가 소유한 IM 채널 연결을 워크스페이스 UI에 노출할 수도 있습니다. `channel_connections`가 활성화되어 있으면, 로그인한 사용자는 사이드바 / Settings > Channels에서 Telegram, Slack, Discord, Feishu/Lark, DingTalk, WeChat, WeCom, QQ, Buzz를 연결할 수 있습니다. 이 기능은 기존의 아웃바운드 `channels.*` 전송 계층을 재사용하므로 공인 IP나 프로바이더 콜백 URL이 필요하지 않습니다. 이후 들어오는 IM 메시지는 연결된 DeerFlow 사용자 계정으로 실행됩니다. 설정 방법과 보안 참고 사항은 [IM 채널 연결](backend/docs/IM_CHANNEL_CONNECTIONS.md)을 참고하세요. Buzz 백로그 페이징은 타임스탬프 기반 쿼리가 더 진행할 수 없으면 경고와 함께 중단되며, 채널을 제거하면 실시간 구독과 백로그 구독이 모두 닫힙니다.
+DeerFlow는 사용자가 소유한 IM 채널 연결을 워크스페이스 UI에 노출할 수도 있습니다. `channel_connections`가 활성화되어 있으면, 로그인한 사용자는 사이드바 / Settings > Channels에서 Telegram, Slack, Discord, Feishu/Lark, DingTalk, WeChat, WeCom, QQ, Buzz를 연결할 수 있습니다. 이 기능은 기존의 아웃바운드 `channels.*` 전송 계층을 재사용하므로 공인 IP나 프로바이더 콜백 URL이 필요하지 않습니다. 이후 들어오는 IM 메시지는 연결된 InvestAgent 사용자 계정으로 실행됩니다. 설정 방법과 보안 참고 사항은 [IM 채널 연결](backend/docs/IM_CHANNEL_CONNECTIONS.md)을 참고하세요. Buzz 백로그 페이징은 타임스탬프 기반 쿼리가 더 진행할 수 없으면 경고와 함께 중단되며, 채널을 제거하면 실시간 구독과 백로그 구독이 모두 닫힙니다.
 
 | 채널 | 전송 방식 | 난이도 |
 |---------|-----------|------------|
@@ -796,7 +796,7 @@ channels:
 - Telegram 종료는 타임아웃이나 취소가 발생해도 진행 중인 정리 작업을 유지하므로, 재시도로 정리를 마칠 수 있습니다. 시작 도중에 중지하면 초기화도 취소되고, 일부만 초기화된 봇의 HTTP 클라이언트를 닫은 뒤 워커 루프를 종료합니다. Telegram 루프가 이미 멈춘 경우, 종료 시 다운로드 클라이언트가 열린 채 남아 있을 수 있다고 경고하고 버려진 정리 상태를 해제합니다. 이후의 중지에서는 이 경고를 반복하지 않습니다.
 - Slack 중지는 진행 중인 Socket Mode 연결과 그 정리를 최대 5초 동안 기다립니다. 정리가 아직 끝나지 않았으면 이전 인스턴스가 계속 추적되며, 정리가 끝난 뒤 재시작을 다시 시도할 수 있습니다. SDK 정리 실패는 원래 오류를 보고하며 계속 재시도할 수 있습니다.
 - Telegram 개인 채팅에서는 실행 도중 채팅 기록을 지운 경우처럼 참조된 사용자 또는 봇 메시지가 삭제되었더라도 텍스트, 첨부 파일, 스트리밍 응답("Working on it..." 포함)을 여전히 전달할 수 있습니다. 포럼 라우팅을 유지하기 위해 그룹의 응답 대상 요구 사항은 변경되지 않습니다.
-- Feishu/Lark는 이제 연속으로 빠르게 들어오는 후속 메시지를 일반적인 사용 중 응답으로 바로 돌려보내지 않고, 매핑된 DeerFlow `thread_id`별로 대기열에 넣습니다. 토픽 응답은 대기/실행 중/최종 패치 동안 원본 메시지의 간단한 미리보기가 담긴 메시지별 카드를 유지합니다.
+- Feishu/Lark는 이제 연속으로 빠르게 들어오는 후속 메시지를 일반적인 사용 중 응답으로 바로 돌려보내지 않고, 매핑된 InvestAgent `thread_id`별로 대기열에 넣습니다. 토픽 응답은 대기/실행 중/최종 패치 동안 원본 메시지의 간단한 미리보기가 담긴 메시지별 카드를 유지합니다.
 - 스트리밍 IM 채널은 백엔드 `error` 이벤트를 전송 실패처럼 취급해 같은 응답 및 재시도 경로를 따릅니다. 채널은 진단을 위해 오류 유형과 메시지를 로그에 기록합니다.
 
 `.env` 파일에 해당 API 키를 설정하세요.
@@ -921,7 +921,7 @@ logging:
 
 이 기능을 켜면 로그 형식이 바뀌기 때문에 기본적으로 꺼져 있습니다. `logging`은 재시작이 필요한 설정이므로 `config.yaml`을 편집한 뒤 Gateway를 재시작하세요. 이 설정은 로그 출력에만 영향을 주며, ID, 응답 헤더, 실행 메타데이터에는 영향이 없습니다.
 
-`deerflow_trace_id`는 DeerFlow 상관관계 ID입니다. 실행 ID가 아니며, 프로바이더의 네이티브 트레이스 ID도 아닙니다. 조회 키도 아니어서 이 값으로 스레드나 실행을 찾아 주는 기능은 없으니, 로그 줄을 서로 연관 짓는 데 사용하세요. `deerflow_trace_id`를 실행 요청의 `metadata`나 `config.context`에 담아 보내면 무시되고 덮어써지므로, 응답 헤더, 로그, 영속 저장된 실행이 서로 어긋나는 일이 없습니다. 상관관계 ID를 고정하려면 `X-Trace-Id` 헤더를 보내세요.
+`deerflow_trace_id`는 InvestAgent 상관관계 ID입니다. 실행 ID가 아니며, 프로바이더의 네이티브 트레이스 ID도 아닙니다. 조회 키도 아니어서 이 값으로 스레드나 실행을 찾아 주는 기능은 없으니, 로그 줄을 서로 연관 짓는 데 사용하세요. `deerflow_trace_id`를 실행 요청의 `metadata`나 `config.context`에 담아 보내면 무시되고 덮어써지므로, 응답 헤더, 로그, 영속 저장된 실행이 서로 어긋나는 일이 없습니다. 상관관계 ID를 고정하려면 `X-Trace-Id` 헤더를 보내세요.
 
 Gateway 실행 기록에는 출력이 없는 실행과 크래시 후 복구된 실행을 포함해, 실행마다 종료 `run.delivery` 영수증도 하나씩 기록됩니다. 정상 실행 중에는 영속 종료 실행 상태보다 먼저 영수증이 영속 저장됩니다. 고아(orphan) 복구는 먼저 만료된 리스를 원자적으로 획득한 다음 영수증을 멱등하게 채워 넣으므로, 오래된 복구 스캔이 살아 있는 실행의 상세 전달 정보를 덮어쓸 수 없습니다. 이벤트 저장소 장애 중에는 영수증 영속 저장이 최선 노력(best-effort) 방식으로 유지됩니다. 체크포인트 사전 점검(preflight)에 실패한 실행(또는 이전 마무리를 기다리는 동안 취소된 실행)은 기존의 완료 데이터 동작을 유지합니다. 즉, 전달 없음(zero-delivery) 영수증은 받지만 RunStore 완료 필드를 빈 스냅샷으로 덮어쓰지는 않습니다.
 
@@ -961,7 +961,7 @@ LANGFUSE_BASE_URL=https://cloud.langfuse.com
 - `user_id` = `get_effective_user_id()`에서 얻은 실제 사용자(인증 없음 모드에서는 `default`로 폴백)
 - `trace_name` = 어시스턴트 ID(기본값 `lead-agent`)
 - `tags` = `[env:<DEER_FLOW_ENV>, model:<model_name>]`(기본 제공 Gateway 리드 에이전트 실행과 임베디드 클라이언트 실행은 기본값 또는 폴백 해석을 거친 뒤 선택된 모델을 태그로 붙입니다. 커스텀 그래프 팩토리는 요청된 모델만 제공할 수 있습니다. 환경 태그는 설정되지 않은 경우 생략됩니다)
-- `metadata.deerflow_trace_id` = DeerFlow 요청 상관관계 ID이며, 요청 트레이스 상관관계가 활성화되어 있으면 `X-Trace-Id`와 일치합니다
+- `metadata.deerflow_trace_id` = InvestAgent 요청 상관관계 ID이며, 요청 트레이스 상관관계가 활성화되어 있으면 `X-Trace-Id`와 일치합니다
 
 이 값들은 `RunnableConfig.metadata`에 주입됩니다. 주입 위치는 Gateway 경로(`runtime/runs/worker.py::run_agent`)와 임베디드 경로(`client.py::DeerFlowClient.stream`) 모두의 그래프 호출 루트이므로, LangChain 호환 콜백이라면 어떤 것이든 이를 읽을 수 있습니다. 배포 환경별로 트레이스에 태그를 붙이려면 `DEER_FLOW_ENV`(또는 `ENVIRONMENT`)를 설정하세요.
 
@@ -1013,7 +1013,7 @@ DeerFlow는 Deep Research 프레임워크로 시작했고, 커뮤니티는 이�
 
 그래서 저희는 DeerFlow를 처음부터 다시 만들었습니다.
 
-DeerFlow 2.0은 더 이상 직접 엮어서 조립하는 프레임워크가 아닙니다. 필요한 것이 모두 갖춰져 있고 완전히 확장 가능한 슈퍼 에이전트 하네스입니다. LangGraph와 LangChain을 기반으로 하며, 에이전트에 필요한 모든 것을 기본 제공합니다. 파일 시스템, 메모리, 스킬, 샌드박스를 인식하는 실행, 그리고 복잡한 다단계 작업을 위해 계획을 세우고 서브에이전트를 생성하는 능력까지 포함됩니다.
+InvestAgent 2.0은 더 이상 직접 엮어서 조립하는 프레임워크가 아닙니다. 필요한 것이 모두 갖춰져 있고 완전히 확장 가능한 슈퍼 에이전트 하네스입니다. LangGraph와 LangChain을 기반으로 하며, 에이전트에 필요한 모든 것을 기본 제공합니다. 파일 시스템, 메모리, 스킬, 샌드박스를 인식하는 실행, 그리고 복잡한 다단계 작업을 위해 계획을 세우고 서브에이전트를 생성하는 능력까지 포함됩니다.
 
 그대로 사용하세요. 아니면 마음껏 뜯어고쳐 여러분만의 것으로 만드세요.
 
@@ -1027,7 +1027,7 @@ DeerFlow 2.0은 더 이상 직접 엮어서 조립하는 프레임워크가 아�
 
 #### 읽기 전용 지식 소스
 
-`config.yaml`에서 `knowledge_search`를 `deerflow.community.ragflow.tools:knowledge_search_tool` 또는 `deerflow.community.lightrag.tools:knowledge_search_tool` 중 하나로 설정하세요. 둘 다 출처를 추적할 수 있는 검색(retrieval) 근거를 지원합니다. 완전한 프로바이더 로케이터가 없는 LightRAG 및 RAGFlow 응답은 공유 DeerFlow 소스 계약을 사용하고, 완전한 RAGFlow 응답은 기존 인용 스냅샷과 범위 제어를 그대로 유지합니다. 지식 인용은 채팅에서 프로바이더, 문서 제목, 검색된 발췌문을 보여 주며, 다시 불러온 뒤나 서브에이전트가 검색을 수행한 경우에도 마찬가지입니다. 누락된 페이지 번호와 공개 URL은 그대로 비어 있으며, URL이 없는 소스는 로컬 근거로 읽을 수 있습니다. 인라인 인용은 Markdown 정화(sanitization) 후에도 읽을 수 있고, 제공된 페이지 번호는 선택한 인터페이스 언어로 표시됩니다. 새 프로바이더는 공유 엔벨로프를 사용하며, 기존 RAGFlow 인용 기록도 계속 지원됩니다. 완료된 하위 작업 카드를 펼치면 해당 보고서가 전달한 지식 소스를 확인할 수 있으며, 저장된 대화를 다시 열 때도 마찬가지입니다. 축약된 혼합 프로바이더 작업 보고서는 끊어진 인용 조각을 제거하되, 남아 있는 공유 소스 링크를 평탄화하지 않습니다. 기존 웹 인용과 텍스트 전용 Python `knowledge_search(query)` API도 계속 지원됩니다. 별도의 지식 관리 서비스나 페이지는 필요하지 않습니다. [지식 계약 가이드](backend/docs/KNOWLEDGE.md)를 참고하세요.
+`config.yaml`에서 `knowledge_search`를 `deerflow.community.ragflow.tools:knowledge_search_tool` 또는 `deerflow.community.lightrag.tools:knowledge_search_tool` 중 하나로 설정하세요. 둘 다 출처를 추적할 수 있는 검색(retrieval) 근거를 지원합니다. 완전한 프로바이더 로케이터가 없는 LightRAG 및 RAGFlow 응답은 공유 InvestAgent 소스 계약을 사용하고, 완전한 RAGFlow 응답은 기존 인용 스냅샷과 범위 제어를 그대로 유지합니다. 지식 인용은 채팅에서 프로바이더, 문서 제목, 검색된 발췌문을 보여 주며, 다시 불러온 뒤나 서브에이전트가 검색을 수행한 경우에도 마찬가지입니다. 누락된 페이지 번호와 공개 URL은 그대로 비어 있으며, URL이 없는 소스는 로컬 근거로 읽을 수 있습니다. 인라인 인용은 Markdown 정화(sanitization) 후에도 읽을 수 있고, 제공된 페이지 번호는 선택한 인터페이스 언어로 표시됩니다. 새 프로바이더는 공유 엔벨로프를 사용하며, 기존 RAGFlow 인용 기록도 계속 지원됩니다. 완료된 하위 작업 카드를 펼치면 해당 보고서가 전달한 지식 소스를 확인할 수 있으며, 저장된 대화를 다시 열 때도 마찬가지입니다. 축약된 혼합 프로바이더 작업 보고서는 끊어진 인용 조각을 제거하되, 남아 있는 공유 소스 링크를 평탄화하지 않습니다. 기존 웹 인용과 텍스트 전용 Python `knowledge_search(query)` API도 계속 지원됩니다. 별도의 지식 관리 서비스나 페이지는 필요하지 않습니다. [지식 계약 가이드](backend/docs/KNOWLEDGE.md)를 참고하세요.
 
 스킬은 DeerFlow가 *거의 모든 일*을 할 수 있게 해 주는 요소입니다.
 
@@ -1085,7 +1085,7 @@ Windows에서 로컬 샌드박스의 `cmd.exe` 폴백은 Python의 UTF-8 모드�
 
 설치 후 사용자는 **Connect Lark**를 클릭해 브라우저 인증 링크를 열 수 있으며, 터미널에서 인증할 필요는 없습니다. 같은 UI에서 Calendar, Docs, Drive 같은 추가 권한 도메인이나 `lark-cli`가 보고한 특정 OAuth 스코프를 요청할 수도 있습니다. 가벼운 상태 새로 고침은 로컬 자격 증명 트리만 검사하므로, 명시적인 브라우저 완료 절차가 실시간 토큰 검증을 수행하기 전까지 UI는 **Credentials configured (not live-verified)** 상태로 표시합니다. 이후 해당 동작은 **Reconnect Lark**로 유지되어 사용자가 인증을 교체하거나 확장할 수 있습니다. 대화 중 에이전트가 Lark 인증 누락 문제를 만나면, 관리형 `lark-shared` 안내가 `/workspace/capabilities?tab=plugins&plugin=lark`를 통해 사용자를 같은 플러그인 설정으로 안내합니다.
 
-설정이 끝난 뒤에는 **Change Lark app**을 사용해 재설치 없이 자신의 DeerFlow 계정이 다른 Lark/Feishu 앱을 가리키도록 바꿀 수 있습니다. 기존 앱의 App ID / App Secret을 붙여 넣거나, 브라우저에서 앱을 다시 등록하면 됩니다. 전환은 사용자별로 이루어지며(다른 사용자의 자격 증명은 절대 건드리지 않음), 활성 앱을 교체하기 전에 공식 CLI의 실시간 테넌트 토큰 프로브로 새 자격 증명을 검증하고, 이전 앱의 OAuth 토큰을 폐기/삭제합니다. 거부된 자격 증명 변경은 진행 중인 설정이나 인증 흐름을 대체하지 않습니다. CLI가 교체할 앱을 저장하기 전에 이전 OAuth 데이터가 지워지므로, 재연결 중에도 새 파일 기반 키체인 시크릿을 계속 사용할 수 있습니다. 그런 다음 DeerFlow는 새로 연결된 앱에 대한 브라우저 인증을 즉시 열어, 전환이 사용 가능한 연결로 마무리되도록 합니다.
+설정이 끝난 뒤에는 **Change Lark app**을 사용해 재설치 없이 자신의 InvestAgent 계정이 다른 Lark/Feishu 앱을 가리키도록 바꿀 수 있습니다. 기존 앱의 App ID / App Secret을 붙여 넣거나, 브라우저에서 앱을 다시 등록하면 됩니다. 전환은 사용자별로 이루어지며(다른 사용자의 자격 증명은 절대 건드리지 않음), 활성 앱을 교체하기 전에 공식 CLI의 실시간 테넌트 토큰 프로브로 새 자격 증명을 검증하고, 이전 앱의 OAuth 토큰을 폐기/삭제합니다. 거부된 자격 증명 변경은 진행 중인 설정이나 인증 흐름을 대체하지 않습니다. CLI가 교체할 앱을 저장하기 전에 이전 OAuth 데이터가 지워지므로, 재연결 중에도 새 파일 기반 키체인 시크릿을 계속 사용할 수 있습니다. 그런 다음 DeerFlow는 새로 연결된 앱에 대한 브라우저 인증을 즉시 열어, 전환이 사용 가능한 연결로 마무리되도록 합니다.
 
 Lark 스킬 팩을 설치하면 GitHub에서 최신 공식 `larksuite/cli` 릴리스를 확인하고 설치 시점에 해당 버전의 스킬을 다운로드하므로, 이 단계에서 Gateway에 외부 인터넷 접속이 필요합니다(릴리스 조회에 실패하면 최소 기준으로 고정된 버전으로 폴백합니다). 설정 페이지에는 설치된 버전과, 가능한 경우 최신 게시 버전이 표시되므로 관리자가 재설치해 업그레이드할 수 있습니다. 인터넷이 차단된(air-gapped) 배포에서는 아카이브를 미리 준비해 두고 `DEER_FLOW_LARK_CLI_SKILLS_ARCHIVE`가 로컬 파일을 가리키도록 설정할 수 있습니다. 무결성은 고정된 아카이브 바이트 해시에 의존하지 않습니다(GitHub는 소스 아카이브 바이트가 안정적임을 보장하지 않습니다). 대신 다운로드는 공식 GitHub 호스트로 제한되고, 모든 아카이브 멤버는 구조적 안전 검사를 통과해야 하며, 실제로 설치된 스킬 트리(DeerFlow가 주입한 공유 안내 포함)의 콘텐츠 해시가 기록되므로 재설치 간 콘텐츠 변경을 감사할 수 있습니다.
 
@@ -1110,7 +1110,7 @@ Python 자격 증명 매핑의 경우, SkillScan은 일반 딕셔너리 키는 �
 
 SkillScan은 스킬에 포함된 기존 형식과 최신 형식의 `sk-` API 토큰을 차단합니다. 여기에는 OpenAI 프로젝트 키, 서비스 계정 키, 관리자 키와 Anthropic 키가 포함되며, 시크릿 대입 없이 Bearer 헤더에만 있는 경우도 차단합니다. 토큰 본문에는 `-`와 `_`가 포함될 수 있으며, 발견 근거는 완전히 마스킹됩니다. 자리 표시자 예시가 있다고 해서 같은 파일의 이후 자격 증명 탐지가 억제되지는 않습니다. 예약 작업 알림 요약도 외부 IM 플랫폼으로 보내기 전에 이 키 형식들을 마스킹합니다.
 
-DeerFlow에는 읽기 전용 스킬 품질 검토를 위한 public 스킬인 **skill-reviewer**도 포함되어 있습니다. 이 스킬은 기본 제공 `review_skill_package` 도구를 사용해, 대상 스킬을 활성화하거나 시크릿을 바인딩하거나 스크립트를 실행하거나 설치하지 않고도 설치된 스킬, 로컬 패키지, 아카이브, 붙여 넣은 `SKILL.md` 콘텐츠를 검사합니다. 이 도구는 태그가 무력화된 간결한 JSON 페이로드를 모델 컨텍스트에 반환하고, 전체 원본 검토 페이로드는 프로그래밍 방식 소비자를 위해 도구 아티팩트에 보관합니다. 결정적 검토 코어는 DeerFlow 파싱과 SkillScan 결과를 재사용하고, `contracts/skill_review/` 아래에 버전이 지정된 JSON 계약을 내보내며, 백엔드 CLI에서 실행할 수 있습니다.
+DeerFlow에는 읽기 전용 스킬 품질 검토를 위한 public 스킬인 **skill-reviewer**도 포함되어 있습니다. 이 스킬은 기본 제공 `review_skill_package` 도구를 사용해, 대상 스킬을 활성화하거나 시크릿을 바인딩하거나 스크립트를 실행하거나 설치하지 않고도 설치된 스킬, 로컬 패키지, 아카이브, 붙여 넣은 `SKILL.md` 콘텐츠를 검사합니다. 이 도구는 태그가 무력화된 간결한 JSON 페이로드를 모델 컨텍스트에 반환하고, 전체 원본 검토 페이로드는 프로그래밍 방식 소비자를 위해 도구 아티팩트에 보관합니다. 결정적 검토 코어는 InvestAgent 파싱과 SkillScan 결과를 재사용하고, `contracts/skill_review/` 아래에 버전이 지정된 JSON 계약을 내보내며, 백엔드 CLI에서 실행할 수 있습니다.
 
 ```bash
 cd backend
@@ -1141,13 +1141,13 @@ Serper 웹 검색과 이미지 검색은 각 도구 설정의 `max_retries: 1`(�
 
 #### 커스텀 스킬 내보내기
 
-관리자는 **Capability Center → Skills → My skills → View details → Export**에서 자신의 커스텀 스킬을 내보낼 수 있습니다. 파일 목록과 선언된 환경 요구 사항을 검토한 뒤 **Download .skill**을 선택하세요. 아카이브에는 보조 파일과 빈 디렉터리를 포함해 현재 저장된 스킬이 담기며, 비활성화된 스킬도 내보낼 수 있습니다. 미리 보기 후 스킬이 변경되었다면 다운로드하기 전에 파일 목록을 새로 고치세요. 다른 DeerFlow 인스턴스에서 **Install .skill**로 아카이브를 가져오세요. 기존 이름과의 충돌 처리와 일반 설치 보안 검사는 그대로 적용됩니다.
+관리자는 **Capability Center → Skills → My skills → View details → Export**에서 자신의 커스텀 스킬을 내보낼 수 있습니다. 파일 목록과 선언된 환경 요구 사항을 검토한 뒤 **Download .skill**을 선택하세요. 아카이브에는 보조 파일과 빈 디렉터리를 포함해 현재 저장된 스킬이 담기며, 비활성화된 스킬도 내보낼 수 있습니다. 미리 보기 후 스킬이 변경되었다면 다운로드하기 전에 파일 목록을 새로 고치세요. 다른 InvestAgent 인스턴스에서 **Install .skill**로 아카이브를 가져오세요. 기존 이름과의 충돌 처리와 일반 설치 보안 검사는 그대로 적용됩니다.
 
 계정 설정, 대화, 그리고 스킬 폴더 밖의 기록은 제외됩니다. 폴더 안의 파일은 작성자가 넣어 둔 자격 증명까지 포함해 변경 없이 그대로 보존되며, 파일 이름 알림은 참고용입니다. 의존성과 자격 증명은 대상 환경에서 설정하세요. 링크된 폴더/파일, 하드 링크, 지원되지 않는 실행 바이너리, 중첩된 `SKILL.md` 파일, 이식할 수 없는 경로는 내보낼 수 없습니다. 내보내기는 디스크립터 기준 no-follow 파일 시스템 API를 갖춘 호스트(Linux/macOS)를 지원하며, 지원되지 않는 호스트에서는 명시적으로 실패합니다. 제한: ZIP 항목 4096개, 파일당 64 MiB, 전체 콘텐츠/아카이브 100 MiB, frontmatter 1 MiB. YAML 별칭과 지나치게 복잡한 선언은 지원되지 않습니다. 일반 스크립트의 실행 권한 의미는 POSIX에서 가져올 때 보존되지만, 특수 권한은 복원되지 않습니다. [내보내기 API 계약](backend/docs/API.md#export-a-custom-skill)을 참고하세요.
 
 #### Claude Code 통합
 
-`claude-to-deerflow` 스킬을 사용하면 [Claude Code](https://docs.anthropic.com/en/docs/claude-code)에서 실행 중인 DeerFlow 인스턴스와 직접 상호작용할 수 있습니다. 터미널을 떠나지 않고도 리서치 작업을 보내고, 상태를 확인하고, 스레드를 관리할 수 있습니다.
+`claude-to-deerflow` 스킬을 사용하면 [Claude Code](https://docs.anthropic.com/en/docs/claude-code)에서 실행 중인 InvestAgent 인스턴스와 직접 상호작용할 수 있습니다. 터미널을 떠나지 않고도 리서치 작업을 보내고, 상태를 확인하고, 스레드를 관리할 수 있습니다.
 
 **스킬 설치**:
 
@@ -1160,7 +1160,7 @@ npx skills add https://github.com/bytedance/deer-flow --skill claude-to-deerflow
 **할 수 있는 일**:
 - DeerFlow에 메시지를 보내고 스트리밍 응답 받기
 - 실행 모드 선택: flash(빠름), standard, pro(계획), ultra(서브에이전트)
-- DeerFlow 상태 확인, 모델/스킬/에이전트 목록 조회
+- InvestAgent 상태 확인, 모델/스킬/에이전트 목록 조회
 - 스레드와 대화 기록 관리
 - 분석할 파일 업로드
 
@@ -1184,7 +1184,7 @@ DeerFlow는 선택적으로 테넌트 범위의 RAGFlow 배포에 연결할 수 
 
 Agent settings에서 **Tool access**는 설정된 모든 도구 그룹을 상속하거나, 선택한 그룹만 허용하거나, 모든 그룹을 비활성화할 수 있습니다. 저장된 그룹은 카탈로그를 불러오는 중이거나 불러오지 못한 경우에도 계속 표시되며 제거할 수 있습니다. 저장된 그룹은 카탈로그를 성공적으로 불러와 해당 그룹이 없다고 확인된 경우에만 사용할 수 없음으로 표시됩니다. `knowledge`를 제거하는 선택을 저장하면 저장된 기본 지식 선택도 함께 지워집니다. 이전에 지식 접근 권한이 없던 에이전트에 지식 접근을 활성화할 때는 먼저 도구 접근을 저장한 다음, 설정을 다시 열어 기본 지식 베이스를 선택하세요.
 
-`knowledge_base` 블록은 프로바이더 중립적이며 지식 기능(capability)과 선택기의 활성화 여부만 제어합니다. RAGFlow 연결, 데이터셋 허용 목록, 검색 파라미터(`base_url`, `api_key`, `datasets`, `page_size`, 임곗값, 출력 제한)는 `tools[].name: knowledge_search` 항목에 설정해야 하며, `knowledge_base`에서는 절대 읽지 않습니다. 커스텀 에이전트 채팅 요청은 선택된 에이전트 이름을 `assistant_id`와 `context.agent_name` 모두에 담아 보내므로, Gateway 범위 승인(admission)과 런타임 에이전트 로딩이 같은 식별 정보를 사용합니다. 메인 채팅 요청은 `lead_agent`를 사용하며, 두 식별 정보 모두 공유 설정이 RAGFlow 프로바이더를 활성화한 경우에만 승인됩니다. 대기 중인 확인 질문(clarification)에 답할 때는 명시적으로 제출된 현재 선택기 스냅샷이 우선하며, 이를 생략한 클라이언트는 이전 턴에서 승인된 범위를 상속합니다. 편집 후 재생성도 같은 폴백을 따르며, 파일 카탈로그는 데이터셋을 전체 파일에서 선택한 파일로 전환한 후에만 불러옵니다. 이번 릴리스는 워크스페이스 사이드바에 독립된 Knowledge 항목이나 DeerFlow 지식 관리 페이지를 추가하지 않습니다. 데이터셋과 문서의 생성, 업로드, 파싱, 삭제는 RAGFlow에서 직접 수행하세요.
+`knowledge_base` 블록은 프로바이더 중립적이며 지식 기능(capability)과 선택기의 활성화 여부만 제어합니다. RAGFlow 연결, 데이터셋 허용 목록, 검색 파라미터(`base_url`, `api_key`, `datasets`, `page_size`, 임곗값, 출력 제한)는 `tools[].name: knowledge_search` 항목에 설정해야 하며, `knowledge_base`에서는 절대 읽지 않습니다. 커스텀 에이전트 채팅 요청은 선택된 에이전트 이름을 `assistant_id`와 `context.agent_name` 모두에 담아 보내므로, Gateway 범위 승인(admission)과 런타임 에이전트 로딩이 같은 식별 정보를 사용합니다. 메인 채팅 요청은 `lead_agent`를 사용하며, 두 식별 정보 모두 공유 설정이 RAGFlow 프로바이더를 활성화한 경우에만 승인됩니다. 대기 중인 확인 질문(clarification)에 답할 때는 명시적으로 제출된 현재 선택기 스냅샷이 우선하며, 이를 생략한 클라이언트는 이전 턴에서 승인된 범위를 상속합니다. 편집 후 재생성도 같은 폴백을 따르며, 파일 카탈로그는 데이터셋을 전체 파일에서 선택한 파일로 전환한 후에만 불러옵니다. 이번 릴리스는 워크스페이스 사이드바에 독립된 Knowledge 항목이나 InvestAgent 지식 관리 페이지를 추가하지 않습니다. 데이터셋과 문서의 생성, 업로드, 파싱, 삭제는 RAGFlow에서 직접 수행하세요.
 
 각 메시지에서는 여전히 최대 1000개의 문서를 선택할 수 있습니다. 하나의 데이터셋에서 100개를 초과하는 문서를 선택하면 DeerFlow는 전체 선택을 유지하면서 최대 100개 단위의 배치로 나누어 검증합니다. 어느 배치에든 접근할 수 없거나 검색할 수 없는 문서가 있으면 검색이 거부됩니다.
 
@@ -1226,7 +1226,7 @@ make extension-remove NAME=acme
 acme = "acme_deerflow_extension:install"
 ```
 
-이 callable은 독립형 `deerflow-extension-api` 계약을 사용하며 여러 종류의 기여를 등록할 수 있습니다. 등록할 수 있는 기여는 리드 에이전트/서브에이전트의 의미상 모델 위치 또는 도구 위치에 놓이는 격리된 미들웨어, 리드 에이전트 및 서브에이전트 작업 수명 주기 훅, 미들웨어 모델 호출 훅으로 감싸지지 않는 DeerFlow 자체 모델 호출(목표, 메모리, 제목, 요약)에 대한 옵저버, Gateway 수명 동안 유지되는 서비스, 그리고 즉시 로드되는 FastAPI HTTP 라우터입니다. 계약 패키지에는 프레임워크 의존성이 없으므로, 확장은 자신이 import하는 FastAPI, LangChain, LangGraph 또는 기타 라이브러리를 직접 선언해야 합니다. [가져온 콘텐츠 검사 예제](examples/deerflow-extension-jev-screening/README.md)는 이러한 미들웨어 하나를 가시 도구 위치에 기여합니다. 운영자가 명시적으로 켜면 원격 도구 결과가 모델에 보여 주는 정제된 텍스트(`pii_redaction`이 활성화된 경우 PII가 마스킹된 텍스트)를 분류하고, 수명 주기 상태 업데이트를 통해 권고성 경고를 추가합니다. 이 예제는 확장 계약만 import합니다.
+이 callable은 독립형 `deerflow-extension-api` 계약을 사용하며 여러 종류의 기여를 등록할 수 있습니다. 등록할 수 있는 기여는 리드 에이전트/서브에이전트의 의미상 모델 위치 또는 도구 위치에 놓이는 격리된 미들웨어, 리드 에이전트 및 서브에이전트 작업 수명 주기 훅, 미들웨어 모델 호출 훅으로 감싸지지 않는 InvestAgent 자체 모델 호출(목표, 메모리, 제목, 요약)에 대한 옵저버, Gateway 수명 동안 유지되는 서비스, 그리고 즉시 로드되는 FastAPI HTTP 라우터입니다. 계약 패키지에는 프레임워크 의존성이 없으므로, 확장은 자신이 import하는 FastAPI, LangChain, LangGraph 또는 기타 라이브러리를 직접 선언해야 합니다. [가져온 콘텐츠 검사 예제](examples/deerflow-extension-jev-screening/README.md)는 이러한 미들웨어 하나를 가시 도구 위치에 기여합니다. 운영자가 명시적으로 켜면 원격 도구 결과가 모델에 보여 주는 정제된 텍스트(`pii_redaction`이 활성화된 경우 PII가 마스킹된 텍스트)를 분류하고, 수명 주기 상태 업데이트를 통해 권고성 경고를 추가합니다. 이 예제는 확장 계약만 import합니다.
 
 풀스택 기여는 [플러그인 API](docs/full-stack-plugins.md)를 통해 브라우저 페이지, 대화 액션, 인증된 백엔드 작업, 모델 도구를 추가로 제공할 수 있습니다. 독립된 [북마크 예제](examples/deerflow-extension-bookmarks/README.md)는 영속 사용자 데이터, 자체 사이드바 페이지, 읽기 전용 검색 도구를 갖춘 하나의 패키지를 보여 줍니다. 모델 도구는 `response_format="content_and_artifact"`와 `PluginToolResult`(extension-api 0.2.6)로 별도의 구조화된 아티팩트를 옵트인할 수 있습니다. 아티팩트 객체의 키는 모든 깊이에서 문자열이어야 합니다. 기존 도구는 JSON 텍스트 출력을 그대로 유지합니다. [로컬 검색 예제](examples/deerflow-extension-retrieval/README.md)는 외부 지식 서비스 없이 범위가 제한된 읽기 전용 결과와 체크포인트 재생을 보여 줍니다. 아티팩트가 인용을 자동으로 활성화하지는 않습니다. 이 예제는 지역화된 설치 안내 메타데이터와 함께 확장 카탈로그에도 표시됩니다. 북마크를 다시 열면 호스트를 통해 대화의 현재 에이전트가 해석되므로, 커스텀 에이전트 대화는 이전 북마크를 포함해 원래의 채팅 진입점을 유지합니다. 독립된 [에이전트 팀 예제](examples/deerflow-extension-agent-teams/README.md)는 완전한 커스텀 에이전트들이 네이티브 `@` 멘션, 공유 메시지, 비동기 피어 요청을 통해 협업하도록 하며, 별도의 팀 페이지와 영속 멤버 대화를 제공합니다. Capability Center는 설치 전에도 이 예제를 지역화된 설치 정보와 함께 나열합니다. 설치와 활성화는 계속 배포 측에서 제어하며, Capability Center는 플러그인 정보와 상태를 보여 줍니다. 브라우저 코드는 신뢰된 동일 출처(same-origin) 코드로 실행됩니다. 브라우저 API와 인라인 `BrowserModule.code` 전송 방식은 실험적입니다. 플러그인 가이드는 매니페스트와 패키지화된 정적 리소스로 나아가는 추가 경로를 설명합니다.
 
@@ -1344,7 +1344,7 @@ Gateway 기반 실행(run)이 끝날 때마다 DeerFlow는 thinking을 사용하
 
 `agent_storage.backend: db`로 마이그레이션된 커스텀 에이전트는 가져오기 도구(importer)가 롤백을 위해 기존 파일을 보관하는 동안에도 Agent settings와 `update_agent`를 통해 계속 편집할 수 있습니다. 마이그레이션 절차는 [에이전트 저장소](backend/docs/CONFIGURATION.md#agent-storage)를 참고하세요.
 
-커스텀 에이전트는 Agents 갤러리에서 DeerFlow 사용자 간 또는 배포 간에 옮길 수도 있습니다. **Export Agent**는 버전이 지정된 `*.deerflow-agent.json` 패키지를 다운로드하며, 이 패키지에는 이식 가능한 정의와 `SOUL.md`가 담겨 있습니다. **Import Agent**는 해당 패키지를 검증한 뒤 받는 사용자가 로컬 이름을 정할 수 있게 합니다. 잘못된 패키지에는 검증 메시지가 표시되므로 패키지를 수정해 다시 시도할 수 있습니다. 가져오기는 기존 에이전트를 절대 덮어쓰지 않습니다. 패키지에는 모델, 도구/MCP, 스킬, 지식, 서브에이전트, 추론, 메모리 정책 설정이 포함되지만, 메모리 내용, 대화, 자격 증명, 운영자 소유의 GitHub 바인딩은 의도적으로 제외됩니다.
+커스텀 에이전트는 Agents 갤러리에서 InvestAgent 사용자 간 또는 배포 간에 옮길 수도 있습니다. **Export Agent**는 버전이 지정된 `*.deerflow-agent.json` 패키지를 다운로드하며, 이 패키지에는 이식 가능한 정의와 `SOUL.md`가 담겨 있습니다. **Import Agent**는 해당 패키지를 검증한 뒤 받는 사용자가 로컬 이름을 정할 수 있게 합니다. 잘못된 패키지에는 검증 메시지가 표시되므로 패키지를 수정해 다시 시도할 수 있습니다. 가져오기는 기존 에이전트를 절대 덮어쓰지 않습니다. 패키지에는 모델, 도구/MCP, 스킬, 지식, 서브에이전트, 추론, 메모리 정책 설정이 포함되지만, 메모리 내용, 대화, 자격 증명, 운영자 소유의 GitHub 바인딩은 의도적으로 제외됩니다.
 
 서브에이전트는 최적화 수단이며, 복잡한 요청에 대한 기본 대응이 아닙니다.
 
@@ -1635,7 +1635,7 @@ DeerMem은 `memory.backend_config.fact_dedup_enabled: true`와 `fact_dedup_simil
 이 로컬의 결정적 단어/CJK 바이그램 휴리스틱은 같은 사용자, 에이전트, 카테고리 안에서만 팩트를 비교하며, 의미적 동등성 탐지가 아닙니다.
 병합 시에는 기존 ID, 텍스트, 생성 시각을 유지하고, 신뢰도를 최댓값으로 올리며, 신뢰도가 높아질 때만 소스를 갱신합니다. 명시적인 수정 교체와 삭제가 제안된 팩트는 근사 중복 병합으로부터 보호됩니다. 병합은 사용자 확인으로 간주되지 않습니다. 이 게이트는 기본적으로 꺼져 있으며, 대상 팩트 업데이트에는 영향을 주지 않습니다.
 
-DeerFlow에는 선택 사항인 `openviking` 메모리 백엔드도 포함되어 있습니다. 이 백엔드는 공식 `langchain-openviking` 패키지를 사용해 완료된 턴을 안정적인 OpenViking Session에 기록하고, 프롬프트 주입을 위해 메모리를 회상하며, DeerMem은 기본값으로 그대로 둡니다. 초기 통합은 `memory.mode: middleware`에서 자격 증명에 묶인 OpenViking USER API 키 하나를 가진 DeerFlow 사용자 한 명을 지원하며, `ovcli.conf`의 임의 HTTP 헤더를 상속하지 않습니다.
+DeerFlow에는 선택 사항인 `openviking` 메모리 백엔드도 포함되어 있습니다. 이 백엔드는 공식 `langchain-openviking` 패키지를 사용해 완료된 턴을 안정적인 OpenViking Session에 기록하고, 프롬프트 주입을 위해 메모리를 회상하며, DeerMem은 기본값으로 그대로 둡니다. 초기 통합은 `memory.mode: middleware`에서 자격 증명에 묶인 OpenViking USER API 키 하나를 가진 InvestAgent 사용자 한 명을 지원하며, `ovcli.conf`의 임의 HTTP 헤더를 상속하지 않습니다.
 설정, 동작, 현재의 한계는 [OpenViking 메모리 백엔드](docs/OPENVIKING.md)를 참고하세요.
 
 DeerFlow는 세션을 넘나들며 사용자의 프로필, 선호, 축적된 지식에 대한 영속 메모리를 구축합니다. 많이 사용할수록 작성 스타일, 기술 스택, 반복적인 워크플로 등 사용자를 더 잘 알게 됩니다. 메모리는 로컬에 저장되며 사용자의 통제 아래에 있습니다.
@@ -1803,14 +1803,14 @@ DeerFlow는 이제 워크스페이스에 일급(first-class) 기능으로 예약
 - 기존 작업을 실행 기록은 복사하지 않고 편집 가능한 초안으로 생성 양식에 복제할 수 있습니다
 - `once`, `cron`, `interval` 일정을 지원합니다
 - 간격 작업을 편집하거나 복제해도 간격을 명시적으로 변경하기 전까지는 저장된 주기가 유지되며, 운영자의 스케줄러 설정이 허용하는 1분 미만 간격도 마찬가지입니다
-- 백그라운드 예약 실행을 비대화형 DeerFlow 실행으로 수행합니다(여기서는 `ask_clarification`이 노출되지 않습니다)
+- 백그라운드 예약 실행을 비대화형 InvestAgent 실행으로 수행합니다(여기서는 `ask_clarification`이 노출되지 않습니다)
 - 재사용하는 스레드나 전역 실행 예산이 사용 중이면 실행 시점이 된 실행을 `queued`로 영속 저장한 뒤, 여유가 생기면 시작합니다. 대기 중인 회차는 Gateway가 재시작되어도 유지되며 `scheduler.queue_timeout_seconds`가 지나면 실패합니다
 - 작업 소유자 간에 실행 슬롯을 공정하게 나눕니다. 한 소유자는 동시에 시작 중이거나 실행 중인 예약 실행을 최대 `scheduler.max_concurrent_runs_per_user`개까지 가질 수 있으며(기본값 2, `max_concurrent_runs`를 넘을 수 없음, `0`이면 소유자별 상한이 꺼짐), 대기 큐는 소유자별로 번갈아 처리되므로 한 소유자의 적체가 다른 소유자의 실행을 막지 않습니다. `scheduler.queue_timeout_seconds`보다 오래 기다린 실행은 건너뛰며, 그 기록에는 "Skipped: it waited too long for a free slot"이 표시됩니다
 - 회차가 `queued`, `launching`, `running` 상태인 동안에는 작업 정의를 고정하므로, 영속 회차가 다른 프롬프트, 스레드, 일정을 조용히 반영하는 일이 없습니다. 작업을 일시 중지 상태로 전환하거나 삭제하면 기존의 대기 중인 회차가 취소되지만, `launching`/`running` 작업은 이러한 변경을 재시도하기 전에 완료되어야 하며, 명시적인 수동 트리거는 일시 중지된 일정을 재개하지 않고도 여전히 대기했다가 실행될 수 있습니다
 - 작업을 일시 중지, 재개, 트리거, 기록 조회, 삭제할 수 있습니다
 - 상태/유형 필터 및 현재 스레드 범위와 함께 작업 제목이나 프롬프트를 검색할 수 있습니다.
-- 예약된 작업을 일반 DeerFlow 실행 수명 주기를 통해 실행합니다
-- `channel_connections.enabled: true`이면, 능동 푸시(proactive push)를 지원하는 앱(현재 WeCom, Feishu/Lark, WeChat, QQ 개인 채팅)에서 작업 소유자의 연결된 IM 식별 정보로 예약 작업 업데이트를 보냅니다(아웃박스(outbox) + 전달 워커). Settings → Notifications에서 연결된 앱별로 능동 업데이트를 제어하며, 이는 브라우저 알림 및 일반 채팅 응답과는 독립적입니다. 각 회차는 대상마다 최대 하나의 메시지를 큐에 넣습니다. 해당하는 경우는 완료, 실패 또는 목표 미달성 실행, 목표를 세 번 놓친 뒤의 자동 일시 중지, 에이전트에 의한 일시 중지(중지 조건 충족), 작업 종료(`max_runs`를 모두 소진, `end_at` 도달)입니다. 여러 경우가 겹치면 일시 중지 또는 종료가 우선하며, 이때도 마지막 실행 결과를 함께 알려줍니다. 일회성 작업은 해당 실행의 결과만 보냅니다. 메시지는 결과를 기록하는 것과 같은 데이터베이스 트랜잭션에서 큐에 들어가므로, 크래시나 리스 상실 후에 마무리된 실행이 같은 대상에 중복 알림을 넣지 않습니다. 메시지는 그 자체만으로 이해할 수 있도록 웹 UI 언어(없으면 `channel_connections.notification_locale`)로 작성되며, 작업 제목, 발생한 일, 에이전트가 응답한 경우 한 줄 결과, 그리고 "Open DeerFlow → Scheduled tasks for details."를 담고, ID나 링크는 포함하지 않습니다. 단순 수동 "run now" 시험 실행과 중단된 실행은 알림을 보내지 않으며, 완료된 실행 없이 끝나는 회차(시작 오류, 큐 타임아웃, 재시작으로 인한 중단)도 마찬가지입니다. 채널/전송 계층 장애 시에는 재시도 횟수를 소진하지 않고 최대 약 하루 동안 전달을 보류합니다. 플랫폼이 거부하면 약 15분 동안 재시도한 뒤 `failed`로 확정됩니다. 전달 대기 중에 연결을 해제한 식별 정보에는 절대 푸시하지 않으며, 해당 행은 `failed`로 폐기됩니다.
+- 예약된 작업을 일반 InvestAgent 실행 수명 주기를 통해 실행합니다
+- `channel_connections.enabled: true`이면, 능동 푸시(proactive push)를 지원하는 앱(현재 WeCom, Feishu/Lark, WeChat, QQ 개인 채팅)에서 작업 소유자의 연결된 IM 식별 정보로 예약 작업 업데이트를 보냅니다(아웃박스(outbox) + 전달 워커). Settings → Notifications에서 연결된 앱별로 능동 업데이트를 제어하며, 이는 브라우저 알림 및 일반 채팅 응답과는 독립적입니다. 각 회차는 대상마다 최대 하나의 메시지를 큐에 넣습니다. 해당하는 경우는 완료, 실패 또는 목표 미달성 실행, 목표를 세 번 놓친 뒤의 자동 일시 중지, 에이전트에 의한 일시 중지(중지 조건 충족), 작업 종료(`max_runs`를 모두 소진, `end_at` 도달)입니다. 여러 경우가 겹치면 일시 중지 또는 종료가 우선하며, 이때도 마지막 실행 결과를 함께 알려줍니다. 일회성 작업은 해당 실행의 결과만 보냅니다. 메시지는 결과를 기록하는 것과 같은 데이터베이스 트랜잭션에서 큐에 들어가므로, 크래시나 리스 상실 후에 마무리된 실행이 같은 대상에 중복 알림을 넣지 않습니다. 메시지는 그 자체만으로 이해할 수 있도록 웹 UI 언어(없으면 `channel_connections.notification_locale`)로 작성되며, 작업 제목, 발생한 일, 에이전트가 응답한 경우 한 줄 결과, 그리고 "Open InvestAgent → Scheduled tasks for details."를 담고, ID나 링크는 포함하지 않습니다. 단순 수동 "run now" 시험 실행과 중단된 실행은 알림을 보내지 않으며, 완료된 실행 없이 끝나는 회차(시작 오류, 큐 타임아웃, 재시작으로 인한 중단)도 마찬가지입니다. 채널/전송 계층 장애 시에는 재시도 횟수를 소진하지 않고 최대 약 하루 동안 전달을 보류합니다. 플랫폼이 거부하면 약 15분 동안 재시도한 뒤 `failed`로 확정됩니다. 전달 대기 중에 연결을 해제한 식별 정보에는 절대 푸시하지 않으며, 해당 행은 `failed`로 폐기됩니다.
 - 실행 기록을 50개 단위 페이지로 탐색할 수 있습니다. 이전 페이지에서는 자동 새로 고침이 일시 중지되며, 최신 실행으로 명시적으로 돌아갈 수 있습니다. 개수는 읽기에 성공한 뒤에만 표시되며, 로딩 중이거나 읽기에 실패한 경우를 실행 0건으로 보고하지 않습니다.
 
 파생된 실행 요약은 텍스트 길이를 제한하기 전에 앞부분의 인라인 `<think>` 추론을 생략하므로, 긴 사고 과정이 미리보기나 예약 알림에서 실제 답변을 밀어내지 않습니다. 원본 응답 기록과 답변 안의 리터럴 태그는 변경되지 않으며, 이전에 저장된 실행 요약은 다시 작성되지 않습니다.
@@ -1907,7 +1907,7 @@ WeChat은 바인딩 후 현재 대화 컨텍스트를 안전하게 저장하기 
 
 병렬 동기 stdio MCP 호출은 각자의 이벤트 루프에서 독립된 세션을 사용합니다. 서로의 연결을 취소하지는 않지만 서버 측 상태를 공유하지도 않으며, 세션을 재사용하려면 같은 루프를 사용해야 합니다. 자세한 내용은 [MCP 세션 참고 사항](backend/docs/MCP_SERVER.md)을 확인하세요. 수동으로 관리하는 이벤트 루프는 닫기 전에 대기 중인 세션 소유자를 모두 정리(drain)해야 하며, 일반적인 `asyncio.run()` 경로는 이를 자동으로 수행합니다.
 
-![DeerFlow TUI](docs/tui/tui-preview.svg)
+![InvestAgent TUI](docs/tui/tui-preview.svg)
 
 ```bash
 uv pip install 'deerflow-harness[tui]'        # optional 'textual' dependency
@@ -2012,12 +2012,12 @@ DeerFlow는 오픈 소스 커뮤니티의 놀라운 성과 위에 만들어졌�
 
 ### 주요 기여자
 
-비전과 열정, 헌신으로 이 프로젝트에 생명을 불어넣은 `DeerFlow`의 핵심 저자들에게 진심으로 감사드립니다:
+비전과 열정, 헌신으로 이 프로젝트에 생명을 불어넣은 `InvestAgent`의 핵심 저자들에게 진심으로 감사드립니다:
 
 - **[Daniel Walnut](https://github.com/hetaoBackend/)**
 - **[Henry Li](https://github.com/magiccube/)**
 
-여러분의 변함없는 헌신과 전문성은 DeerFlow 성공의 원동력이었습니다. 이 여정의 선두에 여러분이 있어 영광입니다.
+여러분의 변함없는 헌신과 전문성은 InvestAgent 성공의 원동력이었습니다. 이 여정의 선두에 여러분이 있어 영광입니다.
 
 ## Star History
 

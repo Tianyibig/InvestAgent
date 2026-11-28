@@ -1,6 +1,6 @@
 # SSO / OIDC Authentication
 
-DeerFlow supports single sign-on (SSO) via any OpenID Connect (OIDC) 2.0 compliant provider. This includes Keycloak, Google Workspace, Azure AD, Okta, and many others.
+InvestAgent supports single sign-on (SSO) via any OpenID Connect (OIDC) 2.0 compliant provider. This includes Keycloak, Google Workspace, Azure AD, Okta, and many others.
 
 ## Architecture
 
@@ -49,11 +49,11 @@ Browser                      Gateway                    OIDC Provider
 - **State via signed cookie** — No server-side session store or Redis needed. The OIDC state (provider, nonce, code_verifier, next path) is signed with the JWT secret and stored in an HttpOnly cookie.
 - **PKCE + nonce enabled by default** — Even though confidential clients could use `client_secret`, PKCE provides an extra layer of security.
 - **No email auto-linking** — a pre-existing local (email/password) account is never auto-linked to an SSO identity. If the IdP-reported email collides with an existing local account, the SSO login is blocked with a 409 so an SSO login can never seize a password account.
-- **Existing DeerFlow JWT** — After successful OIDC authentication, DeerFlow creates its own JWT session cookie. The OIDC provider's tokens are never exposed to the browser.
+- **Existing InvestAgent JWT** — After successful OIDC authentication, InvestAgent creates its own JWT session cookie. The OIDC provider's tokens are never exposed to the browser.
 
 ## Configuration
 
-For local development, open DeerFlow through nginx at `http://localhost:2026`.
+For local development, open InvestAgent through nginx at `http://localhost:2026`.
 Register the example's `redirect_uri` with the provider exactly as shown. Leave
 `frontend_base_url` unset so the Gateway returns the browser to the same origin
 after sign-in.
@@ -89,7 +89,7 @@ Alternatively, add the secret to `.env` in the repository root:
 KEYCLOAK_CLIENT_SECRET=your-client-secret
 ```
 
-### Step 3: Start DeerFlow from the repository root
+### Step 3: Start InvestAgent from the repository root
 
 ```bash
 make dev
@@ -113,7 +113,7 @@ providers:
     token_endpoint_auth_method: "client_secret_post"  # client_secret_post, client_secret_basic, or none
 
     # User provisioning
-    auto_create_users: true         # Auto-create DeerFlow account on first SSO login (default: true)
+    auto_create_users: true         # Auto-create InvestAgent account on first SSO login (default: true)
     require_verified_email: true    # Reject logins without verified email (default: true)
     allowed_email_domains: []       # Restrict to specific domains (default: no restriction)
     admin_emails: []                # Auto-grant admin role to these emails (default: none)
@@ -148,7 +148,7 @@ providers:
 ```
 
 Authorization endpoints may include provider query parameters, such as
-`prompt=login` in the example above. DeerFlow preserves existing encoded query
+`prompt=login` in the example above. InvestAgent preserves existing encoded query
 values, blank values and repeated parameters when appending the login request
 parameters. This applies to both discovered endpoints and configured overrides.
 
@@ -210,7 +210,7 @@ docker run -d \
 6. Set a password (e.g. `testpass123`)
 7. Set **Temporary**: Off
 
-### 4. Configure DeerFlow
+### 4. Configure InvestAgent
 
 Add to `config.yaml`:
 
@@ -249,7 +249,7 @@ make dev
 2. Click **Continue with Keycloak**
 3. You'll be redirected to Keycloak's login page
 4. Log in with `testuser` / `testpass123`
-5. After successful authentication, you'll be redirected back to the DeerFlow workspace
+5. After successful authentication, you'll be redirected back to the InvestAgent workspace
 
 ## Account Settings for SSO Users
 
@@ -257,7 +257,7 @@ When a user logs in via SSO, the account settings page detects this (via the `oa
 
 - Displays the SSO provider name (e.g. "Keycloak") in the profile section
 - Replaces the password change form with an informational message
-- Password changes must be done through the SSO provider, not DeerFlow
+- Password changes must be done through the SSO provider, not InvestAgent
 
 The backend also rejects password change requests for OAuth users:
 

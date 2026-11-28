@@ -90,7 +90,7 @@ def validate_mcp_task_config_snapshot(extensions_config: ExtensionsConfig) -> No
     if current_interceptors != startup_interceptors:
         changed.append("mcpInterceptors")
     names = ", ".join(changed) or "<unknown>"
-    raise McpTaskConfigurationError(f"MCP task-enabled server configuration changed after Gateway startup ({names}); restart DeerFlow before using durable task tools")
+    raise McpTaskConfigurationError(f"MCP task-enabled server configuration changed after Gateway startup ({names}); restart InvestAgent before using durable task tools")
 
 
 def get_mcp_task_oauth_token_manager(extensions_config: ExtensionsConfig) -> OAuthTokenManager:
@@ -130,7 +130,7 @@ def validate_mcp_task_runtime_configuration(
     if configured_task_toolset_count(extensions_config) == 0:
         return
     if not bool(getattr(mcp_tasks_config, "enabled", False)):
-        raise McpTaskConfigurationError("MCP task_toolsets are configured, so mcp_tasks.enabled=true is required; DeerFlow will not silently expose these tools as synchronous calls.")
+        raise McpTaskConfigurationError("MCP task_toolsets are configured, so mcp_tasks.enabled=true is required; InvestAgent will not silently expose these tools as synchronous calls.")
     if not repository_available:
         raise McpTaskConfigurationError("MCP task_toolsets require durable SQL persistence. Set database.backend to 'sqlite' or 'postgres'; the memory backend cannot recover tasks after restart.")
     from deerflow.mcp.client import build_server_params

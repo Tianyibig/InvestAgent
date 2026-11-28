@@ -26,7 +26,7 @@ requests are blocked. The page rechecks availability on return and every
 
 Links and inline images for copied output files retain queries and fragments
 such as `report.pdf#page=3` or `charts.svg#detail`. The file must appear in the
-snapshot's artifact manifest. DeerFlow drops the reserved `download` parameter
+snapshot's artifact manifest. InvestAgent drops the reserved `download` parameter
 from copied links and images so they can open inline. Use the snapshot's
 download action to save the file. External images remain blocked.
 

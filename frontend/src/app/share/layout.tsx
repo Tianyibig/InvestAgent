@@ -7,7 +7,7 @@ import { I18nProvider } from "@/core/i18n/context";
 import { detectLocaleServer } from "@/core/i18n/server";
 
 export const metadata: Metadata = {
-  title: "Shared conversation · DeerFlow",
+  title: "Shared conversation · InvestAgent",
   robots: { index: false, follow: false },
   referrer: "no-referrer",
 };

@@ -67,7 +67,7 @@ backend close plus a safety margin. The flush timeout does not bound `close()`:
 custom backends must make close quick or internally bounded, or shutdown can wait
 until the process is forcibly terminated.
 
-Most agents forget everything the moment a conversation ends. DeerFlow remembers.
+Most agents forget everything the moment a conversation ends. InvestAgent remembers.
 
 DeerMem can optionally suppress near-duplicate extracted facts with
 `memory.backend_config.fact_dedup_enabled: true` and
@@ -80,7 +80,7 @@ correction replacements and facts proposed for removal are protected from
 near-duplicate merging. A merge does not count as user confirmation. The gate
 is off by default and does not affect targeted fact updates.
 
-DeerFlow also includes an optional `openviking` memory backend. It uses the
+InvestAgent also includes an optional `openviking` memory backend. It uses the
 official `langchain-openviking` package to capture completed turns into stable
 OpenViking Sessions and recall memory for prompt injection while leaving
 DeerMem as the default. It runs in `memory.mode: middleware` with either
@@ -92,7 +92,7 @@ OpenViking `api_key` mode, and does not inherit arbitrary HTTP headers from
 See [OpenViking memory backend](../../docs/OPENVIKING.md) for its configuration,
 behavior, and current boundaries.
 
-Across sessions, DeerFlow builds a persistent memory of your profile, preferences, and accumulated knowledge. The more you use it, the better it knows you — your writing style, your technical stack, your recurring workflows. Memory is stored locally and stays under your control.
+Across sessions, InvestAgent builds a persistent memory of your profile, preferences, and accumulated knowledge. The more you use it, the better it knows you — your writing style, your technical stack, your recurring workflows. Memory is stored locally and stays under your control.
 
 DeerMem and mem0 capture user inputs and final assistant replies. Assistant
 turns that request tools, including malformed or provider-raw calls, are
@@ -153,7 +153,7 @@ guaranteed/regular token budgets can still yield different final selections.
 
 Memory injection follows the configured operation mode. In `middleware` mode, DeerMem injects the user-global summaries and the selected agent's facts. Custom-agent bootstrap conversations use that agent's fact bucket as well, so setup details do not leak into the default agent's memory. In `tool` mode, the automatic `<memory>` block contains only the global `user` and `history` summaries; agent facts are retrieved explicitly through `memory_search`, avoiding duplicate automatic and tool-returned fact context. Setting `memory.injection_enabled: false` still disables the entire block in either mode. When a fact ID is already known, `memory_get(fact_id)` returns that exact fact from the current user and agent scope without searching by content. Missing or out-of-scope IDs return a not-found error; backends without the required read or agent-scope capability return an unsupported error.
 
-An individual Custom Agent can opt out of memory without changing the global setting. Add `memory_enabled: false` to that agent's `users/{user_id}/agents/{name}/config.yaml`. The agent still receives the current-date reminder, but DeerFlow does not inject recalled memory, queue passive or summarization-driven memory updates (including manual `/compact`), expose memory tools, or add memory-tool instructions for that agent. If an existing agent is switched off, its previously injected memory block is removed from checkpoint state before the next model call while its date reminder and conversation remain. Omitting the field (or setting it to `true`) preserves the existing global `memory` behavior.
+An individual Custom Agent can opt out of memory without changing the global setting. Add `memory_enabled: false` to that agent's `users/{user_id}/agents/{name}/config.yaml`. The agent still receives the current-date reminder, but InvestAgent does not inject recalled memory, queue passive or summarization-driven memory updates (including manual `/compact`), expose memory tools, or add memory-tool instructions for that agent. If an existing agent is switched off, its previously injected memory block is removed from checkpoint state before the next model call while its date reminder and conversation remain. Omitting the field (or setting it to `true`) preserves the existing global `memory` behavior.
 
 `DeerFlowClient(agent_name=...)` manages memory in the same bucket the agent
 uses in conversations. An unnamed client uses the default bucket. Named clients
@@ -186,6 +186,6 @@ PYTHONPATH=. python scripts/migrate_memory_markdown.py --all-users
 PYTHONPATH=. python scripts/migrate_memory_markdown.py --storage-path /path/to/deerflow-home --user-id 'test@example.com'
 ```
 
-The v1-to-v2 storage migration is one-way for a running application: pre-PR code does not read Markdown facts. Before upgrading a persistent deployment, stop DeerFlow and take a filesystem snapshot or full backup of the configured memory storage root. The migration also durably retains each destructive JSON source beside the original path as `{manifest_filename}.v1.bak` before writing v2 data; an existing mismatched backup or a backup-write failure stops migration without modifying the v1 source. This local backup preserves pre-migration data but is not a substitute for a full snapshot and does not contain facts created after the upgrade.
+The v1-to-v2 storage migration is one-way for a running application: pre-PR code does not read Markdown facts. Before upgrading a persistent deployment, stop InvestAgent and take a filesystem snapshot or full backup of the configured memory storage root. The migration also durably retains each destructive JSON source beside the original path as `{manifest_filename}.v1.bak` before writing v2 data; an existing mismatched backup or a backup-write failure stops migration without modifying the v1 source. This local backup preserves pre-migration data but is not a substitute for a full snapshot and does not contain facts created after the upgrade.
 
 `--user-id` may be repeated. `--all-users` discovers the existing directory-safe buckets below the selected storage root; standalone integrations that passed raw IDs containing characters such as `@` should use the original value with `--user-id`. A failed user's migration is reported without hiding the rest of the audit, and the command exits non-zero when any user fails. The automatic first-read path remains enabled, so running this CLI is not required for startup.

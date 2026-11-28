@@ -1,4 +1,4 @@
-# 🦌 DeerFlow - 2.0
+# InvestAgent
 
 [English](./README.md) | 中文 | [日本語](./README_ja.md) | [Français](./README_fr.md) | [Русский](./README_ru.md) | [Português](./README_pt.md) | [한국어](./README_ko.md)
 
@@ -7,36 +7,35 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 <a href="https://trendshift.io/repositories/14699" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14699" alt="bytedance%2Fdeer-flow | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-> 2026 年 2 月 28 日，DeerFlow 2 发布后登上 GitHub Trending 第 1 名。非常感谢社区的支持，这是大家一起做到的。
+> 2026 年 2 月 28 日，上游项目 https://github.com/bytedance/deer-flow 在版本 2 发布后登上 GitHub Trending 第 1 名。
 
 # InvestAgent
 
-**InvestAgent** 是面向**单人行业研究与投资分析**的平台，基于
-[DeerFlow](https://github.com/bytedance/deer-flow)（开源 super agent harness）
-分叉而来。它**不是**交易/券商系统，也**不是**通用 DeerFlow 部署：买方投研技能在
+**InvestAgent** 是面向**单人行业研究与投资分析**的平台，运行时分叉自
+[上游项目](https://github.com/bytedance/deer-flow)。它**不是**交易/券商系统：买方投研技能在
 [`skills/public/`](skills/public/)（投研协议、个股笔记、IC 备忘录、赛道扫描、
 持仓复盘、反推 DCF、证据链、A/HK 行情）。详见
 [投研指南](docs/guide/invest-research.md)。
 
-下文保留 DeerFlow 运行时说明；本仓库的产品定位是 InvestAgent。
+下文说明该运行时。本仓库的产品名称是 InvestAgent。
 
 https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 > [!NOTE]
-> **上游：** DeerFlow 2.0 是一次彻底重写。最初的 Deep Research 框架在
+> 智能体运行时来自上游项目
+> [deer-flow](https://github.com/bytedance/deer-flow)（MIT），其中包括
 > [`1.x` 分支](https://github.com/bytedance/deer-flow/tree/main-1.x)。
-> [deerflow.tech](https://deerflow.tech) 是**上游 DeerFlow** 的站点与演示，
-> 不是 InvestAgent 的主页。
+> 本仓库的产品名称是 InvestAgent。
 
 ## 姐妹项目
 
 <img width="446" height="280" alt="image" align="middle" src="https://github.com/user-attachments/assets/077edef4-d560-41af-bb0d-d0a5f14fcc20" />
 
-- [**LLM Space**](https://github.com/deer-flow/llm-space) - 认识 DeerFlow 背后的秘密武器——一款桌面工具，用于原型化 agent 想法、检查 harness 的每个步骤、回放失败用例并基准测试性能。
+- [**LLM Space**](https://github.com/deer-flow/llm-space) - 认识 InvestAgent 背后的秘密武器——一款桌面工具，用于原型化 agent 想法、检查 harness 的每个步骤、回放失败用例并基准测试性能。
 
 ## BytePlus Agent Plan 与火山引擎方舟 Coding Plan
 
-- **BytePlus Agent Plan（个人版 & 企业版）**：一把 API Key 打通 DeerFlow 全链路——旗舰对话模型（`dola-seed-2.1-turbo`、`deepseek-v4-pro`、`deepseek-v4.1-flash`）、**Seedream 5.0/5.5** 生图与 PPT 视觉生成（`image-generation` / `ppt-generation`），以及 **Seedance 2.5** 原生音画同步视频生成（`video-generation`，Large / Max / 企业共享包可用），统一以透明的 AFP（Agent Fuel Points）计量。
+- **BytePlus Agent Plan（个人版 & 企业版）**：一把 API Key 打通 InvestAgent 全链路——旗舰对话模型（`dola-seed-2.1-turbo`、`deepseek-v4-pro`、`deepseek-v4.1-flash`）、**Seedream 5.0/5.5** 生图与 PPT 视觉生成（`image-generation` / `ppt-generation`），以及 **Seedance 2.5** 原生音画同步视频生成（`video-generation`，Large / Max / 企业共享包可用），统一以透明的 AFP（Agent Fuel Points）计量。
 - [了解 BytePlus Agent Plan](https://www.byteplus.com/en/activity/agentplan?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow) · [控制台](https://console.byteplus.com/ark/region:ap-southeast-1/subscription/agent-plan?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow) · [个人版文档](https://console.byteplus.com/ark/region:ap-southeast-1/docs/agent-plan-personal-plan-overview?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow) · [企业版文档](https://console.byteplus.com/ark/region:ap-southeast-1/docs/agent-plan-enterprise-plan-overview?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow)
 - [中国大陆地区的开发者请点击这里（火山引擎 Coding Plan）](https://www.volcengine.com/activity/codingplan?utm_campaign=deer_flow&utm_content=deer_flow&utm_medium=devrel&utm_source=OWO&utm_term=deer_flow)
 
@@ -44,7 +43,7 @@ https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 InfoQuest 的 reader、网页搜索与图片搜索采用 30 秒 HTTP 连接/读取非活动超时。抓取配置中的 `timeout` 和 `navigation_timeout` 仍为独立的服务端参数，不控制本地 HTTP 超时。
 
-DeerFlow 新近集成了 BytePlus 自研的智能搜索与抓取工具集——[InfoQuest（支持免费在线体验）](https://docs.byteplus.com/en/docs/InfoQuest/What_is_Info_Quest)
+InvestAgent 新近集成了 BytePlus 自研的智能搜索与抓取工具集——[InfoQuest（支持免费在线体验）](https://docs.byteplus.com/en/docs/InfoQuest/What_is_Info_Quest)
 
 <a href="https://docs.byteplus.com/en/docs/InfoQuest/What_is_Info_Quest" target="_blank">
   <img
@@ -54,7 +53,7 @@ DeerFlow 新近集成了 BytePlus 自研的智能搜索与抓取工具集——[
 
 ## 目录
 
-- [🦌 DeerFlow - 2.0](#-deerflow---20)
+- [InvestAgent](#investagent)
   - [姐妹项目](#姐妹项目)
   - [BytePlus Agent Plan 与火山引擎方舟 Coding Plan](#byteplus-agent-plan-与火山引擎方舟-coding-plan)
   - [InfoQuest](#infoquest)
@@ -223,9 +222,9 @@ YAML 同名模型优先，已有任务保留原配置快照。托管模型使用
 
    如果要让 OpenAI 模型走 `/v1/responses`，继续使用 `langchain_openai:ChatOpenAI`，并设置 `use_responses_api: true` 和 `output_version: responses/v1`。
 
-   如果某个模型的 provider 约定与 DeerFlow 通用的 thinking/effort 假设不同，可以为该模型声明 `reasoning:` 块（thinking 为 `unsupported`/`optional`/`required`、允许的 effort 取值及别名和默认值、payload 方言、推理历史要求）。Setup Wizard 内置的 Z.AI GLM-5.3-Flash 配置就使用了它：前台和后台调用都会保持 thinking 开启，effort 选择器只提供该模型自己的 `low`/`high`/`max` 档位。未声明该块的配置行为保持不变。具体格式与等价的手动配置见 `config.example.yaml`。
+   如果某个模型的 provider 约定与 InvestAgent 通用的 thinking/effort 假设不同，可以为该模型声明 `reasoning:` 块（thinking 为 `unsupported`/`optional`/`required`、允许的 effort 取值及别名和默认值、payload 方言、推理历史要求）。Setup Wizard 内置的 Z.AI GLM-5.3-Flash 配置就使用了它：前台和后台调用都会保持 thinking 开启，effort 选择器只提供该模型自己的 `low`/`high`/`max` 档位。未声明该块的配置行为保持不变。具体格式与等价的手动配置见 `config.example.yaml`。
 
-   对于 vLLM 0.19.0，请使用 `deerflow.models.vllm_provider:VllmChatModel`。对于 Qwen 风格的推理模型，DeerFlow 通过 `extra_body.chat_template_kwargs.enable_thinking` 开关推理，并在多轮 tool-call 对话中保留 vLLM 非标准的 `reasoning` 字段。旧版 `thinking` 配置会自动规范化以保持向后兼容。推理模型可能还需要在启动 vLLM 服务时加上 `--reasoning-parser ...` 参数。如果你的本地 vLLM 部署接受任意非空 API key，可以把 `VLLM_API_KEY` 设为一个占位值。
+   对于 vLLM 0.19.0，请使用 `deerflow.models.vllm_provider:VllmChatModel`。对于 Qwen 风格的推理模型，InvestAgent 通过 `extra_body.chat_template_kwargs.enable_thinking` 开关推理，并在多轮 tool-call 对话中保留 vLLM 非标准的 `reasoning` 字段。旧版 `thinking` 配置会自动规范化以保持向后兼容。推理模型可能还需要在启动 vLLM 服务时加上 `--reasoning-parser ...` 参数。如果你的本地 vLLM 部署接受任意非空 API key，可以把 `VLLM_API_KEY` 设为一个占位值。
 
    CLI-backed provider 配置示例：
 
@@ -266,7 +265,7 @@ YAML 同名模型优先，已有任务保留原配置快照。托管模型使用
        auto_approve_permissions: false
    ```
 
-   `mcode` 必须位于 Gateway 进程的 `PATH` 中；只安装在 Docker host 上并不会让 Gateway 容器内可用。DeerFlow 会通过 `invoke_acp_agent` 在每个 thread 独立的 ACP workspace 中调用 MCode，并转发已启用的 MCP server。处理不可信任务时请保持 `auto_approve_permissions: false`；只有在任务可信且确实需要 MCode 修改文件或执行命令时才启用它。
+   `mcode` 必须位于 Gateway 进程的 `PATH` 中；只安装在 Docker host 上并不会让 Gateway 容器内可用。InvestAgent 会通过 `invoke_acp_agent` 在每个 thread 独立的 ACP workspace 中调用 MCode，并转发已启用的 MCP server。处理不可信任务时请保持 `auto_approve_permissions: false`；只有在任务可信且确实需要 MCode 修改文件或执行命令时才启用它。
    - 在 macOS 上，如有需要可显式导出 Claude Code 的认证信息：
 
    ```bash
@@ -286,7 +285,7 @@ YAML 同名模型优先，已有任务保留原配置快照。托管模型使用
 
 #### 部署建议与资源规划
 
-可以先按下面的资源档位来选择 DeerFlow 的运行方式：
+可以先按下面的资源档位来选择 InvestAgent 的运行方式：
 
 | 部署场景 | 起步配置 | 推荐配置 | 说明 |
 |---------|-----------|------------|-------|
@@ -294,7 +293,7 @@ YAML 同名模型优先，已有任务保留原配置快照。托管模型使用
 | Docker 开发 / `make docker-start` | 4 vCPU、8 GB 内存、25 GB SSD 可用空间 | 8 vCPU、16 GB 内存 | 镜像构建、源码挂载和 sandbox 容器都会比纯本地模式更吃资源。 |
 | 长期运行服务 / `make up` | 8 vCPU、16 GB 内存、40 GB SSD 可用空间 | 16 vCPU、32 GB 内存 | 更适合共享环境、多 agent 任务、报告生成或更重的 sandbox 负载。 |
 
-- 上面的配置只覆盖 DeerFlow 本身；如果你还要本机部署本地大模型，请单独为模型服务预留资源。
+- 上面的配置只覆盖 InvestAgent 本身；如果你还要本机部署本地大模型，请单独为模型服务预留资源。
 - 持续运行的服务更推荐使用 Linux + Docker。macOS 和 Windows 更适合作为开发机或体验环境。
 - 如果 CPU 或内存长期打满，先降低并发会话或重任务数量，再考虑升级到更高一档配置。
 
@@ -368,7 +367,7 @@ make down   # 停止并移除容器
 
 #### 启动模式
 
-DeerFlow 将 Agent 运行时内嵌在 Gateway API 中运行。开发模式支持热更新；生产模式使用预构建的前端。
+InvestAgent 将 Agent 运行时内嵌在 Gateway API 中运行。开发模式支持热更新；生产模式使用预构建的前端。
 
 | | **本地前台** | **本地守护进程** | **Docker 开发** | **Docker 生产** |
 |---|---|---|---|---|
@@ -384,7 +383,7 @@ DeerFlow 将 Agent 运行时内嵌在 Gateway API 中运行。开发模式支持
 
 #### LangGraph Studio（可选）
 
-默认的 `make dev` 拓扑使用 DeerFlow 内嵌于 Gateway 的运行时，无需 LangGraph Studio。
+默认的 `make dev` 拓扑使用 InvestAgent 内嵌于 Gateway 的运行时，无需 LangGraph Studio。
 如需用独立开发服务器检查和测试已注册的 lead-agent 图，请在 `backend/` 目录下运行
 以下命令，以便 CLI 发现 `langgraph.json`：
 
@@ -394,33 +393,33 @@ uv run langgraph dev --allow-blocking
 ```
 
 该命令会打印本地 API 与 Studio UI 地址。这个内存态服务器仅用于开发与测试；
-该标志允许 DeerFlow 在处理本地 Studio 请求时执行同步的配置加载与图工厂初始化，
+该标志允许 InvestAgent 在处理本地 Studio 请求时执行同步的配置加载与图工厂初始化，
 不能当作生产服务器设置使用。本地 Studio 的认证会自动处理，连接无需自定义请求头。
-生产负载请使用 DeerFlow 文档中的生产启动模式或受支持的 LangSmith 部署。在这种
+生产负载请使用 InvestAgent 文档中的生产启动模式或受支持的 LangSmith 部署。在这种
 独立模式下，assistant 的归属与来源由服务器管理：Studio 可以发现已注册的图及其
 创建的 assistants，正常的 assistant 版本选择依然可用。在锁定态本地运行时加载其
-持久化开发存储之前，DeerFlow 会修复历史遗留的 assistant 行与版本历史，防止历史
+持久化开发存储之前，InvestAgent 会修复历史遗留的 assistant 行与版本历史，防止历史
 客户端元数据恢复服务器权限，或被运行时的启动清理流程丢弃。请用 `uv sync` 保持
 后端依赖同步；该兼容路径依赖已声明的 LangGraph 运行时版本，若持久化存储契约
 与预期不再匹配会记录警告。文档中的命令使用 LangGraph 基于文件的自定义应用加载器，
-DeerFlow 的回归测试也直接覆盖了它。
+InvestAgent 的回归测试也直接覆盖了它。
 
 对通过 LangGraph Studio 或直连 LangGraph Server 调用 `backend/langgraph.json`
-的工作流，DeerFlow 会消费该运行时发布的已认证身份，并将其用于 custom-agent
+的工作流，InvestAgent 会消费该运行时发布的已认证身份，并将其用于 custom-agent
 配置/SOUL、用户技能与技能策略、上传、线程数据以及记忆读写。这使经过认证的运行
 不会落入共享的 `default` 文件系统桶，且服务器管理的身份优先于普通客户端提供的
-`user_id` 值。诸如邮箱地址之类的外部身份会在访问 DeerFlow 存储前，被映射为稳定、
-抗碰撞且目录安全的用户 ID。默认的 DeerFlow 服务拓扑仍是上文描述的 Gateway 内嵌
+`user_id` 值。诸如邮箱地址之类的外部身份会在访问 InvestAgent 存储前，被映射为稳定、
+抗碰撞且目录安全的用户 ID。默认的 InvestAgent 服务拓扑仍是上文描述的 Gateway 内嵌
 运行时。
 
 Gateway 运行时会自动强制对 `/mnt/user-data/outputs` 下创建或修改的产物执行原生交付：`present_files` 必须至少展示一个由当前运行产出的输出，且终止时的 `run.delivery` 回执必须被持久化记录。虚拟产物路径会在产出该输出的同一已认证用户与线程范围内解析，然后再校验输出目录边界。未产出产物文件的运行保持普通对话行为。
 
-DeerFlow 的内置自定义事件同时通过两种 LangGraph 流式接口提供：原生客户端可以继续订阅 `stream_mode="custom"`，基于回调的集成则可以从 `astream_events(version="v2")` 以 `on_custom_event` 记录的形式消费相同载荷。回调事件名与载荷的 `type` 字段一致。
+InvestAgent 的内置自定义事件同时通过两种 LangGraph 流式接口提供：原生客户端可以继续订阅 `stream_mode="custom"`，基于回调的集成则可以从 `astream_events(version="v2")` 以 `on_custom_event` 记录的形式消费相同载荷。回调事件名与载荷的 `type` 字段一致。
 
 ### 进阶配置
 #### Sandbox 模式
 
-DeerFlow 支持多种沙箱模式。
+InvestAgent 支持多种沙箱模式。
 
 - **本地工作区**（通过工作区文件工具访问已配置的挂载）
 - **Docker 执行**（在隔离的 Docker 容器里运行 sandbox 代码）
@@ -433,19 +432,19 @@ Docker 开发时，服务启动行为会遵循 `config.yaml` 里的 sandbox 模�
 
 #### MCP Server
 
-DeerFlow 支持可配置的 MCP Server 和 skills，用来扩展能力。
+InvestAgent 支持可配置的 MCP Server 和 skills，用来扩展能力。
 对于 HTTP/SSE MCP Server，还支持 OAuth token 流程（`client_credentials`、`refresh_token`）。
 详细说明见 [MCP Server 指南](backend/docs/MCP_SERVER.md)。
 
 #### IM 渠道
 
-DeerFlow 支持从即时通讯应用接收任务。只要配置完成，对应渠道会自动启动，而且都不需要公网 IP。
+InvestAgent 支持从即时通讯应用接收任务。只要配置完成，对应渠道会自动启动，而且都不需要公网 IP。
 
-渠道不支持发送附件时，原回复会直接说明。部分或全部上传失败时，只要平台仍允许回复，DeerFlow 会补一条汇总提示，列出未发出的文件；全部成功时不重复确认。文件继续保留在 DeerFlow 会话中，回复窗口过期只记录失败，不自动切换为主动通知。
+渠道不支持发送附件时，原回复会直接说明。部分或全部上传失败时，只要平台仍允许回复，InvestAgent 会补一条汇总提示，列出未发出的文件；全部成功时不重复确认。文件继续保留在 InvestAgent 会话中，回复窗口过期只记录失败，不自动切换为主动通知。
 
 `channels/store.json` 含无效 UTF-8 字节时，采用与 JSON 格式损坏相同的恢复方式：SQL 迁移记录警告并跳过，保留原文件，让渠道可以继续启动；memory 后端的 JSON 存储记录警告并从空状态开始，在下次写入时替换该文件。
 
-DeerFlow 还可以在 workspace UI 里暴露用户自有的 IM 渠道连接。启用 `channel_connections` 后，已登录用户可以从侧边栏 / Settings > Channels 绑定 Telegram、Slack、Discord、Feishu/Lark、DingTalk、WeChat、WeCom、QQ 或 Buzz。它复用现有的 `channels.*` 出站传输，因此不需要公网 IP 或 provider 回调地址。入站 IM 消息会以所连接的 DeerFlow 用户身份运行。设置和安全注意事项参见 [IM Channel Connections](backend/docs/IM_CHANNEL_CONNECTIONS.md)。
+InvestAgent 还可以在 workspace UI 里暴露用户自有的 IM 渠道连接。启用 `channel_connections` 后，已登录用户可以从侧边栏 / Settings > Channels 绑定 Telegram、Slack、Discord、Feishu/Lark、DingTalk、WeChat、WeCom、QQ 或 Buzz。它复用现有的 `channels.*` 出站传输，因此不需要公网 IP 或 provider 回调地址。入站 IM 消息会以所连接的 InvestAgent 用户身份运行。设置和安全注意事项参见 [IM Channel Connections](backend/docs/IM_CHANNEL_CONNECTIONS.md)。
 
 | 渠道 | 传输方式 | 上手难度 |
 |---------|-----------|------------|
@@ -537,7 +536,7 @@ channels:
 
 说明：
 - `assistant_id: lead_agent` 会直接调用默认的 LangGraph assistant。
-- 如果 `assistant_id` 填的是自定义 agent 名，DeerFlow 仍然会走 `lead_agent`，同时把该值注入为 `agent_name`，这样 IM 渠道也会生效对应 agent 的 SOUL 和配置。
+- 如果 `assistant_id` 填的是自定义 agent 名，InvestAgent 仍然会走 `lead_agent`，同时把该值注入为 `agent_name`，这样 IM 渠道也会生效对应 agent 的 SOUL 和配置。
 
 在 `.env` 里设置对应的 API key：
 
@@ -597,7 +596,7 @@ DINGTALK_CLIENT_SECRET=your_client_secret
 1. 在 `config.yaml` 中启用 `wechat` 渠道。
 2. 在 `.env` 中设置 `WECHAT_BOT_TOKEN`，或者把 `qrcode_login_enabled` 设为 `true` 以便首次扫码登录引导。
 3. 当 `bot_token` 缺失且启用了扫码引导时，留意后端日志里 iLink 返回的二维码内容，并完成绑定流程。
-4. 扫码流程成功后，DeerFlow 会把获取到的 token 持久化到 `state_dir`，便于后续重启复用。
+4. 扫码流程成功后，InvestAgent 会把获取到的 token 持久化到 `state_dir`，便于后续重启复用。
 5. Docker Compose 部署时，请把 `state_dir` 放在持久化卷上，这样 `get_updates_buf` 游标和已保存的登录状态才能在重启后保留。
 
 **企业微信智能机器人配置**
@@ -617,7 +616,7 @@ DINGTALK_CLIENT_SECRET=your_client_secret
 
 **命令**
 
-渠道连接完成后，你可以直接在聊天窗口里和 DeerFlow 交互：
+渠道连接完成后，你可以直接在聊天窗口里和 InvestAgent 交互：
 
 | 命令 | 说明 |
 |---------|-------------|
@@ -630,7 +629,7 @@ DINGTALK_CLIENT_SECRET=your_client_secret
 | `/agent use <name>` | 用自定义智能体开启一个新对话 |
 | `/help` | 查看帮助 |
 
-> 没有命令前缀的消息会被当作普通聊天处理。DeerFlow 会自动创建 thread，并以对话方式回复。
+> 没有命令前缀的消息会被当作普通聊天处理。InvestAgent 会自动创建 thread，并以对话方式回复。
 
 智能体选择是会话级的：`/agent use <name>` 会开启一个新对话，并将该自定义智能体固定到 thread 元数据中。已有对话不会在中途切换智能体；该选择在 Gateway 重启后仍然有效，在 Web UI 中打开 IM 创建的 thread 时，也会继续使用同一个自定义智能体。
 使用 `/agent use lead_agent` 可在新对话中回到默认智能体。
@@ -654,7 +653,7 @@ logging:
 
 该开关默认关闭，因为开启会改变日志格式。`logging` 配置需要重启才能生效，所以请编辑 `config.yaml` 并重启 Gateway。该设置只影响日志输出——id、响应头和运行元数据不受影响。
 
-`deerflow_trace_id` 是 DeerFlow 的链路关联 id：它不是 run id，也不是 provider 的原生追踪 id，同样不是查询键——没有任何逻辑用它反查 thread 或 run；它只用于关联日志行。在 run 请求的 `metadata` 或 `config.context` 中传入的 `deerflow_trace_id` 会被忽略并覆盖，因此响应头、日志和持久化的运行记录永远不会相互矛盾。要固定关联 id，请发送 `X-Trace-Id` 请求头。
+`deerflow_trace_id` 是 InvestAgent 的链路关联 id：它不是 run id，也不是 provider 的原生追踪 id，同样不是查询键——没有任何逻辑用它反查 thread 或 run；它只用于关联日志行。在 run 请求的 `metadata` 或 `config.context` 中传入的 `deerflow_trace_id` 会被忽略并覆盖，因此响应头、日志和持久化的运行记录永远不会相互矛盾。要固定关联 id，请发送 `X-Trace-Id` 请求头。
 
 Gateway 的运行历史还会为每次运行记录一条终止时的 `run.delivery` 回执，包括零产出与崩溃恢复的运行。正常执行时，该回执会在持久化终止运行状态之前写入。孤儿恢复会先原子地认领过期租约，再幂等地回填回执，因此过期的恢复扫描不会覆盖仍在运行的详细交付事实。在事件存储中断期间，回执持久化保持尽力而为。对 checkpoint 预检失败（或在等待前序 finalization 时被取消）的运行，保持既有的完成数据行为：它们会收到零交付回执，但不会用空快照覆盖 RunStore 的完成字段。
 
@@ -662,7 +661,7 @@ Gateway 的运行历史还会为每次运行记录一条终止时的 `run.delive
 
 #### LangSmith 链路追踪
 
-DeerFlow 内置了 [LangSmith](https://smith.langchain.com) 集成，用于可观测性。启用后，所有 LLM 调用、agent 运行和工具执行都会被追踪，并在 LangSmith 仪表盘中展示。
+InvestAgent 内置了 [LangSmith](https://smith.langchain.com) 集成，用于可观测性。启用后，所有 LLM 调用、agent 运行和工具执行都会被追踪，并在 LangSmith 仪表盘中展示。
 
 在 `.env` 文件中添加以下配置：
 
@@ -675,7 +674,7 @@ LANGSMITH_PROJECT=xxx
 
 #### Langfuse 链路追踪
 
-DeerFlow 同样支持 [Langfuse](https://langfuse.com) 可观测性，适用于兼容 LangChain 的运行。
+InvestAgent 同样支持 [Langfuse](https://langfuse.com) 可观测性，适用于兼容 LangChain 的运行。
 
 在 `.env` 文件中添加以下配置：
 
@@ -694,27 +693,27 @@ LANGFUSE_BASE_URL=https://cloud.langfuse.com
 - `user_id` = 来自 `get_effective_user_id()` 的有效用户（在无鉴权模式下回退为 `default`）
 - `trace_name` = assistant id（默认为 `lead-agent`）
 - `tags` = `[env:<DEER_FLOW_ENV>, model:<model_name>]`（未设置时省略）
-- `metadata.deerflow_trace_id` = DeerFlow 的请求关联 id，始终与同一请求返回的 `X-Trace-Id` 响应头一致（`logging.enhance.enabled` 只控制该 id 是否打印到日志中）
+- `metadata.deerflow_trace_id` = InvestAgent 的请求关联 id，始终与同一请求返回的 `X-Trace-Id` 响应头一致（`logging.enhance.enabled` 只控制该 id 是否打印到日志中）
 
 这些字段会在图（graph）调用的根部注入到 `RunnableConfig.metadata`，同时覆盖 gateway 路径（`runtime/runs/worker.py::run_agent`）和内嵌路径（`client.py::DeerFlowClient.stream`），因此任何兼容 LangChain 的 callback 都能读取到它们。设置 `DEER_FLOW_ENV`（或 `ENVIRONMENT`）可按部署环境为 trace 打标签。
 
 #### 同时使用两种追踪服务
 
-如果同时启用 LangSmith 和 Langfuse，DeerFlow 会挂载两个追踪 callback，并将相同的模型活动上报到两个系统。
+如果同时启用 LangSmith 和 Langfuse，InvestAgent 会挂载两个追踪 callback，并将相同的模型活动上报到两个系统。
 
-如果某个 provider 被显式启用但缺少必要的凭据，或其 callback 初始化失败，DeerFlow 会在创建模型、初始化追踪时快速失败（fail fast），错误信息会指明导致失败的 provider。
+如果某个 provider 被显式启用但缺少必要的凭据，或其 callback 初始化失败，InvestAgent 会在创建模型、初始化追踪时快速失败（fail fast），错误信息会指明导致失败的 provider。
 
 Docker 部署时，追踪默认关闭。在 `.env` 中设置 `LANGSMITH_TRACING=true` 和 `LANGSMITH_API_KEY` 即可启用。
 
 ## 从 Deep Research 到 Super Agent Harness
 
-DeerFlow 最初是一个 Deep Research 框架，后来社区把它一路推到了更远的地方。上线之后，开发者拿它去做的事情早就不止研究：搭数据流水线、生成演示文稿、快速起 dashboard、自动化内容流程，很多方向一开始连我们自己都没想到。
+InvestAgent 最初是一个 Deep Research 框架，后来社区把它一路推到了更远的地方。上线之后，开发者拿它去做的事情早就不止研究：搭数据流水线、生成演示文稿、快速起 dashboard、自动化内容流程，很多方向一开始连我们自己都没想到。
 
-这让我们意识到一件事：DeerFlow 不只是一个研究工具。它更像一个 **harness**，一个真正让 agents 把事情做完的运行时基础设施。
+这让我们意识到一件事：InvestAgent 不只是一个研究工具。它更像一个 **harness**，一个真正让 agents 把事情做完的运行时基础设施。
 
 所以我们把它从头重做了一遍。
 
-DeerFlow 2.0 不再是一个需要你自己拼装的 framework。它是一个开箱即用、同时又足够可扩展的 super agent harness。基于 LangGraph 和 LangChain 构建，默认就带上了 agent 真正会用到的关键能力：文件系统、memory、skills、sandbox 执行环境，以及为复杂多步骤任务做规划、拉起 sub-agents 的能力。
+InvestAgent 2.0 不再是一个需要你自己拼装的 framework。它是一个开箱即用、同时又足够可扩展的 super agent harness。基于 LangGraph 和 LangChain 构建，默认就带上了 agent 真正会用到的关键能力：文件系统、memory、skills、sandbox 执行环境，以及为复杂多步骤任务做规划、拉起 sub-agents 的能力。
 
 你可以直接拿来用，也可以拆开重组，改成你自己的样子。
 
@@ -734,34 +733,34 @@ UTC 偏移，并按运行的创建日期归属。页面复用现有 `/api/consol
 
 ### Skills 与 Tools
 
-Skills 是 DeerFlow 能做“几乎任何事”的关键。InvestAgent 在此基础上提供投研协议、个股/尽调/扫描/复盘技能、证据链门控与持仓日更配方，见[投研指南](docs/guide/invest-research.md)。
+Skills 是 InvestAgent 能做“几乎任何事”的关键。InvestAgent 在此基础上提供投研协议、个股/尽调/扫描/复盘技能、证据链门控与持仓日更配方，见[投研指南](docs/guide/invest-research.md)。
 
-标准的 Agent Skill 是一种结构化能力模块，通常就是一个 Markdown 文件，里面定义了工作流、最佳实践，以及相关的参考资源。DeerFlow 自带一批内置 skills，覆盖研究、报告生成、演示文稿制作、网页生成、图像和视频生成等场景。真正有意思的地方在于它的扩展性：你可以加自己的 skills，替换内置 skills，或者把多个 skills 组合成复合工作流。
+标准的 Agent Skill 是一种结构化能力模块，通常就是一个 Markdown 文件，里面定义了工作流、最佳实践，以及相关的参考资源。InvestAgent 自带一批内置 skills，覆盖研究、报告生成、演示文稿制作、网页生成、图像和视频生成等场景。真正有意思的地方在于它的扩展性：你可以加自己的 skills，替换内置 skills，或者把多个 skills 组合成复合工作流。
 
 Skills 采用按需渐进加载，不会一次性把所有内容都塞进上下文。只有任务确实需要时才加载，这样能把上下文窗口控制得更干净，也更适合对 token 比较敏感的模型。
 
 回答加载过技能时，底部工具栏会显示「使用的技能」。悬停或点击图标可查看本轮技能及其来源，悬停技能名称显示下划线，点击名称即可在可拖拽侧栏（手机端为抽屉）查看当时加载的 `SKILL.md` 快照。自动读取和 `/技能名` 显式调用均会记录，同一技能按首次加载顺序去重；之后修改或删除技能不会改变这份历史。复制得到包含 YAML 元数据的原始 Markdown 快照；包内相对链接和图片显示为引用，不会误跳转离开对话。范围读取或超出快照大小上限时会标明内容不完整。旧对话、失败读取以及通过 shell 等其他工具加载的技能不会凭回答文本推断为已使用。
 
-通过 Gateway 安装 `.skill` 压缩包时，DeerFlow 会接受标准的可选 frontmatter 元数据，比如 `version`、`author`、`compatibility`，不会把本来合法的外部 skill 拒之门外。
+通过 Gateway 安装 `.skill` 压缩包时，InvestAgent 会接受标准的可选 frontmatter 元数据，比如 `version`、`author`、`compatibility`，不会把本来合法的外部 skill 拒之门外。
 
-Tools 也是同样的思路。DeerFlow 自带一组核心工具：网页搜索、网页抓取、网页渲染截图、文件操作、bash 执行；同时也支持通过 MCP Server 和 Python 函数扩展自定义工具。你可以替换任何一项，也可以继续往里加。
+Tools 也是同样的思路。InvestAgent 自带一组核心工具：网页搜索、网页抓取、网页渲染截图、文件操作、bash 执行；同时也支持通过 MCP Server 和 Python 函数扩展自定义工具。你可以替换任何一项，也可以继续往里加。
 
 ### 私有知识检索（RAGFlow）
 
-DeerFlow 可连接租户级 RAGFlow，并通过 `knowledge_search` 按 embedding 模型分组并行召回运维允许的知识库；dataset ID 与 API key 不会暴露给模型。
+InvestAgent 可连接租户级 RAGFlow，并通过 `knowledge_search` 按 embedding 模型分组并行召回运维允许的知识库；dataset ID 与 API key 不会暴露给模型。
 
 使用内置 RAGFlow `knowledge_search` provider 时，可在 `config.yaml` 中设置 `knowledge_base.scope_selection_enabled: true`，为主智能体和自定义智能体聊天开放模式选择器右侧的纯图标“知识库”按钮。图标持续高亮表示知识检索已启用，普通状态表示本轮检索已关闭。用户可选择全部允许知识库、指定知识库/文件或关闭本轮检索。同一个配置开关统一控制两类聊天；关闭时两类输入框都不显示、也不提交知识范围。选择仅保存在当前页面内，刷新或切换对话后恢复“全部”；每条已发送的人类消息保留不可变的范围快照，用于历史回显、重试和恢复。回复待处理的澄清问题或编辑后重新生成时，若提交了当前选择器快照则以该新范围为准，未提交时继承来源轮次已接纳的范围；知识库仍处于“全部可检索文件”时，展开文件区域不会加载目录，切换为“指定文件”后才加载。Gateway 会校验快照、与运维 allowlist 取交集，把仅含执行字段的范围传递给 native/durable 子智能体，并在模型输入和外部 trace 中清除完整范围。`knowledge_base` 是与 provider 无关的能力开关，只控制知识能力和选择器是否启用；RAGFlow 的连接、dataset allowlist 和检索参数（`base_url`、`api_key`、`datasets`、`page_size`、阈值及输出上限）必须配置在 `tools[].name: knowledge_search` 条目中，`knowledge_base` 中的这些字段不会被读取。
 
-每条消息仍可选择最多 1000 份文档；同一知识库超过 100 份时，DeerFlow 会按每批最多 100 份校验，保留完整选择范围。任何一批文档不可访问或不可检索，都会拒绝本次检索。
+每条消息仍可选择最多 1000 份文档；同一知识库超过 100 份时，InvestAgent 会按每批最多 100 份校验，保留完整选择范围。任何一批文档不可访问或不可检索，都会拒绝本次检索。
 
 自定义智能体聊天请求会同时携带该智能体名称作为 `assistant_id` 和
 `context.agent_name`，确保 Gateway 的范围校验与运行时加载的是同一个智能体；主智能体聊天使用 `lead_agent`，两者都只有在共享配置启用 RAGFlow provider 时才会提交知识范围。
 
-本版不在工作区侧边栏增加独立的“知识库”入口，也不提供 DeerFlow 知识库管理页面；知识库和文件的创建、上传、解析与删除仍直接在 RAGFlow 中完成。
+本版不在工作区侧边栏增加独立的“知识库”入口，也不提供 InvestAgent 知识库管理页面；知识库和文件的创建、上传、解析与删除仍直接在 RAGFlow 中完成。
 
 运维还可独立安装 [WeKnora 只读扩展](examples/deerflow-extension-weknora/README.md)，
 对接 WeKnora v0.8.3，使用知识库/文档范围选择器和共享检索引用。
-需显式配置 DeerFlow 用户到 WeKnora 工作空间的凭据绑定；资源授权仍由 WeKnora 执行。
+需显式配置 InvestAgent 用户到 WeKnora 工作空间的凭据绑定；资源授权仍由 WeKnora 执行。
 安装与配置步骤见扩展目录中的英文指南。
 
 可选的[知识平台扩展](examples/deerflow-extension-knowledge-platform/README.md)
@@ -793,7 +792,7 @@ Web UI 支持从已完成的 assistant 回复分叉出一个新的主对话。�
 
 #### Claude Code 集成
 
-借助 `claude-to-deerflow` skill，你可以直接在 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 里和正在运行的 DeerFlow 实例交互。不用离开终端，就能下发研究任务、查看状态、管理 threads。
+借助 `claude-to-deerflow` skill，你可以直接在 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 里和正在运行的 InvestAgent 实例交互。不用离开终端，就能下发研究任务、查看状态、管理 threads。
 
 **安装这个 skill：**
 
@@ -801,12 +800,12 @@ Web UI 支持从已完成的 assistant 回复分叉出一个新的主对话。�
 npx skills add https://github.com/bytedance/deer-flow --skill claude-to-deerflow
 ```
 
-然后确认 DeerFlow 已经启动（默认地址是 `http://localhost:2026`），在 Claude Code 里使用 `/claude-to-deerflow` 命令即可。
+然后确认 InvestAgent 已经启动（默认地址是 `http://localhost:2026`），在 Claude Code 里使用 `/claude-to-deerflow` 命令即可。
 
 **你可以做的事情包括：**
-- 给 DeerFlow 发送消息，并接收流式响应
+- 给 InvestAgent 发送消息，并接收流式响应
 - 选择执行模式：flash（更快）、standard、pro（规划模式）、ultra（sub-agents 模式）
-- 检查 DeerFlow 健康状态，列出 models / skills / agents
+- 检查 InvestAgent 健康状态，列出 models / skills / agents
 - 管理 threads 和会话历史
 - 上传文件做分析
 
@@ -820,7 +819,7 @@ DEERFLOW_LANGGRAPH_URL=http://localhost:2026/api/langgraph  # LangGraph API
 
 完整 API 说明见 [`skills/public/claude-to-deerflow/SKILL.md`](skills/public/claude-to-deerflow/SKILL.md)。
 
-Web UI 输入框支持浏览器侧语音听写。浏览器提供 Web Speech API 时，麦克风按钮会把语音转写为本地草稿；DeerFlow 只接收转写后的文本，音频处理交由浏览器或操作系统语音识别服务按其环境策略完成。用户可以在发送前继续检查和编辑文本。
+Web UI 输入框支持浏览器侧语音听写。浏览器提供 Web Speech API 时，麦克风按钮会把语音转写为本地草稿；InvestAgent 只接收转写后的文本，音频处理交由浏览器或操作系统语音识别服务按其环境策略完成。用户可以在发送前继续检查和编辑文本。
 
 ### 会话归档
 
@@ -830,7 +829,7 @@ Web UI 输入框支持浏览器侧语音听写。浏览器提供 Web Speech API 
 
 ### Session Goals
 
-用 `/goal <完成条件>` 为当前 thread 绑定一个激活态的完成条件。这个 goal 是 thread 维度的状态，而不是技能激活，所以它会跨轮次持续生效，直到 DeerFlow 判定它已被满足、或者你手动清除它。
+用 `/goal <完成条件>` 为当前 thread 绑定一个激活态的完成条件。这个 goal 是 thread 维度的状态，而不是技能激活，所以它会跨轮次持续生效，直到 InvestAgent 判定它已被满足、或者你手动清除它。
 
 支持的命令：
 
@@ -843,7 +842,7 @@ Web UI 输入框支持浏览器侧语音听写。浏览器提供 Web Speech API 
 
 在受支持的 IM 渠道里，`/goal from-chat [提示]` 会从当前对话中归纳 goal，而不是把文字当成目标本身。它会保留对话中已经约定的约束和停止条件，展示保存后的目标，并只启动一次 run。命令后的可选提示用于补充约束，不需要重述完整目标。如果对话不足以形成清楚的目标，则不会保存或启动任何内容，回复会说明原因；如果助手还在等你回答，回复会先请你回复。
 
-每次 Gateway 驱动的 run 结束后，DeerFlow 会用一个 non-thinking 的评估模型，把可见的对话内容（包括助手的工具调用和截短的工具结果）拿去和激活的 goal 比对。工具调用成功本身不代表 goal 已完成；如果助手不得不猜测缺失或含糊的信息，评估模型会报告 `needs_user_input`。评估模型必须返回一个带类型的 blocker（`missing_evidence`、`needs_user_input`、`run_failed`、`external_wait` 或 `goal_not_met_yet`），并附上可见证据。只有在最近一轮 assistant 回复已被持久化 checkpoint、blocker 是 `goal_not_met_yet`、评估期间 thread 没有变化、且无进展熔断器没有触发时，DeerFlow 才会注入一次 hidden continuation。安全上限默认是 8 次 hidden continuation；连续两次相同的无进展评估后就会停止。`/goal clear` 以及任何用户手动输入的新内容，优先级都高于排队中的 continuation。当 goal 被满足时，DeerFlow 会自动清除它，并发布更新后的 thread 状态。同一个 checkpoint 会把这次达成记为 `goal_outcome`，保留到下一次修改 goal。
+每次 Gateway 驱动的 run 结束后，InvestAgent 会用一个 non-thinking 的评估模型，把可见的对话内容（包括助手的工具调用和截短的工具结果）拿去和激活的 goal 比对。工具调用成功本身不代表 goal 已完成；如果助手不得不猜测缺失或含糊的信息，评估模型会报告 `needs_user_input`。评估模型必须返回一个带类型的 blocker（`missing_evidence`、`needs_user_input`、`run_failed`、`external_wait` 或 `goal_not_met_yet`），并附上可见证据。只有在最近一轮 assistant 回复已被持久化 checkpoint、blocker 是 `goal_not_met_yet`、评估期间 thread 没有变化、且无进展熔断器没有触发时，InvestAgent 才会注入一次 hidden continuation。安全上限默认是 8 次 hidden continuation；连续两次相同的无进展评估后就会停止。`/goal clear` 以及任何用户手动输入的新内容，优先级都高于排队中的 continuation。当 goal 被满足时，InvestAgent 会自动清除它，并发布更新后的 thread 状态。同一个 checkpoint 会把这次达成记为 `goal_outcome`，保留到下一次修改 goal。
 
 重新生成此前的回答时，会沿用当前对话的 goal 和已用续跑预算，不会恢复已清除或已达成的旧 goal。重放历史 checkpoint 时会移除旧回答的达成记录，避免把它当作新回答已经达成的证明。
 
@@ -886,7 +885,7 @@ lead agent 只会在委派具有明确净收益时动态拉起 sub-agents，例�
 
 上传文档的转换大纲和预览会校验原文件版本，包括修改时间戳。检测到原文件版本变化后，即使大小不变，也不会再使用旧转换结果。缺少原文件时间戳的旧归属记录同样会被拒绝；可在启用 `uploads.auto_convert_documents: true` 后重新上传原文件以恢复转换大纲。文件都会保留，未通过校验的转换 Markdown 会在 Agent 的历史文件列表中作为独立文件显示。Windows 上的 `st_ctime_ns` 可能表示创建时间，因此等长度覆盖后若恢复原 `mtime`，校验可能无法识别变化。时间戳校验是保守的元数据校验，不能保证文件内容完全一致。
 
-DeerFlow 不只是“会说它能做”，它是真的有一台自己的“电脑”。
+InvestAgent 不只是“会说它能做”，它是真的有一台自己的“电脑”。
 
 沙箱的运行方式取决于配置。本地工作区使用专用文件工具，Docker 模式在隔离的容器中运行，Kubernetes 模式通过 provisioner 服务在 Pod 中运行。Agent 可以在沙箱中访问 skills、workspace、uploads、outputs，读写和编辑文件，也可以查看图片。需要执行 Bash 命令或通过 Shell 运行代码时，请选择提供 Shell 的隔离沙箱。各模式的配置方式见[沙箱指南](docs/guide/sandbox.md#sandbox-mode)。
 
@@ -908,7 +907,7 @@ Browserless 会通过空占位文件提前预留截屏文件名，以防并发�
 
 浏览器依赖自动检测支持在工具配置项中以任意顺序指定 `name`、`group` 与 `use`，且兼容缩进或非缩进风格的 YAML 列表。
 
-读取页面和真正“使用”页面不是一回事。除了只读的 `web_fetch` 和 `web_capture` 工具外，DeerFlow 还提供一组可选的 agentic browser 工具，为每次对话保持一个实时浏览器会话，让 agent 真正操作页面——导航、读取可交互元素、点击、输入、提交表单，并在重度 JavaScript 站点上完成多步流程。
+读取页面和真正“使用”页面不是一回事。除了只读的 `web_fetch` 和 `web_capture` 工具外，InvestAgent 还提供一组可选的 agentic browser 工具，为每次对话保持一个实时浏览器会话，让 agent 真正操作页面——导航、读取可交互元素、点击、输入、提交表单，并在重度 JavaScript 站点上完成多步流程。
 
 每次操作都会返回页面可交互元素的最新快照，每个元素用稳定的 `[ref]` 编号寻址，因此 agent 基于刚观察到的内容行动，而不是猜测选择器。出站 URL 默认会经过 SSRF 筛查，浏览器的 TCP 连接也都经过一个本地代理，该代理把每个连接固定到筛查通过的地址，因此检查之后才改变的 DNS 应答无法把连接引向内网主机（WebRTC UDP 不在覆盖范围内）。该能力由 Playwright 提供，作为 optional extra 发布，以保持核心安装精简：
 
@@ -918,7 +917,7 @@ uv sync --extra browser
 uv run playwright install chromium
 ```
 
-然后在 `config.yaml` 中取消注释 `group: browser` 工具项（`browser_navigate`、`browser_snapshot`、`browser_click`、`browser_type`、`browser_get_text`、`browser_back`、`browser_screenshot`、`browser_close`）。`make dev` / Docker 启动时如果检测到已启用 `browser_navigate`，会在依赖同步时保留 `browser` extra。如果配置了 browser control 但缺少 Playwright，Gateway 会启动失败；`/api/features` 也会在后端无法提供该能力时隐藏 Browser UI。除本地、受信任的调试外，请保持 `headless: true` 和 `allow_private_addresses: false`。通过 `cdp_url` 连接到已有 Chrome 时，DeerFlow 无法强制执行子资源和重定向的 SSRF 防护，因此会 fail closed，除非显式设置 `allow_unguarded_cdp: true` 确认该风险；仅用于受信任的本地浏览器。Browser session 是进程本地的；启用该工具组时请保持 `GATEWAY_WORKERS=1`，因为普通 uvicorn worker 调度不提供 thread affinity。
+然后在 `config.yaml` 中取消注释 `group: browser` 工具项（`browser_navigate`、`browser_snapshot`、`browser_click`、`browser_type`、`browser_get_text`、`browser_back`、`browser_screenshot`、`browser_close`）。`make dev` / Docker 启动时如果检测到已启用 `browser_navigate`，会在依赖同步时保留 `browser` extra。如果配置了 browser control 但缺少 Playwright，Gateway 会启动失败；`/api/features` 也会在后端无法提供该能力时隐藏 Browser UI。除本地、受信任的调试外，请保持 `headless: true` 和 `allow_private_addresses: false`。通过 `cdp_url` 连接到已有 Chrome 时，InvestAgent 无法强制执行子资源和重定向的 SSRF 防护，因此会 fail closed，除非显式设置 `allow_unguarded_cdp: true` 确认该风险；仅用于受信任的本地浏览器。Browser session 是进程本地的；启用该工具组时请保持 `GATEWAY_WORKERS=1`，因为普通 uvicorn worker 调度不提供 thread affinity。
 
 已有的、非 mock 的 Custom Agent 对话会在 browser control 可用、且该 agent 未限制 `tool_groups` 或已包含 `browser` 组时，展示同样的 Browser Live 控件。如果显式 allowlist 里没有 `browser`，这些控件会保持隐藏。
 
@@ -928,7 +927,7 @@ workspace 的 Browser Live 客户端通过二进制 JPEG WebSocket 帧协商画�
 
 **隔离的 Sub-Agent Context**：每个 sub-agent 都在自己独立的上下文里运行。它看不到主 agent 的上下文，也看不到其他 sub-agents 的上下文。这样做的目的很直接，就是让它只聚焦当前任务，不被无关信息干扰。
 
-**摘要压缩**：在单个 session 内，DeerFlow 会比较积极地管理上下文，包括总结已完成的子任务、把中间结果转存到文件系统、压缩暂时不重要的信息。这样在长链路、多步骤任务里，它也能保持聚焦，而不会轻易把上下文窗口打爆。
+**摘要压缩**：在单个 session 内，InvestAgent 会比较积极地管理上下文，包括总结已完成的子任务、把中间结果转存到文件系统、压缩暂时不重要的信息。这样在长链路、多步骤任务里，它也能保持聚焦，而不会轻易把上下文窗口打爆。
 
 ### 读取引用的会话
 
@@ -947,9 +946,9 @@ Gateway API 调用方可以启用 `read_conversation`，并在一次 run 中提�
 
 ### 长期记忆
 
-大多数 agents 会在对话结束后把一切都忘掉，DeerFlow 不一样。
+大多数 agents 会在对话结束后把一切都忘掉，InvestAgent 不一样。
 
-跨 session 使用时，DeerFlow 会逐步积累关于你的持久 memory，包括你的个人偏好、知识背景，以及长期沉淀下来的工作习惯。你用得越多，它越了解你的写作风格、技术栈和重复出现的工作流。memory 保存在本地，控制权也始终在你手里。
+跨 session 使用时，InvestAgent 会逐步积累关于你的持久 memory，包括你的个人偏好、知识背景，以及长期沉淀下来的工作习惯。你用得越多，它越了解你的写作风格、技术栈和重复出现的工作流。memory 保存在本地，控制权也始终在你手里。
 
 默认 DeerMem `middleware` 模式会先判断候选信息的作用域、持久性和授权属性，再由确定性写入门决定是否保存。只有稳定、描述性的用户级事实能进入长期 memory；当前对话或项目的约束、一次性操作授权仍留在对话状态中。用户全局 summary 必须同时具有用户级作用域和描述性授权属性，基于矛盾的删除也会经过作用域保护；如果删除依赖一条替代事实，只有替代事实真正通过校验并保留下来后才执行删除。这些分类字段只用于本次抽取，不写入 fact 文件，也不增加 LLM 调用次数。`memory.mode: tool` 的显式 CRUD 仍是独立的模型直写路径。如果通过 `memory.backend_config.prompts_dir` 覆盖了内置抽取模板，必须同步在自定义模板中加入新的分类字段（`memory_update` 的 fact/summary/removal 格式与 `consolidation` 的合并 fact 结构）：写入门是 fail closed 的，未迁移的旧模板会导致所有抽取驱动的 fact、summary 与删除写入停止，只能通过 `rejected_by_scope_gate` 指标和高拒绝率告警发现。
 
@@ -957,7 +956,7 @@ Gateway API 调用方可以启用 `read_conversation`，并在一次 run 中提�
 
 ## 推荐模型
 
-DeerFlow 对模型没有强绑定，只要实现了 OpenAI 兼容 API 的 LLM，理论上都可以接入。不过在下面这些能力上表现更强的模型，通常会更适合 DeerFlow：
+InvestAgent 对模型没有强绑定，只要实现了 OpenAI 兼容 API 的 LLM，理论上都可以接入。不过在下面这些能力上表现更强的模型，通常会更适合 InvestAgent：
 
 - **长上下文窗口**（100k+ tokens），适合深度研究和多步骤任务
 - **推理能力**，适合自适应规划和复杂拆解
@@ -966,7 +965,7 @@ DeerFlow 对模型没有强绑定，只要实现了 OpenAI 兼容 API 的 LLM，
 
 ## 内嵌 Python Client
 
-DeerFlow 也可以作为内嵌的 Python 库使用，不必启动完整的 HTTP 服务。`DeerFlowClient` 提供了进程内的直接访问方式，覆盖所有 agent 和 Gateway 能力，返回的数据结构与 HTTP Gateway API 保持一致。HTTP Gateway 还提供 `DELETE /api/threads/{thread_id}`，用于在 LangGraph thread 本身被删除之后，清理 DeerFlow 托管的本地 thread 数据：
+InvestAgent 也可以作为内嵌的 Python 库使用，不必启动完整的 HTTP 服务。`DeerFlowClient` 提供了进程内的直接访问方式，覆盖所有 agent 和 Gateway 能力，返回的数据结构与 HTTP Gateway API 保持一致。HTTP Gateway 还提供 `DELETE /api/threads/{thread_id}`，用于在 LangGraph thread 本身被删除之后，清理 InvestAgent 托管的本地 thread 数据：
 
 ```python
 from deerflow.client import DeerFlowClient
@@ -1028,7 +1027,7 @@ client.clear_goal("thread-1")
 
 ## 定时任务 (Scheduled Tasks)
 
-DeerFlow 现在在 workspace 里内置了一个一等的定时任务（scheduled-task）MVP。
+InvestAgent 现在在 workspace 里内置了一个一等的定时任务（scheduled-task）MVP。
 
 当前 MVP 能力：
 
@@ -1038,13 +1037,13 @@ DeerFlow 现在在 workspace 里内置了一个一等的定时任务（scheduled
 - 每个任务可以固定使用 `lead_agent`（默认）或当前用户已有的自定义 agent；未知名字会被拒绝
 - 将现有任务复制到创建表单中作为可编辑草稿，不复制运行历史
 - 支持 `once`、`cron` 和 `interval` 三种调度方式
-- 后台定时执行以非交互式 DeerFlow run 运行（那里不会暴露 `ask_clarification`）
+- 后台定时执行以非交互式 InvestAgent run 运行（那里不会暴露 `ask_clarification`）
 - 当所复用的 thread 或全局执行配额正忙时，到期执行会持久化为 `queued`，并在可用后启动；队列项在 Gateway 重启后保留，超过 `scheduler.queue_timeout_seconds` 后标记为失败
 - 执行位置在任务所有者之间公平分配：同一所有者同时启动或运行的定时运行最多 `scheduler.max_concurrent_runs_per_user` 个（默认 2，不超过 `max_concurrent_runs`；设为 `0` 即关闭这一按所有者的上限）。等待队列按所有者轮流取出，一个人积压的运行不会挡住别人的运行。等待超过 `scheduler.queue_timeout_seconds` 的运行会被跳过，运行记录显示“已跳过：等待空闲位置的时间过长”
 - 当某次执行处于 `queued`、`launching` 或 `running` 时冻结任务定义，避免持久化的执行意外换用新的 prompt、thread 或调度；将任务切换为暂停或删除任务会取消已在等待的执行，而 `launching`/`running` 执行结束后才能重试这些变更；显式手动触发在调度已暂停时仍可等待并执行，且不会自动恢复调度
 - 支持暂停、恢复、手动触发、查看历史和删除任务
-- 定时任务通过正常的 DeerFlow run 生命周期执行
-- 当 `channel_connections.enabled: true` 时，定时任务通知会发送到任务所有者已绑定、且支持主动推送的 IM 应用（outbox + 投递 worker），目前只有企业微信支持；设置页会在每个应用上标明是否发送，其它应用不会收到通知。每次执行最多发一条消息，内容可能是：一次运行完成、出错或未达成目标，连续 3 次未达成目标后自动暂停，由智能体暂停（停止条件已满足），或任务已结束（`max_runs` 次运行全部完成、已到 `end_at`）；同时发生多件事时，以暂停或结束为准，并在同一条消息里说明最后一次运行的结果。单次任务只发它那次运行的结果。消息与执行结果在同一个数据库事务中入队，因此崩溃或租约失效后恢复的执行也只通知一次。消息内容可以单独读懂，使用你在网页界面中选择的语言（未设置时用 `channel_connections.notification_locale`）：任务标题、发生了什么、智能体有回复时附一行结果，最后是“在 DeerFlow 的定时任务页查看详情。”，不含任何 ID 或链接。单纯的手动「立即运行」试跑和被中断的运行不通知；没有跑完一次运行就结束的执行记录（启动失败、排队超时、因重启而中断）也不通知。渠道/传输宕机时会停车且不耗尽重试，最长约一天；平台拒绝大约重试 15 分钟后落为 `failed`。等待期间被你解绑的身份不会再收到推送：该条投递直接落为 `failed`。
+- 定时任务通过正常的 InvestAgent run 生命周期执行
+- 当 `channel_connections.enabled: true` 时，定时任务通知会发送到任务所有者已绑定、且支持主动推送的 IM 应用（outbox + 投递 worker），目前只有企业微信支持；设置页会在每个应用上标明是否发送，其它应用不会收到通知。每次执行最多发一条消息，内容可能是：一次运行完成、出错或未达成目标，连续 3 次未达成目标后自动暂停，由智能体暂停（停止条件已满足），或任务已结束（`max_runs` 次运行全部完成、已到 `end_at`）；同时发生多件事时，以暂停或结束为准，并在同一条消息里说明最后一次运行的结果。单次任务只发它那次运行的结果。消息与执行结果在同一个数据库事务中入队，因此崩溃或租约失效后恢复的执行也只通知一次。消息内容可以单独读懂，使用你在网页界面中选择的语言（未设置时用 `channel_connections.notification_locale`）：任务标题、发生了什么、智能体有回复时附一行结果，最后是“在 InvestAgent 的定时任务页查看详情。”，不含任何 ID 或链接。单纯的手动「立即运行」试跑和被中断的运行不通知；没有跑完一次运行就结束的执行记录（启动失败、排队超时、因重启而中断）也不通知。渠道/传输宕机时会停车且不耗尽重试，最长约一天；平台拒绝大约重试 15 分钟后落为 `failed`。等待期间被你解绑的身份不会再收到推送：该条投递直接落为 `failed`。
 - 按每页 50 条浏览执行历史；历史页暂停自动刷新，可随时返回最新记录。 仅在读取成功后显示条数，加载中或失败不会误显示为零条。
 
 **通过 API 筛选执行历史**
@@ -1063,7 +1062,7 @@ DeerFlow 现在在 workspace 里内置了一个一等的定时任务（scheduled
 ### 生命周期、保险上限和停止条件
 
 - 任务页面和 REST API（`POST` / `PATCH /api/scheduled-tasks`）与对话一样，支持每次运行的目标（`goal_objective`）、保险上限（`max_runs`、`end_at`）和停止条件（`stop_condition`）。在 PATCH 中传 `null` 可以清除这四项中的任意一项；不带 UTC 偏移的 `end_at` 按任务所在时区的本地时间理解。
-- 停止条件是用户“满足某个条件就停”的规则，单独保存在自己的字段里（迁移 `0031`），不会写进任务指令。只有在运行启动时，DeerFlow 才把它附加到这次运行的消息中，要求运行在条件满足时调用 `stop_scheduled_task`。开启 `scheduler.tool_enabled` 时，无论任务是在对话中还是在任务页面创建的，每次定时运行都能暂停自己的定时任务；关闭时，运行只会说明条件已满足，不会被要求调用它没有的工具。
+- 停止条件是用户“满足某个条件就停”的规则，单独保存在自己的字段里（迁移 `0031`），不会写进任务指令。只有在运行启动时，InvestAgent 才把它附加到这次运行的消息中，要求运行在条件满足时调用 `stop_scheduled_task`。开启 `scheduler.tool_enabled` 时，无论任务是在对话中还是在任务页面创建的，每次定时运行都能暂停自己的定时任务；关闭时，运行只会说明条件已满足，不会被要求调用它没有的工具。
 - 在任务页面创建的带目标任务，现在也会像对话中创建的任务一样检查目标，其运行同样会收到已保存的备注和上一次运行的引用。
 - 恢复时从当前时间重新计算下次运行，长时间暂停后不会补跑。时间已过的单次任务返回 `422 once_time_passed`，需要设置新的时间。恢复一个已启用的任务不会有任何变化；暂停已结束的任务返回 `409 task_finished`。
 - `max_runs` 统计任务累计的自动运行次数，试运行不计入。重新启用保险上限已用完的任务（恢复，或通过 PATCH 修改已结束任务的运行时间使其重新启用）会返回 `409 limits_exhausted`，除非同一个请求放宽了已用完的那项上限：运行次数用完时，需要提高 `max_runs` 或传 `null` 取消；结束时间已过时，需要把 `end_at` 改晚或传 `null` 取消（只把 `end_at` 改晚，不能让次数已用完的任务恢复）。`POST /api/scheduled-tasks/{task_id}/resume` 为此接受可选的 `{"max_runs": …, "end_at": …}` 请求体（`null` 表示取消这项上限；在对话中创建、且比每小时更频繁的任务必须保留一项上限）。只修改已结束任务上限的 PATCH 会保存新上限，任务仍保持已结束。
@@ -1160,9 +1159,9 @@ release-checklist.md，把没勾的项告诉我；全部勾完就停。”在 We
 
 ## 终端工作台 (TUI)
 
-`deerflow` 是一个面向终端用户的工作台，**内嵌**运行在 `DeerFlowClient` 之上——无需启动 Gateway、前端、nginx 或 Docker，同时沿用与 DeerFlow 其它部分相同的 `config.yaml`、checkpointer、技能、记忆、MCP 和沙箱配置。
+`deerflow` 是一个面向终端用户的工作台，**内嵌**运行在 `DeerFlowClient` 之上——无需启动 Gateway、前端、nginx 或 Docker，同时沿用与 InvestAgent 其它部分相同的 `config.yaml`、checkpointer、技能、记忆、MCP 和沙箱配置。
 
-![DeerFlow TUI](docs/tui/tui-preview.svg)
+![InvestAgent TUI](docs/tui/tui-preview.svg)
 
 ```bash
 uv pip install 'deerflow-harness[tui]'        # 可选的 'textual' 依赖
@@ -1189,7 +1188,7 @@ deerflow --json  "hello"                       # 无头模式，输出按行分�
 
 ### 不恰当的部署可能导致安全风险
 
-DeerFlow 具备**系统指令执行、资源操作、业务逻辑调用**等关键高权限能力，默认设计为**部署在本地可信环境（仅本机 127.0.0.1 回环访问）**。若您将 agent 部署至不可信局域网、公网云服务器等可被多终端访问的网络环境，且未采取严格的安全防护措施，可能导致安全风险，例如：
+InvestAgent 具备**系统指令执行、资源操作、业务逻辑调用**等关键高权限能力，默认设计为**部署在本地可信环境（仅本机 127.0.0.1 回环访问）**。若您将 agent 部署至不可信局域网、公网云服务器等可被多终端访问的网络环境，且未采取严格的安全防护措施，可能导致安全风险，例如：
 
 - **未授权的非法调用**：agent 功能被未授权的第三方、公网恶意扫描程序探测到，进而发起批量非法调用请求，执行系统命令、文件读写等高危操作，可能导致安全后果。
 - **合规与法律风险**：若 agent 被非法调用用于实施网络攻击、信息窃取等违法违规行为，可能面临法律责任与合规风险。
@@ -1218,12 +1217,12 @@ Docker 部署栈默认只把入口端口发布在 `127.0.0.1` 上，本地 `make
 
 ### 安全使用建议
 
-**注意：建议您将 DeerFlow 部署在本地可信的网络环境下。** 若您有跨设备、跨网络的部署需求，必须加入严格的安全措施。例如，采取如下手段：
+**注意：建议您将 InvestAgent 部署在本地可信的网络环境下。** 若您有跨设备、跨网络的部署需求，必须加入严格的安全措施。例如，采取如下手段：
 
 - **设置访问 IP 白名单**：使用 `iptables`，或部署硬件防火墙 / 带访问控制（ACL）功能的交换机等，**配置规则设置 IP 白名单**，拒绝其他所有 IP 进行访问。
 - **前置身份验证**：配置反向代理（nginx 等），并**开启高强度的前置身份验证功能**，禁止无任何身份验证的访问。
 - **网络隔离**：若有可能，建议将 agent 和可信设备划分到**同一个专用 VLAN**，与其他网络设备做隔离。
-- **持续关注项目更新**：请持续关注 DeerFlow 项目的安全功能更新。
+- **持续关注项目更新**：请持续关注 InvestAgent 项目的安全功能更新。
 
 ## 参与贡献
 
@@ -1237,18 +1236,18 @@ Docker 部署栈默认只把入口端口发布在 `127.0.0.1` 上，本地 `make
 
 ## 致谢
 
-DeerFlow 建立在开源社区大量优秀工作的基础上。所有让 DeerFlow 成为可能的项目和贡献者，我们都心怀感谢。毫不夸张地说，我们是站在巨人的肩膀上继续往前走。
+InvestAgent 建立在开源社区大量优秀工作的基础上。所有让 InvestAgent 成为可能的项目和贡献者，我们都心怀感谢。毫不夸张地说，我们是站在巨人的肩膀上继续往前走。
 
 特别感谢以下项目带来的关键支持：
 
 - **[LangChain](https://github.com/langchain-ai/langchain)**：它提供的优秀框架支撑了我们的 LLM 交互与 chains，让整体集成和能力编排顺畅可用。
-- **[LangGraph](https://github.com/langchain-ai/langgraph)**：它在多 agent 编排上的创新方式，是 DeerFlow 复杂工作流得以成立的重要基础。
+- **[LangGraph](https://github.com/langchain-ai/langgraph)**：它在多 agent 编排上的创新方式，是 InvestAgent 复杂工作流得以成立的重要基础。
 
 这些项目体现了开源协作真正的力量，我们也很高兴能继续在此基础上建立。
 
 ### 核心贡献者
 
-感谢 `DeerFlow` 的核心作者，是他们的判断、投入和持续推进，才让这个项目真正落地：
+感谢 `InvestAgent` 的核心作者，是他们的判断、投入和持续推进，才让这个项目真正落地：
 
 - **[Daniel Walnut](https://github.com/hetaoBackend/)**
 - **[Henry Li](https://github.com/magiccube/)**

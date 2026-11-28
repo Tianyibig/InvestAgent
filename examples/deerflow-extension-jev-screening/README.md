@@ -9,12 +9,12 @@ threshold adds a fixed advisory warning to that tool result before the next mode
 call. It does not block tools, authorize actions or establish that the model will
 ignore an injected instruction.
 
-The package imports only `deerflow_extension_api` from DeerFlow, so it can move
+The package imports only `deerflow_extension_api` from InvestAgent, so it can move
 out of this repository unchanged.
 
 ## Install and configure
 
-From `backend/` in a compatible DeerFlow deployment:
+From `backend/` in a compatible InvestAgent deployment:
 
 ```sh
 uv run deerflow extensions install ../examples/deerflow-extension-jev-screening --yes

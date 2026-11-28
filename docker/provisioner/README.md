@@ -1,6 +1,6 @@
-# DeerFlow Sandbox Provisioner
+# InvestAgent Sandbox Provisioner
 
-The **Sandbox Provisioner** is a FastAPI service that dynamically manages sandbox Pods in Kubernetes. It provides a REST API for the DeerFlow backend to create, monitor, and destroy isolated sandbox environments for code execution.
+The **Sandbox Provisioner** is a FastAPI service that dynamically manages sandbox Pods in Kubernetes. It provides a REST API for the InvestAgent backend to create, monitor, and destroy isolated sandbox environments for code execution.
 
 ## Architecture
 
@@ -85,7 +85,7 @@ Create a new sandbox Pod + Service.
 
 `user_id` is optional for backwards compatibility and defaults to `default`. When `USERDATA_PVC_NAME` is set, the provisioner uses it to isolate PVC-backed user-data directories.
 
-When the Gateway mounts that same storage at its DeerFlow home and the PVC
+When the Gateway mounts that same storage at its InvestAgent home and the PVC
 subpaths align, set `sandbox.thread_data_mounts: true` in the Gateway's
 `config.yaml` to skip redundant upload-time sandbox acquire/sync. Leave the
 field unset when using unrelated storage or when the mount relationship is
@@ -166,7 +166,7 @@ The provisioner is configured via environment variables (set in [docker-compose-
 | `LARK_CLI_INIT_IMAGE` | empty (feature off) | Optional lark-cli init image (Pattern A). When set, sandbox Pods requesting the lark-cli runtime get an init container + shared `emptyDir` that provisions `lark-cli`, instead of a hostPath/PVC runtime mount. See [`docker/lark-cli-init`](../lark-cli-init/README.md) |
 | `LARK_CLI_BROKER_IMAGE` | empty (feature off) | Optional lark-cli broker image (Pattern B, issue #4338). When set, sandbox Pods requesting the broker get a shim init container + a `lark-cli-broker` sidecar that holds the credentials; the plaintext `config`/`data` are mounted into the **sidecar only**, never the sandbox. Supersedes `LARK_CLI_INIT_IMAGE` when both are set. See [`docker/lark-cli-broker`](../lark-cli-broker/README.md) |
 | `THREADS_HOST_PATH` | - | **Host machine** path to threads data directory (must be absolute) |
-| `DEER_FLOW_HOST_BASE_DIR` | `/.deer-flow` | **Host machine** DeerFlow data root containing global and per-user `skills_view` projections |
+| `DEER_FLOW_HOST_BASE_DIR` | `/.deer-flow` | **Host machine** InvestAgent data root containing global and per-user `skills_view` projections |
 | `SKILLS_PVC_NAME` | empty (use hostPath) | PVC name for skills volume; when set, sandbox Pods use PVC instead of hostPath |
 | `SKILLS_PVC_SUBPATH_TEMPLATE` | empty | Optional `subPath` template for `SKILLS_PVC_NAME`. Supports `{user_id}` and `{thread_id}`. When empty, the skills PVC root is mounted unchanged |
 | `USERDATA_PVC_NAME` | empty (use hostPath) | PVC name for user-data volume; when set, uses PVC with `subPath: deer-flow/users/{user_id}/threads/{thread_id}/user-data` |
@@ -250,7 +250,7 @@ Gateway can surface a sandbox-runtime readiness signal in
 
 Older provisioner versions mounted PVC user-data from `threads/{thread_id}/user-data`. The user-scoped layout mounts from `deer-flow/users/{user_id}/threads/{thread_id}/user-data`.
 
-If an existing deployment already has PVC-backed user-data under the legacy layout, migrate the DeerFlow data directory before relying on the new PVC subPath. Mount the same PVC path that the gateway uses as its DeerFlow base directory, then run the existing user-isolation migration script:
+If an existing deployment already has PVC-backed user-data under the legacy layout, migrate the InvestAgent data directory before relying on the new PVC subPath. Mount the same PVC path that the gateway uses as its InvestAgent base directory, then run the existing user-isolation migration script:
 
 ```bash
 cd backend

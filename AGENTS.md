@@ -1,6 +1,6 @@
-# DeerFlow
+# InvestAgent
 
-DeerFlow is an agent harness: a LangGraph-based backend with thread-isolated
+InvestAgent is the product. This tree is its agent harness: a LangGraph-based backend with thread-isolated
 sandboxes, memory, subagents, skills and MCP tools, and a Next.js frontend. IM
 channels connect through the Gateway. `CLAUDE.md` imports this file; edit
 guidance here, not in the shim.

@@ -1,6 +1,9 @@
 # Changelog
 
-All notable changes to DeerFlow are documented in this file.
+All notable changes to InvestAgent are documented in this file.
+
+Historical entries below record the upstream project at
+https://github.com/bytedance/deer-flow and keep that project's name.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
