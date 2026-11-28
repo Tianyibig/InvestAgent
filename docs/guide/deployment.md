@@ -2,7 +2,7 @@
 
 ## Deployment Sizing
 
-Use the table below as a practical starting point when choosing how to run DeerFlow:
+Use the table below as a practical starting point when choosing how to run InvestAgent:
 
 | Deployment target | Starting point | Recommended | Notes |
 |---------|-----------|------------|-------|
@@ -10,7 +10,7 @@ Use the table below as a practical starting point when choosing how to run DeerF
 | Docker development / `make docker-start` | 4 vCPU, 8 GB RAM, 25 GB free SSD | 8 vCPU, 16 GB RAM | Image builds, bind mounts, and sandbox containers need more headroom than pure local dev. |
 | Long-running server / `make up` | 8 vCPU, 16 GB RAM, 40 GB free SSD | 16 vCPU, 32 GB RAM | Preferred for shared use, multi-agent runs, report generation, or heavier sandbox workloads. |
 
-- These numbers cover DeerFlow itself. If you also host a local LLM, size that service separately.
+- These numbers cover InvestAgent itself. If you also host a local LLM, size that service separately.
 - Linux plus Docker is the recommended deployment target for a persistent server. macOS and Windows are best treated as development or evaluation environments.
 - If CPU or memory usage stays pinned, reduce concurrent runs first, then move to the next sizing tier.
 
@@ -59,7 +59,7 @@ message.
 
 A custom frontend can add an optional `context.client` to a Gateway run request:
 a client name, capabilities such as `artifacts` or `charts`, and display
-preferences. DeerFlow sanitizes it and passes the values to the agent as
+preferences. InvestAgent sanitizes it and passes the values to the agent as
 untrusted, request-scoped hints, so skills can pick an output shape the client
 can show. It is never an authorization or identity signal. See
 [Create Run](../../backend/docs/API.md#create-run).
@@ -145,7 +145,7 @@ see [production env files](../../backend/docs/CONFIGURATION.md#production-compos
 
 For persistent deployments, configure `database.backend` as `sqlite` or
 `postgres`. The selected backend is shared by the LangGraph checkpointer,
-LangGraph Store, and DeerFlow application data. The deprecated `checkpointer`
+LangGraph Store, and InvestAgent application data. The deprecated `checkpointer`
 section, when present, overrides the first two for backward compatibility.
 
 Gateway startup automatically repairs the missing run-change schema affecting
@@ -168,7 +168,7 @@ When fine-grained authorization is enabled, Live Browser connections require `th
 
 The bundled Docker, local and Helm nginx configs proxy Live Browser WebSocket upgrades with a 600-second read timeout for quiet streams. Helm uses nginx's default connection and send timeouts for the in-cluster Gateway. Any additional Ingress or reverse proxy must also allow WebSocket upgrades.
 
-Browser login uses `HttpOnly` session cookies. The login page offers a "keep me signed in" option that extends the browser session when the request is HTTPS (including trusted `X-Forwarded-Proto: https`) or localhost HTTP. The localhost exception uses the direct request `Host` and ignores forwarded host headers. Public HTTP deployments, including many temporary sandbox URLs, fall back to session cookies by default. DeerFlow never stores the password in browser storage; the UI may remember only the email address.
+Browser login uses `HttpOnly` session cookies. The login page offers a "keep me signed in" option that extends the browser session when the request is HTTPS (including trusted `X-Forwarded-Proto: https`) or localhost HTTP. The localhost exception uses the direct request `Host` and ignores forwarded host headers. Public HTTP deployments, including many temporary sandbox URLs, fall back to session cookies by default. InvestAgent never stores the password in browser storage; the UI may remember only the email address.
 
 If an authentication refresh fails during a temporary network outage, a visible
 tab rechecks the unknown session when connectivity returns or on a later tab
@@ -182,13 +182,13 @@ Sign-in requires at least six password characters; creating an account or choosi
 a new password requires eight. These checks run before sending a request.
 Passwords, including surrounding spaces, are submitted unchanged.
 
-OIDC/SSO authorization endpoints may include provider query parameters such as `?prompt=login`. DeerFlow preserves those parameters when adding the login request, including for configured `authorization_endpoint` overrides.
+OIDC/SSO authorization endpoints may include provider query parameters such as `?prompt=login`. InvestAgent preserves those parameters when adding the login request, including for configured `authorization_endpoint` overrides.
 
-After an SSO sign-in, DeerFlow returns you to the page that asked you to sign in instead of the default workspace. Opening the login page while already signed in does the same for its `next` target.
+After an SSO sign-in, InvestAgent returns you to the page that asked you to sign in instead of the default workspace. Opening the login page while already signed in does the same for its `next` target.
 
 Administrators can suspend and restore accounts from **Settings → Users** (admin-only; the section is hidden for ordinary users). The page lists each account's email, role, and status and exposes the same enable/disable operation as `PATCH /api/v1/admin/users/{id}`; the last remaining active admin cannot be disabled, and the Gateway's rejection detail is shown verbatim. A disabled account is rejected by every authentication surface, and its live sessions end on the next request with a login page that states the account has been disabled. Password login for a disabled account deliberately still answers "incorrect email or password" so the state is not disclosed to whoever holds the credentials.
 
-DeerFlow still uses `Forwarded` / `X-Forwarded-*` headers to recover the browser-facing scheme and origin behind a proxy. The bundled nginx sets `X-Forwarded-Proto`, but preserves an upstream HTTPS value and does not overwrite every forwarded header. Configure the outer trusted proxy to replace or strip client-supplied forwarding headers before traffic reaches DeerFlow.
+InvestAgent still uses `Forwarded` / `X-Forwarded-*` headers to recover the browser-facing scheme and origin behind a proxy. The bundled nginx sets `X-Forwarded-Proto`, but preserves an upstream HTTPS value and does not overwrite every forwarded header. Configure the outer trusted proxy to replace or strip client-supplied forwarding headers before traffic reaches InvestAgent.
 
 > [!IMPORTANT]
 > The Gateway still owns active run tasks in process, so production defaults to a single Gateway worker (`GATEWAY_WORKERS=1`). Multi-worker deployments require Postgres, the Redis stream bridge (`stream_bridge.type: redis`), `run_ownership.heartbeat_enabled: true`, and `run_events.backend: db`; process-local memory/JSONL event stores cannot enforce singleton delivery receipts across workers. Kubernetes replicas run one worker per Pod, which the worker count cannot see: declare them with `deployment.multi_instance: true` (or `DEER_FLOW_MULTI_INSTANCE=1`, which deploy tooling such as a Helm chart can set from its replica count) so the startup gate enforces the same prerequisites instead of staying inert. Declared instances that store credentials (`channel_connections`, or MCP servers using the OAuth `refresh_token` grant, whose rotating tokens they share through the database) must also share one at-rest `DEER_FLOW_CREDENTIALS_KEY` (the Helm chart and `make up` generate it; back it up, see [backend/docs/CONFIGURATION.md](../../backend/docs/CONFIGURATION.md#credentials-encryption-key-deer_flow_credentials_key)). The bridge shares SSE delivery and bounded `Last-Event-ID` replay across workers. When a trimmed reconnect cursor cannot be verified for complete replay, or a subscriber that already established an empty-stream wait falls behind before its first delivery, Memory and Redis emit a machine-readable SSE `gap` event instead of silently returning a partial replay; the Web UI reloads durable thread/event state and resumes from the retained tail. The Memory bridge can replay without recovery when the cursor is its exact last evicted event: every successor is still retained. Older or unverifiable evicted cursors still trigger recovery. An already-observed Redis stream removed during replay also signals a gap, so slow subscribers reload durable state instead of heartbeating forever after cleanup. Redis also tracks terminal stream producers with a short lease: if a worker dies after committing a terminal run status but before publishing END, SSE and `/wait` finish after the lease expires instead of waiting for the retained stream's TTL. Lease reconciliation marks runs from dead workers as errors, persists their delivery receipts, publishes the terminal stream marker, schedules retained-stream cleanup, and updates the affected thread status. Redis END publication is atomic and idempotent: owner and recovery retries confirm an existing marker without appending another, events cannot be appended once END is the stream tail, and an unowned recovery retry after cleanup does not recreate the stream. Legacy streams with an earlier END followed by late data can still accept data. The Redis compatibility scan (`stream_bridge.legacy_end_scan_enabled: true`) also runs on first END publication; disable it only after old writers stop and all legacy replay buffers expire or are removed, then restart every Gateway to use tail-only END detection. SSE, `/wait`, and internal stream consumers use `stream_bridge.heartbeat_interval_seconds` (default `15`) for idle liveness checks; changing it requires a Gateway restart. Malformed Redis reconnect IDs live-tail new events instead of replaying the retained buffer, and the rolling retained-buffer TTL (`stream_ttl_seconds`) remains a cleanup safety net rather than a run timeout. Failed-login counters and lockouts for `POST /api/v1/auth/login/local` (`auth.local.max_login_attempts` / `lockout_seconds`) are kept in the shared `login_throttle` table whenever the application database is SQLite or Postgres (`auth.local.throttle_storage: auto`, the default), so every replica enforces one lockout per client IP; `memory` keeps the historical per-process counter, which under N replicas hands an attacker N × `max_login_attempts` guesses and logs a startup warning. IM chat-to-thread bindings live in the shared `channel_thread_bindings` table whenever the application database is SQLite or Postgres (an existing `channels/store.json` is imported once at startup and renamed `store.json.migrated`); IM bot credentials entered in the web UI live in the shared `channel_runtime_configs` table, encrypted with `DEER_FLOW_CREDENTIALS_KEY` (an existing `channels/runtime-config.json` is imported once and then deleted), so a save on any instance reaches the provider's connection within one lease renewal; each provider's platform connection is held by one instance through the shared `channel_leases` table — `channels.leader_lease` (default `auto`, on wherever the multi-process signal is) hands it to another instance when the holder dies, and the startup gate refuses `enabled: false` while an IM channel other than GitHub is enabled (see [IM channel leader lease](../../backend/docs/CONFIGURATION.md#im-channel-leader-lease-channelsleader_lease)); follow-up buffers still need their own multi-worker coordination. To try this topology on one machine, `make dev-multi` starts two Gateways on shared Postgres, Redis and `DEER_FLOW_HOME`, and `make dev-multi-check` runs the cross-instance checks; see the local two-Gateway harness in [backend/docs/CONFIGURATION.md](../../backend/docs/CONFIGURATION.md#local-two-gateway-harness).
@@ -330,11 +330,11 @@ Before starting local development, follow the [configuration guide](configuratio
 to run `make setup` from the repository root or prepare `config.yaml` manually.
 
 `make dev` needs a valid configuration file. Set `DEER_FLOW_CONFIG_PATH` to
-point at a specific file. Otherwise, DeerFlow looks for `config.yaml` under
+point at a specific file. Otherwise, InvestAgent looks for `config.yaml` under
 `DEER_FLOW_PROJECT_ROOT`, which defaults to the checkout root. It then falls back
 to the checkout's `backend/config.yaml` and `config.yaml` in that order.
 
-When started with `make dev`, DeerFlow stores runtime state in `backend/.deer-flow`
+When started with `make dev`, InvestAgent stores runtime state in `backend/.deer-flow`
 in the checkout by default. Set `DEER_FLOW_HOME` to choose a different location.
 Skills default to `skills/` under the project root and can be moved with
 `DEER_FLOW_SKILLS_PATH`. Run `make doctor` to verify your setup before starting.
@@ -413,7 +413,7 @@ increasing the wait; an expired deadline still stops the services.
 
 ## Startup Modes
 
-DeerFlow runs the agent runtime inside the Gateway API. Development mode enables hot-reload; production mode uses a pre-built frontend.
+InvestAgent runs the agent runtime inside the Gateway API. Development mode enables hot-reload; production mode uses a pre-built frontend.
 
 | | **Local Foreground** | **Local Daemon** | **Docker Dev** | **Docker Prod** |
 |---|---|---|---|---|
@@ -459,7 +459,7 @@ changing the token to load the new value.
 
 ## LangGraph Studio (Optional)
 
-The default `make dev` topology uses DeerFlow's Gateway-embedded runtime and
+The default `make dev` topology uses InvestAgent's Gateway-embedded runtime and
 does not require LangGraph Studio. To inspect and test the registered lead-agent
 graph with the standalone development server, run the command from `backend/`
 so the CLI discovers `langgraph.json`:
@@ -470,22 +470,22 @@ uv run langgraph dev --allow-blocking
 ```
 
 The command prints the local API and Studio UI URLs. This in-memory server is
-for development and testing only. The flag permits DeerFlow's synchronous
+for development and testing only. The flag permits InvestAgent's synchronous
 configuration and graph-factory setup during local Studio requests; it must not
 be treated as a production-server setting. Local Studio authentication is
 handled automatically, so the connection does not require custom headers. Use
-DeerFlow's documented production startup modes or a supported LangSmith
+InvestAgent's documented production startup modes or a supported LangSmith
 deployment for production workloads. Assistant ownership and provenance in this
 standalone mode are server-owned: Studio can discover registered graphs and the
 assistants it creates, and normal assistant-version selection remains available.
-Before the locked local runtime loads its persisted development store, DeerFlow
+Before the locked local runtime loads its persisted development store, InvestAgent
 repairs legacy assistant rows and version history so historical client metadata
 cannot restore server privileges or be discarded by the runtime's startup
 cleanup. Keep the backend dependencies synchronized with `uv sync`; this
 compatibility path requires the declared LangGraph runtime versions and logs a
 warning if the persisted-store contract no longer matches its expectations.
 The documented command uses LangGraph's file-based custom-app loader, which is
-also covered directly by DeerFlow's regression tests.
+also covered directly by InvestAgent's regression tests.
 
 Standalone runs using `if_not_exists="create"` retain config and run metadata
 on the newly created thread, including searchable tags; run metadata takes
@@ -493,21 +493,21 @@ precedence for duplicate keys. Thread ownership and MCP incarnation remain
 server-owned, and later runs do not replace the thread's creation metadata.
 
 For workflows that invoke `backend/langgraph.json` through LangGraph Studio or
-a direct LangGraph Server, DeerFlow consumes the authenticated identity
+a direct LangGraph Server, InvestAgent consumes the authenticated identity
 published by that runtime and uses it for custom-agent configuration/SOUL, user
 skills and skill policy, uploads, thread data, and memory reads/writes. This
 keeps authenticated runs out of the shared `default` filesystem bucket, and the
 server-owned identity takes precedence over ordinary client-supplied `user_id`
 values. External identities such as email addresses are mapped to stable,
-collision-resistant directory-safe user IDs before accessing DeerFlow storage.
-The default DeerFlow service topology remains the Gateway-embedded runtime
+collision-resistant directory-safe user IDs before accessing InvestAgent storage.
+The default InvestAgent service topology remains the Gateway-embedded runtime
 described above.
 
 Gateway runs automatically enforce native delivery for artifacts created or modified under `/mnt/user-data/outputs`: `present_files` must present at least one output produced by the current run, and the terminal `run.delivery` receipt must be durably recorded. Virtual artifact paths are resolved within the same authenticated user and thread scope that produced the output before the output-directory boundary is validated. Runs that do not produce output artifacts keep ordinary conversational behavior.
 
 Thread-scoped `runs.wait()` calls that finish with `status: error` report the current run error instead of an earlier answer. The asynchronous Python LangGraph SDK raises by default; pass `raise_error=False` to inspect the returned status and error.
 
-DeerFlow's built-in custom events are available through both LangGraph streaming interfaces: native clients can continue subscribing to `stream_mode="custom"`, while callback-based integrations can consume the same payloads as `on_custom_event` records from `astream_events(version="v2")`. The callback event name matches the payload's `type` field.
+InvestAgent's built-in custom events are available through both LangGraph streaming interfaces: native clients can continue subscribing to `stream_mode="custom"`, while callback-based integrations can consume the same payloads as `on_custom_event` records from `astream_events(version="v2")`. The callback event name matches the payload's `type` field.
 
 ## Docker Production Deployment
 

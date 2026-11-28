@@ -115,7 +115,7 @@ Failed to list checkpoints for regenerate thread %s
 - 进程仍在 `full`（默认值）—— 键从未设置，或设置了但未重启。`checkpoint_delta.*` 在 full 模式下不起作用，历史缓存也只在 delta 模式下包裹 saver。
 - 你比较错了表。delta 把每步载荷移入 writes 表，因此公平的比较要同时统计检查点载荷字节**与** writes 行。存储守卫测试断言 delta 至多保留一个快照 blob，而 full 至少保留四个。
 
-一个相关提醒：任何保留策略在删除中间检查点时，都不得删掉保留下来的检查点与最近 `_DeltaSnapshot` 之间的祖先检查点或 writes，否则 delta 通道会静默重建为空且不报错。DeerFlow 不提供 `prune`/`aprune` 的生产触发点，因此这只是对接线方式的约束，不是现网故障。
+一个相关提醒：任何保留策略在删除中间检查点时，都不得删掉保留下来的检查点与最近 `_DeltaSnapshot` 之间的祖先检查点或 writes，否则 delta 通道会静默重建为空且不报错。InvestAgent 不提供 `prune`/`aprune` 的生产触发点，因此这只是对接线方式的约束，不是现网故障。
 
 **处理**：从线程标记确认模式，必要时重启，并比较检查点载荷加 writes 行。见[历史缓存](/docs/harness/checkpoints/history-cache)与[运维检查点](/docs/harness/checkpoints/operations)。
 
@@ -135,7 +135,7 @@ Failed to list checkpoints for regenerate thread %s
 
 **原因**：delta 无法正确分叉 —— 分叉本身会被接受，坏的是读取。从较旧的检查点恢复会分叉谱系，而 delta 历史回走会收集每条在路径上的祖先的**全部** `pending_writes` —— 但共享父级还带着被放弃的兄弟孩子的写入，于是这些写入被回放进分叉，run 从一份仍包含「本应被替换掉的回答」的消息列表开始。已在 Postgres、SQLite 与内存 saver 上复现；full 模式不受影响，因为它的检查点携带完整通道值。
 
-**处理**：DeerFlow 改为线性化而不分叉。它物化所选检查点的状态，以替换语义写到当前 head（head 没有其他孩子），把只存在于较新 head 的通道重置为 schema 默认值或 `None`，消费掉选择器，然后线性续跑。当模式为 full、没有 checkpointer、选择器已经指向 head，或命名空间非根时，线性化是空操作；它**fail-closed**，绝不回退到分叉：
+**处理**：InvestAgent 改为线性化而不分叉。它物化所选检查点的状态，以替换语义写到当前 head（head 没有其他孩子），把只存在于较新 head 的通道重置为 schema 默认值或 `None`，消费掉选择器，然后线性续跑。当模式为 full、没有 checkpointer、选择器已经指向 head，或命名空间非根时，线性化是空操作；它**fail-closed**，绝不回退到分叉：
 
 ```
 Run {run_id} could not materialize resume checkpoint {checkpoint_id}
@@ -149,7 +149,7 @@ Run {run_id} could not materialize resume checkpoint {checkpoint_id}
 
 **原因**：上游缺陷 [langgraph #8382](https://github.com/langchain-ai/langgraph/issues/8382)，已由 PR [#8544](https://github.com/langchain-ai/langgraph/pull/8544) 在 `langgraph-checkpoint` 4.3.0 中修复。受影响的版本按哈希后的 `(task_id, idx)` 排序 delta 回放写入，而不是实时 `apply_writes` 使用的路径顺序，导致 memory、SQLite 与 Postgres 上同一 super-step 的写入被重排。
 
-**处理**：使用 `langgraph-checkpoint>=4.3.0,<5.0`。DeerFlow 的依赖下限会排除受影响版本，`test_parallel_superstep_replay_matches_live_write_order` 无条件断言回放顺序与实时写入顺序一致。
+**处理**：使用 `langgraph-checkpoint>=4.3.0,<5.0`。InvestAgent 的依赖下限会排除受影响版本，`test_parallel_superstep_replay_matches_live_write_order` 无条件断言回放顺序与实时写入顺序一致。
 
 ### Postgres 物化旧检查点为空
 
@@ -157,7 +157,7 @@ Run {run_id} could not materialize resume checkpoint {checkpoint_id}
 
 **原因**：上游缺陷 [langgraph #8448](https://github.com/langchain-ai/langgraph/issues/8448)，已由 PR #8556 在 `langgraph-checkpoint-postgres` 3.1.3 中修复。受影响的版本在目标检查点超出第一页分页结果时，从尚未加载的父级推导回走游标；游标随后一直停在 `None`，导致旧检查点物化为空。
 
-**处理**：使用 `langgraph-checkpoint-postgres>=3.1.3,<3.2`。DeerFlow 的依赖下限会排除受影响版本，`test_long_chain_history_survives_pagination` 无条件将每个物化检查点与 `InMemorySaver` 预言机对照。
+**处理**：使用 `langgraph-checkpoint-postgres>=3.1.3,<3.2`。InvestAgent 的依赖下限会排除受影响版本，`test_long_chain_history_survives_pagination` 无条件将每个物化检查点与 `InMemorySaver` 预言机对照。
 
 ## 缓存
 

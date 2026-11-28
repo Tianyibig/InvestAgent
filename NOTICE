@@ -1,0 +1,16 @@
+InvestAgent
+
+Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+Copyright (c) 2025-2026 DeerFlow Authors
+
+InvestAgent is a single-person industry research and investment analysis
+platform covering primary and secondary markets.
+
+This repository includes code from the upstream project:
+
+https://github.com/bytedance/deer-flow
+
+That project is licensed under the MIT License. The copyright and permission
+notices in LICENSE are preserved and must stay with copies of the software.
+InvestAgent is the product name. The upstream project is credited here and in
+LICENSE; it is not the name of this product.

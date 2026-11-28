@@ -6,7 +6,7 @@ document and no external API, management service, or browser bundle. The corpus
 is deliberately public to all users; production adapters must map the host
 identity in `KnowledgeRequestContext` to provider permissions on every request.
 
-Install it from an absolute local path using DeerFlow's extension manager, then
+Install it from an absolute local path using InvestAgent's extension manager, then
 configure the existing `knowledge_search` entry and restart Gateway:
 
 ```yaml

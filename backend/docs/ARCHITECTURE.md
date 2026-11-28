@@ -1,6 +1,6 @@
 # Architecture Overview
 
-This document provides a comprehensive overview of the DeerFlow backend architecture.
+This document provides a comprehensive overview of the InvestAgent backend architecture.
 
 ## System Architecture
 
@@ -88,7 +88,7 @@ FastAPI application providing REST endpoints plus the public LangGraph-compatibl
 - `mcp.py` - `/api/mcp` - MCP server configuration
 - `skills.py` - `/api/skills` - Skills management
 - `uploads.py` - `/api/threads/{id}/uploads` - File upload
-- `threads.py` - `/api/threads/{id}` - Local DeerFlow thread data cleanup after LangGraph deletion
+- `threads.py` - `/api/threads/{id}` - Local InvestAgent thread data cleanup after LangGraph deletion
 - `artifacts.py` - `/api/threads/{id}/artifacts` - Artifact serving
 - `suggestions.py` - `/api/threads/{id}/suggestions` - Follow-up suggestion generation
 - `projects.py` - `/api/projects` - Project CRUD, archive/restore, member threads
@@ -153,7 +153,7 @@ class ThreadState(AgentState):
     # Core state from AgentState
     messages: list[BaseMessage]
 
-    # DeerFlow extensions
+    # InvestAgent extensions
     sandbox: dict             # Sandbox environment info
     artifacts: list[str]      # Generated file paths
     thread_data: dict         # {workspace, uploads, outputs} paths

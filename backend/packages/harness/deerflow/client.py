@@ -1,6 +1,6 @@
-"""DeerFlowClient — Embedded Python client for DeerFlow agent system.
+"""DeerFlowClient — Embedded Python client for InvestAgent agent system.
 
-Provides direct programmatic access to DeerFlow's agent capabilities
+Provides direct programmatic access to InvestAgent's agent capabilities
 without requiring LangGraph Server or Gateway API processes.
 
 Usage:
@@ -185,9 +185,9 @@ class _CachedAgent:
 
 
 class DeerFlowClient:
-    """Embedded Python client for DeerFlow agent system.
+    """Embedded Python client for InvestAgent agent system.
 
-    Provides direct programmatic access to DeerFlow's agent capabilities
+    Provides direct programmatic access to InvestAgent's agent capabilities
     without requiring LangGraph Server or Gateway API processes.
 
     Note:
@@ -888,7 +888,7 @@ class DeerFlowClient:
         thread_id: str | None = None,
         **kwargs,
     ) -> Generator[StreamEvent, None, None]:
-        """Stream a conversation turn with a DeerFlow request trace context.
+        """Stream a conversation turn with an InvestAgent request trace context.
 
         The embedded entry point, and like every other one it binds a trace id
         for the turn so logs, Langfuse metadata, and delegated work correlate.
@@ -1585,7 +1585,7 @@ class DeerFlowClient:
 
         if committed_failure is not None:
             _failed_pending, failure = committed_failure
-            raise RuntimeError("MCP configuration was saved, but local cache reconciliation failed; retry or restart DeerFlow before relying on the changed server.") from failure
+            raise RuntimeError("MCP configuration was saved, but local cache reconciliation failed; retry or restart InvestAgent before relying on the changed server.") from failure
         return {"mcp_servers": {name: server.model_dump() for name, server in reloaded.mcp_servers.items()}}
 
     # ------------------------------------------------------------------

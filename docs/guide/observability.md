@@ -28,7 +28,7 @@ restart-required, so edit `config.yaml` and restart the Gateway. The setting
 affects log output only — the id, the response header, and the run metadata are
 unaffected.
 
-`deerflow_trace_id` is a DeerFlow correlation id: it is not a run id, and it is not
+`deerflow_trace_id` is an InvestAgent correlation id: it is not a run id, and it is not
 a provider's native trace id. It is not a lookup key either — nothing resolves a
 thread or a run from it; use it to correlate log lines. A `deerflow_trace_id` sent
 in a run request's `metadata` or `config.context` is ignored and overwritten, so
@@ -55,7 +55,7 @@ schemas, arguments, results, or catalog hash into the promotion event itself.
 
 ## LangSmith Tracing
 
-DeerFlow has built-in [LangSmith](https://smith.langchain.com) integration for observability. When enabled, all LLM calls, agent runs, and tool executions are traced and visible in the LangSmith dashboard.
+InvestAgent has built-in [LangSmith](https://smith.langchain.com) integration for observability. When enabled, all LLM calls, agent runs, and tool executions are traced and visible in the LangSmith dashboard.
 
 Add the following to your `.env` file:
 
@@ -68,7 +68,7 @@ LANGSMITH_PROJECT=xxx
 
 ## Langfuse Tracing
 
-DeerFlow also supports [Langfuse](https://langfuse.com) observability for LangChain-compatible runs.
+InvestAgent also supports [Langfuse](https://langfuse.com) observability for LangChain-compatible runs.
 
 Add the following to your `.env` file:
 
@@ -87,13 +87,13 @@ If you are using a self-hosted Langfuse instance, set `LANGFUSE_BASE_URL` to you
 - `user_id` = effective user from `get_effective_user_id()` (falls back to `default` in no-auth mode)
 - `trace_name` = assistant id (defaults to `lead-agent`)
 - `tags` = `[env:<DEER_FLOW_ENV>, model:<model_name>]` (built-in Gateway lead-agent and embedded client runs tag the selected model after default or fallback resolution; custom graph factories may only provide the requested model; the environment tag is omitted when unset)
-- `metadata.deerflow_trace_id` = DeerFlow request correlation id, matching `X-Trace-Id` when request trace correlation is enabled
+- `metadata.deerflow_trace_id` = InvestAgent request correlation id, matching `X-Trace-Id` when request trace correlation is enabled
 
 These are injected into `RunnableConfig.metadata` at the graph invocation root for both the gateway path (`runtime/runs/worker.py::run_agent`) and the embedded path (`client.py::DeerFlowClient.stream`), so any LangChain-compatible callback can read them. Set `DEER_FLOW_ENV` (or `ENVIRONMENT`) to tag traces by deployment environment.
 
 ## Monocle Tracing
 
-DeerFlow also supports [Monocle](https://github.com/monocle2ai/monocle), an OpenTelemetry-based tracer for agentic applications. It records each run end-to-end: LLM calls, agent steps, and tool and MCP invocations, with their inputs, outputs, timings, and token counts.
+InvestAgent also supports [Monocle](https://github.com/monocle2ai/monocle), an OpenTelemetry-based tracer for agentic applications. It records each run end-to-end: LLM calls, agent steps, and tool and MCP invocations, with their inputs, outputs, timings, and token counts.
 
 Add the following to your `.env` file:
 

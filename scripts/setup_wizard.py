@@ -46,7 +46,7 @@ def main() -> int:
         env_path = project_root / ".env"
 
         print()
-        print(bold("Welcome to DeerFlow Setup!"))
+        print(bold("Welcome to InvestAgent Setup!"))
         print("This wizard will help you configure DeerFlow in a few minutes.")
         print()
 

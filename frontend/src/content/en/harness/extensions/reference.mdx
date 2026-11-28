@@ -13,7 +13,7 @@ This page documents every name in `deerflow_extension_api.__all__` as of contrac
 from deerflow_extension_api import ExtensionRegistry, MiddlewarePlacement, Placement
 ```
 
-The package has no dependencies and never imports DeerFlow. Types written as `Any` below, such as a middleware or a router, are validated by the host at runtime rather than by the contract.
+The package has no dependencies and never imports InvestAgent. Types written as `Any` below, such as a middleware or a router, are validated by the host at runtime rather than by the contract.
 
 ## Entry point and registry
 
@@ -94,7 +94,7 @@ Frozen dataclass passed to `contribute_middlewares()`.
 
 ### `HostPolicySnapshot`
 
-Frozen dataclass: the limits the host enforces, projected so extensions do not depend on DeerFlow's config types. Every field has a default.
+Frozen dataclass: the limits the host enforces, projected so extensions do not depend on InvestAgent's config types. Every field has a default.
 
 | Field                   | Type            | Default |
 | ----------------------- | --------------- | ------- |

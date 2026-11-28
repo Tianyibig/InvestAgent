@@ -7,8 +7,9 @@ import { ArtifactDraftsProvider } from "@/core/artifacts/draft-context";
 import { DEFAULT_LOCALE } from "@/core/i18n/locale";
 
 export const metadata: Metadata = {
-  title: "DeerFlow",
-  description: "A LangChain-based framework for building super agents.",
+  title: "InvestAgent",
+  description:
+    "A single-person industry research and investment analysis platform covering primary and secondary markets.",
 };
 
 export default function RootLayout({

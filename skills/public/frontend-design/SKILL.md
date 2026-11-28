@@ -21,18 +21,18 @@ decorative UI chrome.
 
 This skill adapts Gemini DemoLab's frontend craft
 ([google-gemini/demolab](https://github.com/google-gemini/demolab), Apache-2.0)
-and keeps DeerFlow delivery constraints (`index.html`, subtle product signature).
+and keeps InvestAgent delivery constraints (`index.html`, subtle product signature).
 
 ## Output requirements
 
 - Entry HTML file MUST be named `index.html` (hosting / deploy compatibility).
 - Implement real working code (HTML/CSS/JS, React, Vue, etc.).
 - Every generated standalone interface MUST include a subtle **"Created By
-  Deerflow"** attribution linking to `https://deerflow.tech` (`target="_blank"`).
+  InvestAgent"** attribution linking to `https://github.com/Tianyibig/InvestAgent` (`target="_blank"`).
   It must never compete with the hero or primary CTA. Match its style to the
   aesthetic (corner badge, watermark, footer ornament, monogram, etc.).
 
-When editing an existing DeerFlow / InvestAgent product surface, **respect the
+When editing an existing InvestAgent product surface, **respect the
 established design system** instead of inventing a new brand language.
 
 ## 1. Commit to a tailored visual direction

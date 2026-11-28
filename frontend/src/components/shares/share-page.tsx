@@ -121,7 +121,7 @@ export function SharePage({ token }: { token: string }) {
       <header className="flex flex-wrap items-center justify-between gap-4 border-b pb-5">
         <div>
           <Link href="/" className="font-serif text-2xl">
-            DeerFlow
+            InvestAgent
           </Link>
           <p className="text-muted-foreground mt-1 text-sm">
             {labels.readOnly}

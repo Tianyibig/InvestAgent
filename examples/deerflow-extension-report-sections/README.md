@@ -61,7 +61,7 @@ artifact.
 
 ## Tests
 
-From the DeerFlow checkout root with the backend environment prepared:
+From the InvestAgent checkout root with the backend environment prepared:
 
 ```sh
 uv run --project backend --no-sync python -m pytest backend/tests/test_report_sections_extension.py -q

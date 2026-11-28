@@ -60,7 +60,7 @@ principal binding is the same one the HTTP routes use.
 
 ## Install and configure
 
-From the DeerFlow checkout root:
+From the InvestAgent checkout root:
 
 ```sh
 make extension-install SOURCE=examples/deerflow-extension-run-postmortem

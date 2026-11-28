@@ -1,8 +1,8 @@
 # IM Channels
 
-DeerFlow supports receiving tasks from messaging apps. Channels auto-start when configured — no public IP required for any of them.
+InvestAgent supports receiving tasks from messaging apps. Channels auto-start when configured — no public IP required for any of them.
 
-Generated-file replies explain when a channel cannot send attachments. If some or all uploads fail, DeerFlow sends one combined notice naming the unsent files when the platform still accepts replies. Successful uploads add no duplicate confirmation. Files remain in the DeerFlow conversation; an expired reply window is logged without switching to proactive messaging.
+Generated-file replies explain when a channel cannot send attachments. If some or all uploads fail, InvestAgent sends one combined notice naming the unsent files when the platform still accepts replies. Successful uploads add no duplicate confirmation. Files remain in the InvestAgent conversation; an expired reply window is logged without switching to proactive messaging.
 
 Telegram retries photos rejected for invalid dimensions or image processing once as documents, preserving the original file and reply target.
 
@@ -25,7 +25,7 @@ On startup, runtime credential and WeChat auth stores remove their own `.<state-
 staging files older than 24 hours. Fresh files, symlinks and unrelated files are preserved. Older
 anonymous `tmp*.tmp` files require manual inspection because their writer cannot be identified safely.
 
-DeerFlow can also expose user-owned IM channel connections in the workspace UI. When `channel_connections` is enabled, logged-in users can bind Telegram, Slack, Discord, Feishu/Lark, DingTalk, WeChat, WeCom, QQ, or Buzz from the sidebar / Settings > Channels. It reuses the existing outbound `channels.*` transports, so no public IP or provider callback URL is required. Incoming IM messages then run under the connected DeerFlow user account. See [IM Channel Connections](../../backend/docs/IM_CHANNEL_CONNECTIONS.md) for setup and security notes. Buzz backlog paging stops with a warning if timestamp-based queries cannot advance, and channel removal closes both live and backlog subscriptions.
+InvestAgent can also expose user-owned IM channel connections in the workspace UI. When `channel_connections` is enabled, logged-in users can bind Telegram, Slack, Discord, Feishu/Lark, DingTalk, WeChat, WeCom, QQ, or Buzz from the sidebar / Settings > Channels. It reuses the existing outbound `channels.*` transports, so no public IP or provider callback URL is required. Incoming IM messages then run under the connected InvestAgent user account. See [IM Channel Connections](../../backend/docs/IM_CHANNEL_CONNECTIONS.md) for setup and security notes. Buzz backlog paging stops with a warning if timestamp-based queries cannot advance, and channel removal closes both live and backlog subscriptions.
 
 For Discord and Buzz, the local and Docker launchers detect the required optional
 dependencies when both `channel_connections.enabled` and the corresponding
@@ -177,16 +177,16 @@ channels:
 
 Notes:
 - `assistant_id: lead_agent` calls the default LangGraph assistant directly.
-- If `assistant_id` is set to a custom agent name, DeerFlow still routes through `lead_agent` and injects that value as `agent_name`, so the custom agent's SOUL/config takes effect for IM channels.
+- If `assistant_id` is set to a custom agent name, InvestAgent still routes through `lead_agent` and injects that value as `agent_name`, so the custom agent's SOUL/config takes effect for IM channels.
 - IM channel workers call Gateway's LangGraph-compatible API internally and automatically attach process-local internal auth plus the CSRF cookie/header pair required for thread and run creation.
-- Inbound work is bounded to `inbound_queue_maxsize` pending messages plus `max_concurrency` active workers. When capacity is exhausted, socket/polling providers drop new messages before sending DeerFlow's working acknowledgment and emit a rate-limited warning. Buzz leaves its replay cursor unchanged and reconnects for relay replay; GitHub webhooks return `503`, marking the delivery failed for manual/API redelivery. Shutdown closes admission immediately, keeps channel transports available while accepted messages drain for up to `shutdown_grace_period_seconds`, then cancels and awaits active handlers before closing provider resources; the Gateway's outer timeout can cancel an incomplete shutdown without detaching those resources.
+- Inbound work is bounded to `inbound_queue_maxsize` pending messages plus `max_concurrency` active workers. When capacity is exhausted, socket/polling providers drop new messages before sending InvestAgent's working acknowledgment and emit a rate-limited warning. Buzz leaves its replay cursor unchanged and reconnects for relay replay; GitHub webhooks return `503`, marking the delivery failed for manual/API redelivery. Shutdown closes admission immediately, keeps channel transports available while accepted messages drain for up to `shutdown_grace_period_seconds`, then cancels and awaits active handlers before closing provider resources; the Gateway's outer timeout can cancel an incomplete shutdown without detaching those resources.
 - Telegram shutdown retains ongoing cleanup across a timeout or cancellation so a retry can finish it. Stopping during startup also cancels initialization and closes the partially initialized bot's HTTP clients before retiring its worker loop. If the Telegram loop has already stopped, shutdown warns that download clients may remain open and releases the abandoned cleanup state; later stops do not repeat that warning.
 - Slack stop waits up to five seconds for an in-flight Socket Mode connection and its cleanup. If cleanup is still pending, the previous instance stays tracked and a restart can be retried after it finishes. SDK cleanup failures report their original error and remain retryable.
 - In Telegram private chats, text, attachment and streaming replies (including "Working on it...") can still be delivered if their referenced user or bot message was deleted, such as after clearing chat history during a run. Group reply-target requirements remain unchanged to preserve forum routing.
-- In Telegram groups, replying to a delivered bot response or attachment continues its DeerFlow conversation. Reply mappings survive restarts and stay scoped to the user's connection when one is bound. New, unrelated group messages still start separate conversations; private-chat routing is unchanged.
+- In Telegram groups, replying to a delivered bot response or attachment continues its InvestAgent conversation. Reply mappings survive restarts and stay scoped to the user's connection when one is bound. New, unrelated group messages still start separate conversations; private-chat routing is unchanged.
 - New Telegram final-reply sends use the bot API's rate-limit wait up to 60 seconds per retry. Missing, invalid, or shorter hints use the usual backoff. The "Working on it..." acknowledgment is best effort.
 - Slack replies that the Web API rejects with HTTP 429 wait for the `Retry-After` header, up to 15 seconds per retry; a longer hint abandons the reply with a log line instead of holding a shared worker. Missing, invalid, or shorter hints use the usual backoff. File uploads, connection replies, and the Working-on-it acknowledgment (`_send_running_reply`) still try once.
-- Feishu/Lark now queues rapid follow-up messages per mapped DeerFlow `thread_id` instead of immediately surfacing the generic busy reply, and topic replies keep a per-message card with a compact source-message preview across queued/running/final patches.
+- Feishu/Lark now queues rapid follow-up messages per mapped InvestAgent `thread_id` instead of immediately surfacing the generic busy reply, and topic replies keep a per-message card with a compact source-message preview across queued/running/final patches.
 - Streaming IM channels treat backend `error` events like transport failures and follow the same reply and retry path. The channel logs the error type and message for diagnosis.
 
 Set the corresponding API keys in your `.env` file:
@@ -248,11 +248,11 @@ Scheduled-task result and lifecycle notices can also be pushed to a bound Feishu
 1. Enable the `wechat` channel in `config.yaml`.
 2. Either set `WECHAT_BOT_TOKEN` in `.env`, or set `qrcode_login_enabled: true` for first-time QR bootstrap.
 3. When `bot_token` is absent and QR bootstrap is enabled, watch backend logs for the QR content returned by iLink and complete the binding flow.
-4. After the QR flow succeeds, DeerFlow persists the acquired token under `state_dir` for later restarts.
+4. After the QR flow succeeds, InvestAgent persists the acquired token under `state_dir` for later restarts.
 5. For Docker Compose deployments, keep `state_dir` on a persistent volume so the `get_updates_buf` cursor and saved auth state survive restarts.
 6. Outbound images/files enforce `max_outbound_image_bytes` / `max_outbound_file_bytes` (20 MiB / 50 MiB defaults) while reading, including files that grow after resolution. Oversize reads are rejected before encryption/upload instead of sending a truncated prefix. Non-positive limits disable the corresponding cap.
 7. `allowed_users` takes iLink user IDs. Unset, `null`, `[]`, or a blank string allows everyone. A single ID is one entry, not a sequence of characters, and an unquoted integer-valued number is stored as that integer's text. A scalar string containing commas or interior whitespace logs a warning but remains one literal ID; use a YAML list for multiple IDs. Invalid entries are ignored with a warning; any other configured value that yields no valid ID denies every user and logs an error. `/connect` is still accepted before that check, and a denied sender is dropped before inbound media is downloaded.
-8. Shutdown waits for in-flight cursor writes. On token expiry, DeerFlow persists the cursor reset and removes the saved token before completing poller cancellation.
+8. Shutdown waits for in-flight cursor writes. On token expiry, InvestAgent persists the cursor reset and removes the saved token before completing poller cancellation.
 9. Inbound attachments keep separate staged copies even when filenames match within one message or across messages. Their original filenames are preserved for upload ingestion. Private staged copies are removed after ingestion or when a message is dropped or fails.
 10. WeChat server long-poll hints are accepted from 1 through 300 seconds. Invalid hints leave the last accepted value in use, or `polling_timeout` if no hint has been accepted. Set `respect_server_longpoll_timeout: false` to always use the configured value.
 
@@ -282,11 +282,11 @@ space or tab padding. Malformed delimiter rows are left as text.
 
 DingTalk token caching uses a two-hour fallback when the provider's token lifetime is invalid or no longer than the five-minute refresh margin, avoiding a refresh on every request.
 
-When DeerFlow runs in Docker Compose, IM channels execute inside the `gateway` container. In that case, do not point `channels.langgraph_url` or `channels.gateway_url` at `localhost`; use container service names such as `http://gateway:8001/api` and `http://gateway:8001`, or set `DEER_FLOW_CHANNELS_LANGGRAPH_URL` and `DEER_FLOW_CHANNELS_GATEWAY_URL`.
+When InvestAgent runs in Docker Compose, IM channels execute inside the `gateway` container. In that case, do not point `channels.langgraph_url` or `channels.gateway_url` at `localhost`; use container service names such as `http://gateway:8001/api` and `http://gateway:8001`, or set `DEER_FLOW_CHANNELS_LANGGRAPH_URL` and `DEER_FLOW_CHANNELS_GATEWAY_URL`.
 
 **Commands**
 
-Once a channel is connected, you can interact with DeerFlow directly from the chat:
+Once a channel is connected, you can interact with InvestAgent directly from the chat:
 
 | Command | Description |
 |---------|-------------|
@@ -299,7 +299,7 @@ Once a channel is connected, you can interact with DeerFlow directly from the ch
 | `/agent use <name>` | Start a new conversation with a Custom Agent |
 | `/help` | Show help |
 
-> Messages without a command prefix are treated as regular chat — DeerFlow creates a thread and responds conversationally.
+> Messages without a command prefix are treated as regular chat — InvestAgent creates a thread and responds conversationally.
 
 Agent selection is conversation-scoped: `/agent use <name>` starts a fresh conversation and pins that Custom Agent in the thread metadata. Existing conversations never switch agents midway, the selection survives a Gateway restart, and opening the IM-created thread in the Web UI continues through the same Custom Agent.
 Use `/agent use lead_agent` to return to the default agent in a new conversation.

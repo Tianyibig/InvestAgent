@@ -131,7 +131,7 @@ def test_feishu_connect_command_binds_identity(tmp_path):
         assert connections[0]["provider"] == "feishu"
         assert connections[0]["external_account_id"] == "ou-user-1"
         assert connections[0]["workspace_id"] == "oc-chat-1"
-        channel._reply_card.assert_awaited_once_with("om-message-1", "Feishu connected to DeerFlow.")
+        channel._reply_card.assert_awaited_once_with("om-message-1", "Feishu connected to InvestAgent.")
         await close_engine()
 
     anyio.run(go)
@@ -176,7 +176,7 @@ def test_feishu_connect_replies_follow_the_code_owner_language(tmp_path, monkeyp
         await channel._bind_connection_from_connect_code(message_id="om-2", chat_id="oc-chat-1", user_id="ou-user-1", code=state)
 
         assert [call.args for call in channel._reply_card.await_args_list] == [
-            ("om-1", "飞书已连接到 DeerFlow。"),
+            ("om-1", "飞书已连接到 InvestAgent。"),
             # The code is spent: no owner is known, so the configured default applies.
             ("om-2", "Feishu connection code is invalid or expired."),
         ]
@@ -249,7 +249,7 @@ def test_wechat_connect_command_binds_identity(tmp_path):
         assert connections[0]["provider"] == "wechat"
         assert connections[0]["external_account_id"] == "wx-user-1"
         assert connections[0]["workspace_id"] == "wx-user-1"
-        channel._send_connection_reply.assert_awaited_once_with("wx-user-1", "ctx-1", "WeChat connected to DeerFlow.")
+        channel._send_connection_reply.assert_awaited_once_with("wx-user-1", "ctx-1", "WeChat connected to InvestAgent.")
         await close_engine()
 
     anyio.run(go)
@@ -284,7 +284,7 @@ def test_wecom_connect_command_binds_identity(tmp_path):
         assert connections[0]["provider"] == "wecom"
         assert connections[0]["external_account_id"] == "wecom-user-1"
         assert connections[0]["workspace_id"] == "bot-1"
-        channel._ws_client.reply.assert_awaited_once_with(frame, {"msgtype": "text", "text": {"content": "WeCom connected to DeerFlow."}})
+        channel._ws_client.reply.assert_awaited_once_with(frame, {"msgtype": "text", "text": {"content": "WeCom connected to InvestAgent."}})
         await close_engine()
 
     anyio.run(go)

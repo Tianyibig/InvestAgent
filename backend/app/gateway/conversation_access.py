@@ -58,10 +58,10 @@ def _source_id(reference: str, request_origin: str | None) -> str:
     parsed = urlsplit(reference)
     origin = _normalize_origin(f"{parsed.scheme}://{parsed.netloc}")
     if origin is None or request_origin is None or urlsplit(origin).netloc != urlsplit(request_origin).netloc or parsed.query or parsed.fragment:
-        raise ValueError("Use a thread ID or a conversation URL from this DeerFlow origin")
+        raise ValueError("Use a thread ID or a conversation URL from this InvestAgent origin")
     match = re.fullmatch(r"/workspace/(?:agents/[^/]+/)?chats/([^/]+)", parsed.path)
     if match is None:
-        raise ValueError("Expected a DeerFlow conversation URL")
+        raise ValueError("Expected an InvestAgent conversation URL")
     return validate_thread_id(match.group(1))
 
 

@@ -1,7 +1,7 @@
 # Office file preview
 
 An installable browser contribution for `.xlsx`, `.docx` and `.pptx` files in
-DeerFlow's artifact panel and standalone reader. Files stay within the current
+InvestAgent's artifact panel and standalone reader. Files stay within the current
 authenticated artifact API; no public document viewer or conversion service is used.
 Uses the host's optional `artifactPreviews` browser contract. The package is
 activated only after operator installation and a Gateway restart.

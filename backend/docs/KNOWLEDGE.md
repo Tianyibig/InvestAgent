@@ -42,14 +42,14 @@ never truncated. The WeKnora extension maps endpoint/tenant/base tuples to stabl
 `wk1_` SHA-256 IDs (68 ASCII characters), resolving them from the authorized
 catalog on each request without a mapping store. The earlier `ks1_` encoding
 allowing 512 characters is not the public contract. Reuse provider API/mapping logic without adding a second discovery
-protocol or a DeerFlow ACL store.
+protocol or an InvestAgent ACL store.
 
 `KnowledgeRequestContext` supplies the host user ID, Agent name and optional
 execution-only scope. A provider implementing `search_scoped` receives context
 on every search, including unrestricted searches. A search-only implementation
 may retain `search(query)` when it uses an operator-owned connection with a
 fixed resource visibility. User/tenant mappings and resource authorization
-remain provider responsibilities; DeerFlow does not infer tenants from client
+remain provider responsibilities; InvestAgent does not infer tenants from client
 metadata or create a second ACL store.
 The optional `authenticated_user_id` field carries separate host authentication
 provenance and defaults to `None`. Gateway binds it only for verified sessions

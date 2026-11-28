@@ -1,11 +1,11 @@
-# DeerFlow Terminal Workbench (TUI)
+# InvestAgent Terminal Workbench (TUI)
 
-`deerflow` is a terminal-native workbench for the DeerFlow harness. It runs
+`deerflow` is a terminal-native workbench for the InvestAgent harness. It runs
 **embedded** over `DeerFlowClient` — no Gateway, frontend, nginx, or Docker
 services required — while honoring the same `config.yaml`, checkpointer, skills,
-memory, MCP, and sandbox settings as the rest of DeerFlow.
+memory, MCP, and sandbox settings as the rest of InvestAgent.
 
-![DeerFlow TUI](../../docs/tui/tui-preview.svg)
+![InvestAgent TUI](../../docs/tui/tui-preview.svg)
 
 ## Install & run
 
@@ -40,7 +40,7 @@ both sides of the flag are rejected with exit 2, since their order cannot be
 recovered. `--print` and `--json` cannot be combined; pick one output mode.
 
 If the program reading a `--print` pipe closes it before the answer is written,
-DeerFlow exits quietly with status `1`.
+InvestAgent exits quietly with status `1`.
 
 If no TTY is available and no headless flag is given, `deerflow` prints guidance
 instead of hanging.
@@ -52,7 +52,7 @@ still writes the fallback text to stdout, then prints
 `Error: LLM request failed (error_type=…, error_reason=…)` to stderr; `--json`
 appends the same terminal `{"type": "error"}` record. Both exit `1`.
 
-Transparent rendering is opt-in; the solid DeerFlow palette remains the default.
+Transparent rendering is opt-in; the solid InvestAgent palette remains the default.
 The transparent mode uses Textual's `ansi_default` background for the main
 screen, header, transcript, status, palette, composer, and modal surfaces while
 keeping truecolor foregrounds and selection highlights. Combine
@@ -112,7 +112,7 @@ return to the bottom with `PageDown`.
 `/help` `/new` `/clear` `/goal` `/resume` `/threads` (`/switch`) `/model` `/skills` `/tools`
 `/mcp` `/memory` `/uploads` `/usage` `/config` `/quit`, plus
 `/<skill-name> task` to activate any enabled skill for the current turn (same
-semantics as elsewhere in DeerFlow). `/model` and `/threads` open modal pickers, which
+semantics as elsewhere in InvestAgent). `/model` and `/threads` open modal pickers, which
 show thread titles and model names exactly as written, square brackets included.
 
 `/clear` removes the current transcript rows from the terminal display only; it keeps the active thread and persisted conversation intact. During an active run, `/new` and `/clear` ask you to wait for the run to finish instead of resetting in-flight display state.

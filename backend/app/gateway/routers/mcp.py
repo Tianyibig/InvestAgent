@@ -370,7 +370,7 @@ class McpUserScopedAuthConfigResponse(BaseModel):
 
     enabled: bool = Field(default=True, description="Whether user-scoped credential injection is enabled")
     header: str = Field(default="Authorization", description="HTTP header to set with the resolved user credential")
-    users: dict[str, str] = Field(default_factory=dict, description="Map of DeerFlow user id to credential header value")
+    users: dict[str, str] = Field(default_factory=dict, description="Map of InvestAgent user id to credential header value")
     on_missing: Literal["deny", "passthrough"] = Field(default="deny", description="Behavior when the calling user has no mapped credential")
     # Mirror the harness-side McpUserScopedAuthConfig (extra="allow"): without
     # this, an operator's unknown key inside user_auth would be silently
@@ -1280,7 +1280,7 @@ async def _run_drained_mcp_apply[**P, T](action: str, apply: Callable[P, T], /, 
             await asyncio.to_thread(finish_mcp_reconciliation, exc.pending)
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                detail=("MCP configuration was saved, but local cache reconciliation failed; retry or restart DeerFlow before relying on the changed server."),
+                detail=("MCP configuration was saved, but local cache reconciliation failed; retry or restart InvestAgent before relying on the changed server."),
             ) from exc
 
     return await await_drained(_apply_and_finish())

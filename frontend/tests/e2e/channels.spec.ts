@@ -86,7 +86,7 @@ function mockChannelsAPI(
         mode: "binding_code",
         url: null,
         code: "abc123",
-        instruction: "Send /connect abc123 to the DeerFlow Slack bot.",
+        instruction: "Send /connect abc123 to the InvestAgent Slack bot.",
         expires_in: 600,
       }),
     });
@@ -395,7 +395,7 @@ test.describe("IM channels", () => {
           mode: "binding_code",
           url: null,
           code: "abc123",
-          instruction: "Send /connect abc123 to the DeerFlow Slack bot.",
+          instruction: "Send /connect abc123 to the InvestAgent Slack bot.",
           expires_in: 600,
         }),
       });
@@ -770,7 +770,7 @@ for (const entry of ["sidebar", "settings"] as const) {
             mode: "binding_code",
             code: "recovery-demo",
             instruction:
-              "Send /connect recovery-demo to the DeerFlow WeChat bot.",
+              "Send /connect recovery-demo to the InvestAgent WeChat bot.",
             expires_in: 600,
           },
         });

@@ -1,6 +1,6 @@
 # GitHub Event-Driven Agents
 
-GitHub is a **webhook-push** channel: there is no long-polling worker. Every GitHub App / repository delivery lands at `POST /api/webhooks/github`, where it is HMAC-verified, fan-out'd to one `InboundMessage` per matching custom-agent binding, and shipped to the rest of DeerFlow through the same `ChannelManager` that handles Feishu/Slack/Telegram. For the high-level orientation, see [channel guidance](../app/channels/AGENTS.md#github-channel).
+GitHub is a **webhook-push** channel: there is no long-polling worker. Every GitHub App / repository delivery lands at `POST /api/webhooks/github`, where it is HMAC-verified, fan-out'd to one `InboundMessage` per matching custom-agent binding, and shipped to the rest of InvestAgent through the same `ChannelManager` that handles Feishu/Slack/Telegram. For the high-level orientation, see [channel guidance](../app/channels/AGENTS.md#github-channel).
 
 This guide covers setup and the architecture of that pipeline:
 
@@ -142,7 +142,7 @@ Whitespace-only values at every level are treated as unset, so the chain falls t
 
 ## Author Authorization
 
-Webhook HMAC verification only proves that a delivery came from GitHub; it does not authorize the GitHub account that triggered the event. Because each matched agent executes in its DeerFlow owner's bucket (`owner_user_id`), `event_should_fire()` enforces a fail-closed author gate on every user-authored event (`issue_comment`, `pull_request_review_comment`, `pull_request_review`, `issues`, `pull_request`):
+Webhook HMAC verification only proves that a delivery came from GitHub; it does not authorize the GitHub account that triggered the event. Because each matched agent executes in its InvestAgent owner's bucket (`owner_user_id`), `event_should_fire()` enforces a fail-closed author gate on every user-authored event (`issue_comment`, `pull_request_review_comment`, `pull_request_review`, `issues`, `pull_request`):
 
 - **`allow_authors`** (default `[]`): GitHub logins (case-insensitive) explicitly authorized to trigger the agent. Use this for specific humans or third-party bots (for example `Copilot` or `coderabbitai[bot]`).
 - **`allow_authors_bypass_mention`** (default `true`): Controls whether `allow_authors` matches skip `require_mention`. Set to `false` when using `allow_authors` strictly as an authorization allowlist that must still `@mention` the bot.
@@ -237,7 +237,7 @@ environment variables and mounts. In the custom agent's **Plugins and skills**
 settings, select `github-app`. On a test PR in the bound repository, post a
 conversation comment such as `@example-review-app summarize this pull request`.
 Verify that GitHub's Recent Deliveries response lists the agent under
-`dispatch.fired_agents` and that the DeerFlow run successfully calls
+`dispatch.fired_agents` and that the InvestAgent run successfully calls
 `pull_request_read`. This checks both the webhook dispatch and the
 installation's repository access.
 

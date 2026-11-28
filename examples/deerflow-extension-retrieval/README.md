@@ -7,7 +7,7 @@ operations. All users see the same demonstration corpus; it is not a private
 knowledge base or a factual company source.
 
 The package imports only Python's standard library and `deerflow-extension-api`
-0.2.6 or newer. It does not import private DeerFlow harness modules.
+0.2.6 or newer. It does not import private InvestAgent harness modules.
 
 ## Enable explicitly
 
@@ -51,7 +51,7 @@ RAGFlow citation, enable citation cards, or participate in source-aware budget
 pruning or subagent source forwarding. Generic artifacts can outlive truncated
 content; adding an artifact does not establish evidence authority.
 
-From an existing DeerFlow backend development environment with API 0.2.6:
+From an existing InvestAgent backend development environment with API 0.2.6:
 
 ```sh
 uv run pytest tests/test_retrieval_plugin_artifacts.py -q

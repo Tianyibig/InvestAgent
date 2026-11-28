@@ -1144,11 +1144,11 @@ def create_app() -> FastAPI:
     openapi_url = "/openapi.json" if config.enable_docs else None
 
     app = FastAPI(
-        title="DeerFlow API Gateway",
+        title="InvestAgent API Gateway",
         description="""
-## DeerFlow API Gateway
+## InvestAgent API Gateway
 
-API Gateway for DeerFlow - A LangGraph-based AI agent backend with sandbox execution capabilities.
+API Gateway for InvestAgent, a single-person industry research and investment analysis platform. The runtime is a LangGraph-based agent backend with sandbox execution.
 
 ### Features
 

@@ -1,7 +1,7 @@
 # Script workflows (Phase 4)
 
 An opt-in packaged extension that runs inspectable JavaScript orchestration in the
-background. Scripts call full DeerFlow Agents through the public `AgentRuns`
+background. Scripts call full InvestAgent Agents through the public `AgentRuns`
 capability. A chat tool or authenticated plugin action returns a workflow run ID
 promptly; **Script workflows** shows the script, argument hashes, execution limits,
 progress, child conversation/run identities, and final result.

@@ -1,6 +1,6 @@
 # Conversation Summarization
 
-DeerFlow includes automatic conversation summarization to handle long conversations that approach model token limits. When enabled, the system automatically condenses older messages while preserving recent context.
+InvestAgent includes automatic conversation summarization to handle long conversations that approach model token limits. When enabled, the system automatically condenses older messages while preserving recent context.
 
 New checkpoints no longer use raw task-result or skill-read transcript content to derive durable context. The capture path consumes bounded structured metadata stamped on the corresponding `ToolMessage.additional_kwargs`; transcript text remains display/model content, not the state-capture protocol.
 
@@ -247,7 +247,7 @@ keep:
 
 #### `summary_prompt`
 - **Type**: String or null
-- **Default**: `null` (uses DeerFlow's built-in prompt)
+- **Default**: `null` (uses InvestAgent's built-in prompt)
 - **Description**: Custom prompt template for generating summaries. The prompt should guide the model to extract the most important context.
 - **Template syntax**: The value is a Python `str.format` template with one slot, `{messages}`, which receives the history selected for summarization. Literal braces must be doubled, so a JSON-shaped prompt is written `{{"summary": "..."}}`. Formatting and field-lookup errors skip automatic compaction without changing history or the previous summary. The warning includes `summary_prompt_hash`, matching the middleware's release-policy fingerprint, without logging the template or history. Manual `/compact` reports the existing summary-generation failure instead of treating the attempt as unnecessary compaction; its HTTP error status is unchanged.
 
@@ -259,7 +259,7 @@ keep:
 Legacy `preserve_recent_skill_*` settings are no longer used. Loaded skill retention is handled by the durable `skill_context` reference channel instead of by preserving raw skill-read messages in the summarization window.
 
 **Default Prompt Behavior:**
-The built-in DeerFlow prompt extends LangChain's prompt and asks the model to:
+The built-in InvestAgent prompt extends LangChain's prompt and asks the model to:
 - Extract highest quality/most relevant context
 - Focus on information critical to the overall goal
 - Avoid repeating completed actions

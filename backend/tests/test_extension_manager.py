@@ -1452,7 +1452,7 @@ def test_deerflow_extensions_remove_uninstalls_dependency_source_and_activation(
     assert exit_code == 0
     output = capsys.readouterr().out
     assert "Removed demo" in output
-    assert "Restart DeerFlow" in output
+    assert "Restart InvestAgent" in output
     config = yaml.safe_load((root / "config.yaml").read_text(encoding="utf-8"))
     assert config["plugins"] == []
     assert not (root / "backend" / "extensions" / "sources" / "deerflow-extension-demo").exists()

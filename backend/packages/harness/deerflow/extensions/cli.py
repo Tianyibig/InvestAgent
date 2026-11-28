@@ -79,7 +79,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     print("Extension installation cancelled.", file=sys.stderr)
                     return 2
             installed = manager.install(source, yes=trusted, required=args.required)
-            print(f"Installed and enabled {installed.name} ({installed.distribution}). Restart DeerFlow to load it.")
+            print(f"Installed and enabled {installed.name} ({installed.distribution}). Restart InvestAgent to load it.")
             return 0
         if args.command == "upgrade":
             source = _source_argument(args)
@@ -94,15 +94,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                     print("Extension upgrade cancelled.", file=sys.stderr)
                     return 2
             installed = manager.upgrade(source, yes=trusted)
-            print(f"Upgraded {installed.name} ({installed.distribution}). Restart DeerFlow to load it.")
+            print(f"Upgraded {installed.name} ({installed.distribution}). Restart InvestAgent to load it.")
             return 0
         if args.command == "disable":
             name = manager.set_enabled(_name_argument(args), enabled=False)
-            print(f"Disabled {name}. Restart DeerFlow to apply the change.")
+            print(f"Disabled {name}. Restart InvestAgent to apply the change.")
             return 0
         if args.command == "enable":
             name = manager.set_enabled(_name_argument(args), enabled=True)
-            print(f"Enabled {name}. Restart DeerFlow to apply the change.")
+            print(f"Enabled {name}. Restart InvestAgent to apply the change.")
             return 0
         if args.command == "list":
             configured = manager.list_configured()
@@ -126,7 +126,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
         if args.command == "remove":
             name = manager.remove(_name_argument(args))
-            print(f"Removed {name}. Restart DeerFlow to apply the change.")
+            print(f"Removed {name}. Restart InvestAgent to apply the change.")
             return 0
     except (OSError, RuntimeError, ValueError, subprocess.CalledProcessError) as exc:
         print(f"extension command failed: {exc}", file=sys.stderr)

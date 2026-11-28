@@ -36,11 +36,11 @@ class RunCreateRequest(BaseModel):
     command: dict[str, Any] | None = Field(default=None, description="LangGraph Command")
     metadata: dict[str, Any] | None = Field(default=None, description="Run metadata")
     config: dict[str, Any] | None = Field(default=None, description="RunnableConfig overrides")
-    context: dict[str, Any] | None = Field(default=None, description="DeerFlow context overrides (model_name, thinking_enabled, etc.). May include client capabilities under context.client.")
+    context: dict[str, Any] | None = Field(default=None, description="InvestAgent context overrides (model_name, thinking_enabled, etc.). May include client capabilities under context.client.")
     conversation_references: list[ConversationReference] = Field(
         default_factory=list,
         max_length=MAX_CONVERSATION_REFERENCES,
-        description="Explicit thread IDs or chat URLs on this DeerFlow host readable only during this run (opt-in read_conversation tool); SDK clients may send the same list as context.conversation_references",
+        description="Explicit thread IDs or chat URLs on this InvestAgent host readable only during this run (opt-in read_conversation tool); SDK clients may send the same list as context.conversation_references",
     )
     webhook: None = Field(default=None, description="Compatibility placeholder; completion callbacks are not supported")
     checkpoint_id: str | None = Field(default=None, description="Resume from checkpoint")
@@ -159,7 +159,7 @@ class RunCreateRequest(BaseModel):
         if not is_supported:
             raise PydanticCustomError(
                 "unsupported_run_option",
-                "Run option '{option}' is not supported by DeerFlow",
+                "Run option '{option}' is not supported by InvestAgent",
                 {"option": info.field_name},
             )
         return value
@@ -169,12 +169,12 @@ class RunCreateRequest(BaseModel):
     def reject_resumable_streams(cls, value: Any) -> Any:
         # LangGraph SDK clients always send this field (its default is ``False``, which the
         # payload's ``None`` filter keeps). ``False`` asks for the non-resumable stream
-        # DeerFlow already serves, so only an explicit ``True`` requests the unsupported feature.
+        # InvestAgent already serves, so only an explicit ``True`` requests the unsupported feature.
         if value is None or value is False:
             return value
         raise PydanticCustomError(
             "unsupported_run_option",
-            "Run option '{option}' is not supported by DeerFlow",
+            "Run option '{option}' is not supported by InvestAgent",
             {"option": "stream_resumable"},
         )
 

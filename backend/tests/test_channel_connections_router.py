@@ -521,7 +521,7 @@ def test_connect_slack_returns_binding_command_and_persists_state(tmp_path):
     assert body["mode"] == "binding_code"
     assert body["url"] is None
     assert len(body["code"]) >= 22
-    assert body["instruction"] == f"Send /connect {body['code']} to the DeerFlow Slack bot."
+    assert body["instruction"] == f"Send /connect {body['code']} to the InvestAgent Slack bot."
 
     async def count_states():
         return await repo.count_oauth_states(owner_user_id=str(_user().id), provider="slack")
@@ -567,7 +567,7 @@ def test_connect_discord_returns_binding_command_and_persists_state(tmp_path):
     assert body["mode"] == "binding_code"
     assert body["url"] is None
     assert body["code"]
-    assert body["instruction"] == f"Send /connect {body['code']} to the DeerFlow Discord bot."
+    assert body["instruction"] == f"Send /connect {body['code']} to the InvestAgent Discord bot."
 
     async def count_states():
         return await repo.count_oauth_states(owner_user_id=str(_user().id), provider="discord")
@@ -600,7 +600,7 @@ def test_connect_existing_binding_code_channels_return_command_and_persist_state
         assert body["mode"] == "binding_code"
         assert body["url"] is None
         assert len(body["code"]) >= 22
-        assert body["instruction"] == f"Send /connect {body['code']} to the DeerFlow {expected_display_name} bot."
+        assert body["instruction"] == f"Send /connect {body['code']} to the InvestAgent {expected_display_name} bot."
 
         async def count_states(provider=provider):
             return await repo.count_oauth_states(owner_user_id=str(_user().id), provider=provider)
@@ -1645,7 +1645,7 @@ def test_qq_provider_exposes_binding_flow_and_masks_secret(tmp_path):
             body = connected.json()
             assert body["mode"] == "binding_code"
             assert body["url"] is None
-            assert body["instruction"] == f"Send /connect {body['code']} to the DeerFlow QQ bot."
+            assert body["instruction"] == f"Send /connect {body['code']} to the InvestAgent QQ bot."
 
         async def consume():
             return await repo.consume_oauth_state(provider="qq", state=body["code"])

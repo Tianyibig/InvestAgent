@@ -2,8 +2,9 @@
 
 This file is for coding agents. If the InvestAgent repository is not already
 cloned and open, clone `https://github.com/Tianyibig/InvestAgent.git` first,
-then continue from the repository root. InvestAgent is a DeerFlow fork for
-single-person industry research and investment analysis (not a trading system).
+then continue from the repository root. InvestAgent is a single-person
+industry research and investment analysis platform (not a trading system).
+The agent runtime comes from https://github.com/bytedance/deer-flow.
 
 ## Goal
 

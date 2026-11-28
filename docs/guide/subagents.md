@@ -194,7 +194,7 @@ Agent settings and `update_agent` while the importer retains their old files
 for rollback. See [Agent Storage](../../backend/docs/CONFIGURATION.md#agent-storage)
 for the migration procedure.
 
-Custom Agents can also be moved between DeerFlow users or deployments from the
+Custom Agents can also be moved between InvestAgent users or deployments from the
 Agents gallery. **Export Agent** downloads a versioned
 `*.deerflow-agent.json` package containing the portable definition and
 `SOUL.md`; **Import Agent** validates that package and lets the receiving user

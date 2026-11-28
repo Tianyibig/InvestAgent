@@ -13,10 +13,10 @@ from deerflow.persistence.scheduled_task_runs.sql import run_summary
 TASK_ID = "task-0f3c9a7d5b2e4c1a"
 OCCURRENCE_ID = "task-run-6a1d0c4e9b7f2a35"
 RUN_ID = "3f2b8c1e-6d4a-4b9e-9a7c-0e5d1f2a3b4c"
-CLOSING = {"en-US": "Open DeerFlow → Scheduled tasks for details.", "zh-CN": "在 DeerFlow 的定时任务页查看详情。"}
+CLOSING = {"en-US": "Open InvestAgent → Scheduled tasks for details.", "zh-CN": "在 InvestAgent 的定时任务页查看详情。"}
 _CJK = re.compile(r"[一-鿿]")
 # Stems of every English sentence; none may leak into the Chinese text.
-_EN_STEMS = ("Scheduled task", "Finished", "A run failed", "Ran, but", "Paused", "Result:", "Open DeerFlow", "The last run", "Goal met", "Untitled")
+_EN_STEMS = ("Scheduled task", "Finished", "A run failed", "Ran, but", "Paused", "Result:", "Open InvestAgent", "The last run", "Goal met", "Untitled")
 
 
 def notice(event, *, locale="en-US", run_id=RUN_ID, **payload):
@@ -113,7 +113,7 @@ def test_documented_example():
         "Scheduled task “Check the release checklist”\n"
         "Paused by agent: its stop condition was met (all items are ticked).\n"
         "Result: All 12 checklist items are done; the release notes are published.\n"
-        "Open DeerFlow → Scheduled tasks for details."
+        "Open InvestAgent → Scheduled tasks for details."
     )
 
 
@@ -450,36 +450,36 @@ def test_runtime_notices_render_localized_without_ids_or_links(locale):
             "Task “Ship release notes”",
             "Completed. Goal met, with an assumption.",
             "Result: Drafted the changelog and verified links.",
-            "Open DeerFlow → Conversations for details.",
+            "Open InvestAgent → Conversations for details.",
         ]
         assert failed.splitlines() == [
             "Task “Ship release notes”",
             "Failed to complete.",
-            "Open DeerFlow → Conversations for details.",
+            "Open InvestAgent → Conversations for details.",
         ]
         assert input_needed.splitlines() == [
             "Task “Ship release notes”",
             "Waiting for your input in the conversation.",
             "Question: Which target branch should we tag?",
-            "Open DeerFlow → Conversations to continue.",
+            "Open InvestAgent → Conversations to continue.",
         ]
     else:
         assert completed.splitlines() == [
             "任务“Ship release notes”",
             "已完成。目标已达成（含假设）。",
             "结果：Drafted the changelog and verified links.",
-            "在 DeerFlow 的对话页查看详情。",
+            "在 InvestAgent 的对话页查看详情。",
         ]
         assert failed.splitlines() == [
             "任务“Ship release notes”",
             "运行失败，未能完成。",
-            "在 DeerFlow 的对话页查看详情。",
+            "在 InvestAgent 的对话页查看详情。",
         ]
         assert input_needed.splitlines() == [
             "任务“Ship release notes”",
             "正在等待你在对话中确认或补充信息。",
             "待确认：Which target branch should we tag?",
-            "在 DeerFlow 的对话页继续处理。",
+            "在 InvestAgent 的对话页继续处理。",
         ]
 
 

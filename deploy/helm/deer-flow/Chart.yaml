@@ -1,6 +1,6 @@
 apiVersion: v2
 name: deer-flow
-description: DeerFlow — LangGraph-based AI super-agent (gateway + frontend + nginx + sandbox provisioner) deployed to Kubernetes.
+description: InvestAgent — industry research and investment analysis platform (gateway + frontend + nginx + sandbox provisioner) deployed to Kubernetes.
 type: application
 version: 2.3.0-dev
 appVersion: "2.3.0-dev"
@@ -9,7 +9,7 @@ keywords:
   - langgraph
   - ai-agent
   - llm
-home: https://github.com/bytedance/deer-flow
+home: https://github.com/Tianyibig/InvestAgent
 icon: https://raw.githubusercontent.com/bytedance/deer-flow/main/frontend/public/images/deer.svg
 maintainers:
-  - name: DeerFlow
+  - name: InvestAgent

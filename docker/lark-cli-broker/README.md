@@ -40,7 +40,7 @@ image ships Python 3, so the default path needs no configuration.
 ## Build
 
 The image bundles the broker script and its shared atomic-write helper modules.
-It requires no separate DeerFlow harness installation for either mode.
+It requires no separate InvestAgent harness installation for either mode.
 
 Build context is the **repo root** (the broker module lives under `backend/`):
 
@@ -56,7 +56,7 @@ the upstream `all-in-one-sandbox` image.
 CI publishes multi-arch (`linux/amd64,linux/arm64`) images to
 `ghcr.io/<owner>/deer-flow-lark-cli-broker:<lark-cli-version>` via
 `.github/workflows/lark-cli-images.yaml` (run it with a `lark_cli_version` input,
-or push a `lark-cli-v*` tag). This is decoupled from the DeerFlow `v*` release
+or push a `lark-cli-v*` tag). This is decoupled from the InvestAgent `v*` release
 because the image tracks the upstream `larksuite/cli` version.
 
 ## Wiring it into the provisioner

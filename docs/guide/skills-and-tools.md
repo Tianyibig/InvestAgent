@@ -97,7 +97,7 @@ Configure `knowledge_search` with either
 Both support attributable retrieval evidence. Both clients load HTTP client
 TLS trust in a worker thread before asynchronous requests, keeping synchronous
 certificate loading off the event loop. LightRAG and RAGFlow responses
-without complete provider locators use the shared DeerFlow source contract;
+without complete provider locators use the shared InvestAgent source contract;
 complete RAGFlow responses retain their existing citation snapshots and scope
 controls. Knowledge citations show the
 provider, document title, and retrieved excerpt in chat, including after reload
@@ -159,9 +159,9 @@ provider-independent API is covered by offline contract tests. Real ingestion,
 GLM-5.3/BGE integration, browser citation replay and observed limitations are
 recorded in the [acceptance report](../../examples/deerflow-extension-knowledge-management/VALIDATION.md).
 
-Skills are what make DeerFlow do *almost anything*.
+Skills are what make InvestAgent do *almost anything*.
 
-A standard Agent Skill is a structured capability module — a Markdown file that defines a workflow, best practices, and references to supporting resources. DeerFlow ships with built-in skills for research, report generation, slide creation, web pages, image and video generation, and more. But the real power is extensibility: add your own skills, replace the built-in ones, or combine them into compound workflows.
+A standard Agent Skill is a structured capability module — a Markdown file that defines a workflow, best practices, and references to supporting resources. InvestAgent ships with built-in skills for research, report generation, slide creation, web pages, image and video generation, and more. But the real power is extensibility: add your own skills, replace the built-in ones, or combine them into compound workflows.
 
 For BytePlus Agent Plan, the [video-generation skill](../../skills/public/video-generation/SKILL.md)
 accepts `BYTEPLUS_AGENTPLAN_API_KEY` (auto-selected when neither Gemini nor
@@ -216,7 +216,7 @@ The [music-generation skill](../../skills/public/music-generation/SKILL.md#outpu
 The bundled skill-creator trigger evaluator drains CLI output through EOF, so a completed subprocess does not turn a recorded skill trigger into a false negative.
 The bundled skill-creator description optimizer reads YAML frontmatter consistently with skill validation, preserving quoted strings and multiline descriptions. Its scripts require PyYAML, as does the skill package validator. Invalid skill metadata is reported on stderr with a nonzero exit status rather than a traceback.
 
-Skills are loaded progressively — only when the task needs them, not all at once. This keeps the context window lean and makes DeerFlow work well even with token-sensitive models.
+Skills are loaded progressively — only when the task needs them, not all at once. This keeps the context window lean and makes InvestAgent work well even with token-sensitive models.
 
 The bundled video-generation command reports failures on stderr and exits with
 status 1, including when the selected provider has no API key. Callers can check
@@ -234,7 +234,7 @@ still prints URLs for the charts that succeeded, then exits with status 1.
 
 When deferred skill discovery is enabled, `describe_skill` ranks installed skills by bounded, Unicode-normalized intent-term coverage across names and descriptions. Natural multi-term requests can therefore find a relevant skill without requiring one exact phrase, while exact `select:` and required-name `+prefix` lookups remain available. Ranked searches use up to 256 characters and return up to five results; exact `select:` lists are not truncated and return all requested catalog matches.
 
-A skill directory is a package boundary: once DeerFlow finds its `SKILL.md`, nested `SKILL.md` files under that package (for example evaluation fixtures) remain supporting data and are not registered as runtime skills. This applies to managed integration packs as well as public and custom skills. Namespace directories without their own `SKILL.md` can still group nested skills.
+A skill directory is a package boundary: once InvestAgent finds its `SKILL.md`, nested `SKILL.md` files under that package (for example evaluation fixtures) remain supporting data and are not registered as runtime skills. This applies to managed integration packs as well as public and custom skills. Namespace directories without their own `SKILL.md` can still group nested skills.
 
 Discovery follows operator-managed directory symlinks, but skips links back to an ancestor directory so a cyclic namespace does not repeatedly rescan the same tree. Independent links to the same external skill tree remain supported.
 
@@ -271,7 +271,7 @@ They indicate when GitHub or the local output limit truncates the listing.
 The `issues` command excludes pull requests and follows additional pages to fill
 its requested issue limit; the `prs` command remains available for pull requests.
 
-Users can explicitly activate an enabled skill for a single turn by starting the request with `/skill-name`, for example `/data-analysis analyze uploads/foo.csv`. DeerFlow loads that skill's `SKILL.md` as hidden current-turn context while leaving the base prompt limited to skill metadata. Slash activation respects disabled skills, custom-agent skill whitelists, and existing channel commands such as `/new` and `/help`.
+Users can explicitly activate an enabled skill for a single turn by starting the request with `/skill-name`, for example `/data-analysis analyze uploads/foo.csv`. InvestAgent loads that skill's `SKILL.md` as hidden current-turn context while leaving the base prompt limited to skill metadata. Slash activation respects disabled skills, custom-agent skill whitelists, and existing channel commands such as `/new` and `/help`.
 
 Data-analysis Markdown exports escape pipes and backslashes in column names and values, and render cell line breaks as `<br>` so multiline data stays within its table cell.
 
@@ -290,9 +290,9 @@ The **data-analysis** skill preserves each CSV file or Excel sheet when names co
 
 After an answer loads skills, its toolbar includes **Skills used**. Hover over or click the icon to see the skills and their sources; hovering a skill name underlines it. Select a skill to inspect its `SKILL.md` in the resizable side panel (a drawer on mobile). The view uses snapshots captured during successful configured read-tool loads or explicit slash activation, so later edits or removal of a skill do not rewrite its history. Repeated loads appear once per run, in first-load order. Range reads and bounded snapshots are labeled as partial; older conversations without captured evidence do not show this menu. Copy returns the captured Markdown, including YAML frontmatter. Package-relative links and images remain readable references rather than navigating away from the conversation. Skill loads performed through other tools, such as shell commands, are not inferred from answer text.
 
-A skill's `allowed-tools` frontmatter is compatibility metadata carried for interop with other agent frameworks: DeerFlow parses, validates, exports, and describes it, but it never filters model-visible tool schemas, refuses tool calls, or rewrites tool-search promotions. Merely enabling, advertising, or listing a skill in a custom agent or subagent `skills` allowlist never changes an agent's toolset either. Real tool authority lives in Agent configuration and authorization: assembly-time provider filtering, runtime Guardrail enforcement, guardrail allowlists, and the deferred-promotion catalog own the permission ceiling. Skill visibility and activation remain independently enforced: slash activation honors disabled skills and custom-agent whitelists, and the `skill:activate` authorization decision still gates both explicit slash activation and autonomous `SKILL.md` loads.
+A skill's `allowed-tools` frontmatter is compatibility metadata carried for interop with other agent frameworks: InvestAgent parses, validates, exports, and describes it, but it never filters model-visible tool schemas, refuses tool calls, or rewrites tool-search promotions. Merely enabling, advertising, or listing a skill in a custom agent or subagent `skills` allowlist never changes an agent's toolset either. Real tool authority lives in Agent configuration and authorization: assembly-time provider filtering, runtime Guardrail enforcement, guardrail allowlists, and the deferred-promotion catalog own the permission ceiling. Skill visibility and activation remain independently enforced: slash activation honors disabled skills and custom-agent whitelists, and the `skill:activate` authorization decision still gates both explicit slash activation and autonomous `SKILL.md` loads.
 
-When you install `.skill` archives through the Gateway, DeerFlow accepts standard space-separated `allowed-tools`, optional frontmatter metadata, and the Claude-compatible `argument-hint` field instead of rejecting otherwise valid external skills. YAML lists remain supported for `allowed-tools` and preserve exact runtime names. Exact portable spellings such as `WebFetch`, `WebSearch`, `Glob`, `Grep`, and `Read` map to DeerFlow's `web_fetch`, `web_search`, `glob`, `grep`, and `read_file` tools; lowercase or otherwise unknown scalar names remain unchanged so custom and MCP tools keep their exact runtime spelling. Parenthesized entries such as `Bash(tvly *)` are tokenized as one literal entry, including spaces, quoted text, and escaped parentheses; such scoped declarations remain literal compatibility metadata and do not authorize or restrict commands — DeerFlow's Agent configuration and authorization, not tool arguments, decide what may run.
+When you install `.skill` archives through the Gateway, InvestAgent accepts standard space-separated `allowed-tools`, optional frontmatter metadata, and the Claude-compatible `argument-hint` field instead of rejecting otherwise valid external skills. YAML lists remain supported for `allowed-tools` and preserve exact runtime names. Exact portable spellings such as `WebFetch`, `WebSearch`, `Glob`, `Grep`, and `Read` map to InvestAgent's `web_fetch`, `web_search`, `glob`, `grep`, and `read_file` tools; lowercase or otherwise unknown scalar names remain unchanged so custom and MCP tools keep their exact runtime spelling. Parenthesized entries such as `Bash(tvly *)` are tokenized as one literal entry, including spaces, quoted text, and escaped parentheses; such scoped declarations remain literal compatibility metadata and do not authorize or restrict commands — InvestAgent's Agent configuration and authorization, not tool arguments, decide what may run.
 
 Disabling a skill also removes it from the sandbox filesystem view, so shell commands and structured file tools follow the same enabled state. Local, Docker/AIO, hostPath provisioner, and newly created E2B sandboxes source `/mnt/skills` from enabled-only projections that update when public, custom, legacy, or managed integration skills are toggled, edited, created, deleted, or installed. Structured `read_file` calls (including line ranges and read-before-write checks) use the sandbox provider's mount mapping, so the user identity captured when the sandbox was acquired remains authoritative. Managed integration packages remain shared, while their projected filesystem visibility follows each user's enabled state. Multi-worker Gateways re-read on-disk enable state while rebuilding user projections, so a toggle handled by one worker is honored by another worker's next sandbox acquire. Existing E2B sandboxes retain their creation-time snapshot until they are recreated. PVC-backed provisioner skills keep their configured PVC snapshot/layout for now; dynamic PVC materialization is tracked separately.
 
@@ -364,10 +364,10 @@ same plugin configuration with `/workspace/capabilities?tab=plugins&plugin=lark`
 
 Browser authorization continues across polling timeouts; repeated polls share
 the same attempt, including when Gateway runs multiple workers. Starting a new
-flow or changing the app cancels the previous attempt. If DeerFlow cannot
+flow or changing the app cancels the previous attempt. If InvestAgent cannot
 confirm the outcome of a finished attempt, restart authorization for a new link.
 
-Once configured, **Change Lark app** lets a user point their DeerFlow account at
+Once configured, **Change Lark app** lets a user point their InvestAgent account at
 a different Lark/Feishu app without a reinstall — either by pasting an existing
 app's App ID / App Secret or by re-registering an app in the browser. Switching
 is per-user (it never touches another user's credentials), validates the new
@@ -376,7 +376,7 @@ the active app, and revokes/removes the previous app's OAuth tokens. A rejected
 credential change does not supersede an in-progress setup or authorization flow.
 The previous OAuth data is cleared before the CLI stores the replacement app,
 so the new file-backed keychain secret remains available during reconnection.
-DeerFlow then immediately opens browser authorization for the newly bound app so
+InvestAgent then immediately opens browser authorization for the newly bound app so
 the switch ends in a usable connection.
 
 Installing the Lark skill pack resolves the latest official `larksuite/cli`
@@ -389,7 +389,7 @@ and point `DEER_FLOW_LARK_CLI_SKILLS_ARCHIVE` at the local file. Integrity does
 not depend on a pinned archive byte hash (GitHub does not guarantee stable
 source-archive bytes); instead the download is restricted to the official GitHub
 host, every archive member passes structural safety guards, and a content hash
-of the effective installed skill tree (including DeerFlow's injected shared
+of the effective installed skill tree (including InvestAgent's injected shared
 guidance) is recorded so content changes are auditable across reinstalls.
 
 When `sandbox.use` selects the AIO provider, the same install also downloads the
@@ -431,7 +431,7 @@ than a green status hiding a later `command not found`.
 
 The optional [Lark CLI broker image](../../docker/lark-cli-broker/README.md) bundles
 its required Python helper modules, so the sidecar runs without a separate
-DeerFlow harness installation.
+InvestAgent harness installation.
 
 In Lark broker mode, AIO's fresh Bash runs close inherited pipe stdin. Persistent
 terminal commands keep their input; the shim ignores terminal stdin. Explicit
@@ -441,7 +441,7 @@ executing the command, and broker execution logs omit argument values. See the
 [broker image guide](../../docker/lark-cli-broker/README.md) for timeout settings and
 image rebuild requirements.
 
-If a trusted operator manages the configured skills directory through an external mount such as MinIO, NFS, or CSI, an administrator can call `POST /api/skills/reload` after changing files. This invalidates skill prompt caches in the handling Gateway process, waits up to the bounded refresh timeout, and then advances a durable reset marker (`.extensions_config.json.skills-cache-reset.json`) in the writable config directory. Every Gateway worker or Pod mounting that directory notices the marker within about a second of its next prompt build and rescans the latest files, so one call reaches every replica sharing the volume; the response reports `scope: shared_config`, or `scope: process` when no extensions config path is available. Running tasks are unchanged. Skill installs, edits, deletions, rollbacks and enable/disable toggles made through the API publish the same marker, so a change made on one replica takes effect on the others without a restart. A loader-level filesystem failure returns a generic server error and preserves the last successfully loaded process cache rather than publishing an empty catalog. Replicas with independent filesystems are not covered. Direct mount writes bypass the validation, SkillScan, and history applied by DeerFlow's install/edit APIs, so only operator-controlled systems should have write access.
+If a trusted operator manages the configured skills directory through an external mount such as MinIO, NFS, or CSI, an administrator can call `POST /api/skills/reload` after changing files. This invalidates skill prompt caches in the handling Gateway process, waits up to the bounded refresh timeout, and then advances a durable reset marker (`.extensions_config.json.skills-cache-reset.json`) in the writable config directory. Every Gateway worker or Pod mounting that directory notices the marker within about a second of its next prompt build and rescans the latest files, so one call reaches every replica sharing the volume; the response reports `scope: shared_config`, or `scope: process` when no extensions config path is available. Running tasks are unchanged. Skill installs, edits, deletions, rollbacks and enable/disable toggles made through the API publish the same marker, so a change made on one replica takes effect on the others without a restart. A loader-level filesystem failure returns a generic server error and preserves the last successfully loaded process cache rather than publishing an empty catalog. Replicas with independent filesystems are not covered. Direct mount writes bypass the validation, SkillScan, and history applied by InvestAgent's install/edit APIs, so only operator-controlled systems should have write access.
 
 Skill installs and agent-managed skill edits run through **SkillScan**, a native deterministic safety scanner before the LLM-based skill scanner. Phase 1 runs offline with no Semgrep/OpenGrep dependency, blocks high-confidence `CRITICAL` findings such as private keys or shell execution, and passes warning findings to the LLM scanner for contextual review. Code files (anything under `scripts/`, a script suffix such as `.py`, `.sh`, or `.js`, or an extensionless file starting with `#!`) that are not NUL-free UTF-8 text raise a warning and are still analyzed over a lossy decode, so a single stray byte cannot hide them from `CRITICAL` checks. The moderation adapter normalizes both plain-text model responses and LangChain Responses API text blocks before parsing the required JSON decision. Python instance-client exfiltration checks follow a minimal same-scope evidence chain: a simple name bound to a known client constructor, optional name-to-name aliases, and an actual outbound method or context-manager use supported by that constructor. Constructor roots must be proven imports; bare canonical-looking names are not inferred as modules. Nested scopes do not inherit client handles and inherit only constructor import aliases that are never rebound in the enclosing scope. Comprehensions, walrus-bearing statements, annotations, complex binding targets, unsupported operations, and ambiguous branch flows produce no finding from this signal; skipped constructs conservatively invalidate every name they may bind so stale client state cannot create a finding. A deterministic work budget or recursion limit reached by this best-effort analysis does not discard findings already collected for the file. Set `skill_scan.enabled: false` in `config.yaml` to disable only the deterministic analyzers; safe archive extraction and the LLM scanner still run.
 
@@ -469,7 +469,7 @@ For Python credential mappings, SkillScan checks literal values while treating o
 
 SkillScan blocks embedded legacy and modern `sk-` API tokens, including OpenAI project, service-account, and admin keys and Anthropic keys, even in Bearer headers without a secret assignment. Token bodies may contain `-` and `_`; finding evidence is fully redacted. Placeholder examples do not suppress detection of later credentials in the same file. Scheduled-task notification summaries also redact these key formats before sending them to external IM platforms.
 
-DeerFlow also ships with **skill-reviewer**, a public skill for read-only skill quality review. It uses the built-in `review_skill_package` tool to inspect installed skills, local packages, archives, or pasted `SKILL.md` content without activating the target skill, binding its secrets, executing its scripts, or installing it. The tool returns a compact, tag-neutralized JSON payload to the model context and keeps the full raw review payload in the tool artifact for programmatic consumers. The deterministic review core reuses DeerFlow parsing and SkillScan facts, emits versioned JSON contracts under `contracts/skill_review/`, and can be run from the backend CLI:
+InvestAgent also ships with **skill-reviewer**, a public skill for read-only skill quality review. It uses the built-in `review_skill_package` tool to inspect installed skills, local packages, archives, or pasted `SKILL.md` content without activating the target skill, binding its secrets, executing its scripts, or installing it. The tool returns a compact, tag-neutralized JSON payload to the model context and keeps the full raw review payload in the tool artifact for programmatic consumers. The deterministic review core reuses InvestAgent parsing and SkillScan facts, emits versioned JSON contracts under `contracts/skill_review/`, and can be run from the backend CLI:
 
 ```bash
 cd backend
@@ -480,7 +480,7 @@ Invalid YAML dates or timestamps in frontmatter produce a `structure.invalid-fro
 
 Public-skill CI waivers are exact, expiring exceptions in `.github/skill-review-waivers.v1.json`. Because only the trusted base manifest can suppress a finding, a file-changing pull request can be preauthorized safely by first merging a manifest-only change that lists the reviewed future full-file SHA-256 in `preapproved_file_sha256s`; the file change can then land in a later pull request.
 
-Tools follow the same philosophy. DeerFlow comes with a core toolset — web search, web fetch, rendered web capture, file operations, bash execution — and supports custom tools via MCP servers and Python functions. The bundled DDG, Brave, Tavily, SearXNG, and Serper search providers accept an optional `time_range` of `day`, `week`, `month`, or `year`; omitting it preserves existing search behavior. For DDG recency searches, DeerFlow excludes DDGS backends that ignore time limits. Swap anything. Add anything.
+Tools follow the same philosophy. InvestAgent comes with a core toolset — web search, web fetch, rendered web capture, file operations, bash execution — and supports custom tools via MCP servers and Python functions. The bundled DDG, Brave, Tavily, SearXNG, and Serper search providers accept an optional `time_range` of `day`, `week`, `month`, or `year`; omitting it preserves existing search behavior. For DDG recency searches, InvestAgent excludes DDGS backends that ignore time limits. Swap anything. Add anything.
 
 For DDG web search and DDG image search, `max_results` in `config.yaml` can be a positive integer or an environment-variable reference such as `max_results: $DDG_MAX_RESULTS` with `DDG_MAX_RESULTS=5`. The configured value takes precedence over the tool call's `max_results` argument. Invalid values (for example, `abc`, an empty string, or `3.5`), zero, and negative counts produce a warning and fall back to the default of 5 results. DDG, Brave, and Serper image search share one result-URL screen that omits non-HTTP(S), localhost, cloud-metadata hostnames, and non-public address literals, including multicast and IPv6 spellings embedding private IPv4 addresses. The screen does not resolve DNS; downloaders must validate the resolved address when connecting. A result with neither a safe full image URL nor a safe thumbnail is omitted.
 
@@ -531,7 +531,7 @@ Extra requests may consume quota or incur cost. See
 When using Tavily for `web_fetch`, extracted pages without a title use their URL
 as the heading; their content remains available to the agent.
 For providers that use the shared Readability extractor, Readability.js is
-optional. DeerFlow caches an unavailable Node.js toolchain or failed process
+optional. InvestAgent caches an unavailable Node.js toolchain or failed process
 launch and uses the existing Python fallback for later fetches instead of
 repeatedly starting a missing toolchain. A non-zero extraction exit falls back
 only for that document, because malformed or oversized input can fail while
@@ -573,13 +573,13 @@ news rather than the general web: date filters cannot extend the provider's
 
 ## Exporting Custom Skills
 
-Administrators can export their own custom skills from **Capability Center → Skills → My skills → View details → Export**. Review the file list and declared environment requirements, then choose **Download .skill**. The archive contains the currently saved skill, including supporting files and empty directories; disabled skills can also be exported. If the skill changes after preview, refresh the file list before downloading. Import the archive on another DeerFlow instance with **Install .skill**; existing-name conflicts and normal installation security checks still apply.
+Administrators can export their own custom skills from **Capability Center → Skills → My skills → View details → Export**. Review the file list and declared environment requirements, then choose **Download .skill**. The archive contains the currently saved skill, including supporting files and empty directories; disabled skills can also be exported. If the skill changes after preview, refresh the file list before downloading. Import the archive on another InvestAgent instance with **Install .skill**; existing-name conflicts and normal installation security checks still apply.
 
 Account settings, conversations and history outside the skill folder are excluded. Files inside the folder are preserved unchanged, including any credentials an author placed there; filename notices are advisory. Configure dependencies and credentials on the destination. Linked folders/files, hard links, unsupported executable binaries, nested `SKILL.md` files and nonportable paths cannot be exported. Export supports hosts with descriptor-relative no-follow filesystem APIs (Linux/macOS); unsupported hosts fail explicitly. Limits: 4096 ZIP entries, 64 MiB per file, 100 MiB total content/archive and 1 MiB frontmatter. YAML aliases and excessively complex declarations are not supported. Ordinary script executable semantics are preserved on POSIX import, without restoring special permissions. See [the export API contract](../../backend/docs/API.md#export-a-custom-skill).
 
 ## Claude Code Integration
 
-The `claude-to-deerflow` skill lets you interact with a running DeerFlow instance directly from [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Send research tasks, check status, manage threads — all without leaving the terminal.
+The `claude-to-deerflow` skill lets you interact with a running InvestAgent instance directly from [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Send research tasks, check status, manage threads — all without leaving the terminal.
 
 **Install the skill**:
 
@@ -587,12 +587,12 @@ The `claude-to-deerflow` skill lets you interact with a running DeerFlow instanc
 npx skills add https://github.com/bytedance/deer-flow --skill claude-to-deerflow
 ```
 
-Then make sure DeerFlow is running (default at `http://localhost:2026`) and use the `/claude-to-deerflow` command in Claude Code.
+Then make sure InvestAgent is running (default at `http://localhost:2026`) and use the `/claude-to-deerflow` command in Claude Code.
 
 **What you can do**:
-- Send messages to DeerFlow and get streaming responses
+- Send messages to InvestAgent and get streaming responses
 - Choose execution modes: flash (fast), standard, pro (planning), ultra (sub-agents)
-- Check DeerFlow health, list models/skills/agents
+- Check InvestAgent health, list models/skills/agents
 - Manage threads and conversation history
 - Upload files for analysis
 

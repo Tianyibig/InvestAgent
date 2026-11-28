@@ -1,6 +1,6 @@
 # Plan Mode with TodoList Middleware
 
-This document describes how to enable and use the Plan Mode feature with TodoList middleware in DeerFlow 2.0.
+This document describes how to enable and use the Plan Mode feature with TodoList middleware in InvestAgent 2.0.
 
 ## Overview
 
@@ -181,10 +181,10 @@ config = RunnableConfig(
 
 ## Custom Prompts
 
-DeerFlow uses custom `system_prompt` and `tool_description` for the TodoListMiddleware that match the overall DeerFlow prompt style:
+InvestAgent uses custom `system_prompt` and `tool_description` for the TodoListMiddleware that match the overall InvestAgent prompt style:
 
 ### System Prompt Features
-- Uses XML tags (`<todo_list_system>`) for structure consistency with DeerFlow's main prompt
+- Uses XML tags (`<todo_list_system>`) for structure consistency with InvestAgent's main prompt
 - Emphasizes CRITICAL rules and best practices
 - Clear "When to Use" vs "When NOT to Use" guidelines
 - Updates the list at meaningful milestones and requires verified completion
@@ -203,4 +203,4 @@ The custom prompts are defined in `_create_todo_list_middleware()` in `../packag
 - TodoList middleware uses LangChain's built-in `TodoListMiddleware` with **custom DeerFlow-style prompts**
 - Plan mode is **disabled by default** (`is_plan_mode=False`) to maintain backward compatibility
 - The middleware is positioned before `ClarificationMiddleware` to allow todo management during clarification flows
-- Custom prompts emphasize the same principles as DeerFlow's main system prompt (clarity, action-oriented, critical rules)
+- Custom prompts emphasize the same principles as InvestAgent's main system prompt (clarity, action-oriented, critical rules)

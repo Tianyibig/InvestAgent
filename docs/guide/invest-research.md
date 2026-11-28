@@ -1,6 +1,6 @@
 # Invest research (InvestAgent)
 
-InvestAgent layers buy-side research skills on the DeerFlow harness. Use this
+InvestAgent layers buy-side research skills on the InvestAgent harness. Use this
 guide after [Skills & Tools](skills-and-tools.md) and
 [Scheduled Tasks](scheduled-tasks.md).
 

@@ -1,6 +1,6 @@
 # Third-party notices
 
-Office preview is independently implemented for DeerFlow. Asset-System was
+Office preview is independently implemented for InvestAgent. Asset-System was
 reviewed as a UX reference; its source code and assets are not included.
 
 The browser bundle uses ExcelJS, docx-preview, JSZip and @jvmr/pptx-to-html.

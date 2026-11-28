@@ -3,9 +3,7 @@
 import {
   BugIcon,
   ChevronsUpDown,
-  GlobeIcon,
   InfoIcon,
-  MailIcon,
   Settings2Icon,
   SettingsIcon,
 } from "lucide-react";
@@ -90,17 +88,7 @@ export function WorkspaceNavMenu() {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <a
-                    href="https://deerflow.tech/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <DropdownMenuItem>
-                      <GlobeIcon />
-                      {t.workspace.officialWebsite}
-                    </DropdownMenuItem>
-                  </a>
-                  <a
-                    href="https://github.com/bytedance/deer-flow"
+                    href="https://github.com/Tianyibig/InvestAgent"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -109,21 +97,14 @@ export function WorkspaceNavMenu() {
                       {t.workspace.visitGithub}
                     </DropdownMenuItem>
                   </a>
-                  <DropdownMenuSeparator />
                   <a
-                    href="https://github.com/bytedance/deer-flow/issues"
+                    href="https://github.com/Tianyibig/InvestAgent/issues"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <DropdownMenuItem>
                       <BugIcon />
                       {t.workspace.reportIssue}
-                    </DropdownMenuItem>
-                  </a>
-                  <a href="mailto:support@deerflow.tech">
-                    <DropdownMenuItem>
-                      <MailIcon />
-                      {t.workspace.contactUs}
                     </DropdownMenuItem>
                   </a>
                 </DropdownMenuGroup>

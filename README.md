@@ -5,34 +5,34 @@ English | [中文](README_zh.md) | [日本語](README_ja.md) | [Français](READM
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 <a href="https://trendshift.io/repositories/14699" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14699" alt="bytedance%2Fdeer-flow | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-> On February 28th, 2026, DeerFlow claimed the 🏆 #1 spot on GitHub Trending following the launch of version 2. Thanks a million to our incredible community — you made this happen! 💪🔥
+> On February 28th, 2026, the upstream project at https://github.com/bytedance/deer-flow reached GitHub Trending #1 after its version 2 launch.
 
 # InvestAgent
 
 **InvestAgent** is a single-person **industry research and investment analysis**
-platform. It is a fork of [DeerFlow](https://github.com/bytedance/deer-flow)
-(the open-source super agent harness). It is **not** a trading or brokerage
-system and **not** a generic DeerFlow deployment: buy-side research skills live
+platform. The agent runtime is forked from the
+[upstream project](https://github.com/bytedance/deer-flow). It is **not** a
+trading or brokerage system: buy-side research skills live
 under [`skills/public/`](skills/public/) (protocol, equity notes, IC memos,
 sector scans, portfolio review, reverse DCF, evidence chain, CN/HK quotes). See
 [Invest research](docs/guide/invest-research.md).
 
-The harness below is DeerFlow's. Upstream credit stays for the agent runtime;
-product work for this repository is InvestAgent.
+The runtime notes below describe that harness. The product in this repository
+is InvestAgent.
 
 https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 > [!NOTE]
-> **Upstream:** DeerFlow 2.0 is a ground-up rewrite. The original Deep Research
-> framework is on the [`1.x` branch](https://github.com/bytedance/deer-flow/tree/main-1.x).
-> [deerflow.tech](https://deerflow.tech) is the **upstream DeerFlow** site and
-> demos — not InvestAgent's homepage.
+> The agent runtime comes from the upstream project
+> [deer-flow](https://github.com/bytedance/deer-flow) (MIT), including its
+> [`1.x` branch](https://github.com/bytedance/deer-flow/tree/main-1.x).
+> InvestAgent is the product in this repository.
 
 ## Sister Projects
 
 <img width="446" height="280" alt="image" align="middle" src="https://github.com/user-attachments/assets/077edef4-d560-41af-bb0d-d0a5f14fcc20" />
 
-- [**LLM Space**](https://github.com/deer-flow/llm-space) - Meet our secret weapon behind DeerFlow — one desktop tool to prototype agent ideas, inspect each harness step, replay failures, and benchmark performance.
+- [**LLM Space**](https://github.com/deer-flow/llm-space) - Meet our secret weapon behind InvestAgent — one desktop tool to prototype agent ideas, inspect each harness step, replay failures, and benchmark performance.
 
 ## BytePlus Agent Plan
 
@@ -42,7 +42,7 @@ https://github.com/user-attachments/assets/a8bcadc4-e040-4cf2-8fda-dd768b999c18
 
 ## InfoQuest
 
-DeerFlow has newly integrated the intelligent search and crawling toolset independently developed by BytePlus — [InfoQuest (supports free online experience)](https://docs.byteplus.com/en/docs/InfoQuest/What_is_Info_Quest)
+InvestAgent has newly integrated the intelligent search and crawling toolset independently developed by BytePlus — [InfoQuest (supports free online experience)](https://docs.byteplus.com/en/docs/InfoQuest/What_is_Info_Quest)
 
 <a href="https://docs.byteplus.com/en/docs/InfoQuest/What_is_Info_Quest" target="_blank">
   <img
@@ -102,13 +102,13 @@ Open http://localhost:2026.
 
 ## From Deep Research to Super Agent Harness
 
-DeerFlow started as a Deep Research framework — and the community ran with it. Since launch, developers have pushed it far beyond research: building data pipelines, generating slide decks, spinning up dashboards, automating content workflows. Things we never anticipated.
+InvestAgent started as a Deep Research framework — and the community ran with it. Since launch, developers have pushed it far beyond research: building data pipelines, generating slide decks, spinning up dashboards, automating content workflows. Things we never anticipated.
 
-That told us something important: DeerFlow wasn't just a research tool. It was a **harness** — a runtime that gives agents the infrastructure to actually get work done.
+That told us something important: InvestAgent wasn't just a research tool. It was a **harness** — a runtime that gives agents the infrastructure to actually get work done.
 
 So we rebuilt it from scratch.
 
-DeerFlow 2.0 is no longer a framework you wire together. It's a super agent harness — batteries included, fully extensible. Built on LangGraph and LangChain, it ships with everything an agent needs out of the box: a filesystem, memory, skills, sandbox-aware execution, and the ability to plan and spawn sub-agents for complex, multi-step tasks.
+InvestAgent 2.0 is no longer a framework you wire together. It's a super agent harness — batteries included, fully extensible. Built on LangGraph and LangChain, it ships with everything an agent needs out of the box: a filesystem, memory, skills, sandbox-aware execution, and the ability to plan and spawn sub-agents for complex, multi-step tasks.
 
 Use it as-is. Or tear it apart and make it yours.
 
@@ -146,7 +146,7 @@ Each guide is the full reference for its topic. Open the one you need.
 
 ## Recommended Models
 
-DeerFlow is model-agnostic — it works with any LLM that implements the OpenAI-compatible API. That said, it performs best with models that support:
+InvestAgent is model-agnostic — it works with any LLM that implements the OpenAI-compatible API. That said, it performs best with models that support:
 
 - **Long context windows** (100k+ tokens) for deep research and multi-step tasks
 - **Reasoning capabilities** for adaptive planning and complex decomposition
@@ -165,7 +165,7 @@ DeerFlow is model-agnostic — it works with any LLM that implements the OpenAI-
 
 ## ⚠️ Security Notice
 
-DeerFlow can execute commands and read and write files. It is designed to run in a local trusted environment, and a Gateway admin account is equivalent to code execution on the host. Before you deploy it on a server or expose it to a network, read the full [Security Notice](docs/guide/security.md) and [SECURITY.md](SECURITY.md).
+InvestAgent can execute commands and read and write files. It is designed to run in a local trusted environment, and a Gateway admin account is equivalent to code execution on the host. Before you deploy it on a server or expose it to a network, read the full [Security Notice](docs/guide/security.md) and [SECURITY.md](SECURITY.md).
 
 Runtime tool approval is disabled by default. The Gateway warns at startup when it is disabled. See [Skills & Tools](docs/guide/skills-and-tools.md) for configuration.
 
@@ -179,23 +179,23 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-DeerFlow is built upon the incredible work of the open-source community. We are deeply grateful to all the projects and contributors whose efforts have made DeerFlow possible. Truly, we stand on the shoulders of giants.
+InvestAgent is built upon the incredible work of the open-source community. We are deeply grateful to all the projects and contributors whose efforts have made InvestAgent possible. Truly, we stand on the shoulders of giants.
 
 We would like to extend our sincere appreciation to the following projects for their invaluable contributions:
 
 - **[LangChain](https://github.com/langchain-ai/langchain)**: Their exceptional framework powers our LLM interactions and chains, enabling seamless integration and functionality.
-- **[LangGraph](https://github.com/langchain-ai/langgraph)**: Their innovative approach to multi-agent orchestration has been instrumental in enabling DeerFlow's sophisticated workflows.
+- **[LangGraph](https://github.com/langchain-ai/langgraph)**: Their innovative approach to multi-agent orchestration has been instrumental in enabling InvestAgent's sophisticated workflows.
 
 These projects exemplify the transformative power of open-source collaboration, and we are proud to build upon their foundations.
 
 ### Key Contributors
 
-A heartfelt thank you goes out to the core authors of `DeerFlow`, whose vision, passion, and dedication have brought this project to life:
+A heartfelt thank you goes out to the core authors of `InvestAgent`, whose vision, passion, and dedication have brought this project to life:
 
 - **[Daniel Walnut](https://github.com/hetaoBackend/)**
 - **[Henry Li](https://github.com/magiccube/)**
 
-Your unwavering commitment and expertise have been the driving force behind DeerFlow's success. We are honored to have you at the helm of this journey.
+Your unwavering commitment and expertise have been the driving force behind InvestAgent's success. We are honored to have you at the helm of this journey.
 
 ## Star History
 

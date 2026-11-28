@@ -1,6 +1,6 @@
 # Configuration Guide
 
-This guide explains how to configure DeerFlow for your environment.
+This guide explains how to configure InvestAgent for your environment.
 
 ## Prompt overlays
 
@@ -64,7 +64,7 @@ lead-agent journal and subagent usage handoff retain that count for per-model
 cache-aware cost estimates. Cached tokens are a subset of input tokens, so
 normalization never adds them or `prompt_cache_miss_tokens` to the input total.
 Responses that already supply the standard field are unchanged. These are
-provider-reported usage estimates, not a measurement of money saved by DeerFlow.
+provider-reported usage estimates, not a measurement of money saved by InvestAgent.
 
 ## Model request admission
 
@@ -229,7 +229,7 @@ models:
 - The Codex Responses endpoint currently rejects `max_tokens` and `max_output_tokens`, so `CodexChatModel` does not expose a request-level token cap
 - `ClaudeChatModel` accepts `CLAUDE_CODE_OAUTH_TOKEN`, `ANTHROPIC_AUTH_TOKEN`, `CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR`, `CLAUDE_CODE_CREDENTIALS_PATH`, or plaintext `~/.claude/.credentials.json`
 - A `CLAUDE_CODE_OAUTH_TOKEN_FILE_DESCRIPTOR` handoff is drained on first use and the token is kept for the life of the process, so every `ClaudeChatModel` instance reuses it
-- On macOS, DeerFlow does not probe Keychain automatically. Use `scripts/export_claude_code_oauth.py` to export Claude Code auth explicitly when needed
+- On macOS, InvestAgent does not probe Keychain automatically. Use `scripts/export_claude_code_oauth.py` to export Claude Code auth explicitly when needed
 
 To use OpenAI's `/v1/responses` endpoint with LangChain, keep using `langchain_openai:ChatOpenAI` and set:
 
@@ -425,7 +425,7 @@ uses its fixed values (respectively `1.0`, `0.95`, `1`, `0`, `0`). This rule
 also applies to explicit YAML profiles using that adapter and endpoint;
 Kimi K2.5, unknown model IDs and custom endpoints retain their existing behavior.
 Image capability covers base64/data-URL images and provider file IDs, not
-public image URLs; DeerFlow's image middleware uses base64. This declaration
+public image URLs; InvestAgent's image middleware uses base64. This declaration
 does not add video UI support. See the official
 [K3.1 quickstart](https://platform.kimi.com/docs/guide/kimi-k3-1-pro-quickstart)
 and [model parameter reference](https://platform.kimi.com/docs/api/models-overview).
@@ -628,7 +628,7 @@ models:
 ### RAGFlow Knowledge Retrieval
 
 RAGFlow integration is disabled by default. It adds one read-only Agent tool,
-`knowledge_search`. DeerFlow does not persist a copy of dataset or document
+`knowledge_search`. InvestAgent does not persist a copy of dataset or document
 metadata; RAGFlow is the sole source of truth. The configured API key is
 tenant-scoped. An optional operator-controlled `datasets` list restricts every
 Agent on this deployment to the same dataset-ID allowlist; omitting it searches
@@ -659,7 +659,7 @@ tools:
 
 The tool is opt-in through the normal `tools:` list. `datasets` is optional but,
 when present, must contain at least one ID. If
-it contains RAGFlow dataset IDs selected by the deployment operator, DeerFlow
+it contains RAGFlow dataset IDs selected by the deployment operator, InvestAgent
 does not validate their existence while loading configuration; on each search
 it verifies them with ID-filtered requests. If `datasets` is omitted, each
 search paginates through the tenant-visible dataset catalog. Both paths resolve
@@ -668,7 +668,7 @@ an empty dataset that has no embedding-model metadata is also skipped with a
 server warning. The remaining datasets are grouped by the exact embedding-model
 identifier and each group is sent to RAGFlow with a non-empty `dataset_ids`
 list. At most four groups are retrieved concurrently. Because raw similarity
-scores from different embedding spaces are not globally comparable, DeerFlow
+scores from different embedding spaces are not globally comparable, InvestAgent
 preserves each group's RAGFlow ranking, interleaves equal rank positions, omits
 score labels when more than one group is searched, and applies `page_size` as a
 single global chunk limit. If any searchable group fails, the whole tool call
@@ -685,9 +685,9 @@ container or Pod, not the host machine.
 
 This integration is retrieval-only. Dataset creation, uploads, parsing, and
 deletion remain in RAGFlow and are not exposed as Agent tools, workspace pages,
-or DeerFlow APIs. The authenticated `/api/knowledge/retrieval-catalog` routes
+or InvestAgent APIs. The authenticated `/api/knowledge/retrieval-catalog` routes
 exist only to populate the custom-agent chat selector. The provider-neutral
-`knowledge_base` block only gates DeerFlow's knowledge capability and selector;
+`knowledge_base` block only gates InvestAgent's knowledge capability and selector;
 configure the RAGFlow connection and retrieval defaults on the
 `tools[].name: knowledge_search` entry shown above:
 
@@ -710,11 +710,11 @@ entry, so different knowledge providers can use their own settings.
 LightRAG integration is disabled by default. It is an alternative provider for
 the same read-only `knowledge_search` tool: an operator picks RAGFlow or
 LightRAG by which entry appears in the `tools:` list — the two entries share
-one name, and on duplicate names DeerFlow keeps the **first** configured
+one name, and on duplicate names InvestAgent keeps the **first** configured
 entry, so configure exactly one. Requires LightRAG v1.4.9 or newer: v1.4.8
 introduced the data-retrieval endpoint but returned a pre-envelope response
 shape, and the `status`/`data` envelope plus the citation fields consumed
-here shipped in v1.4.9. DeerFlow does not persist any index
+here shipped in v1.4.9. InvestAgent does not persist any index
 metadata; LightRAG stays the sole source of truth, and the deployment's
 single indexed workspace is always searched.
 
@@ -738,7 +738,7 @@ tools:
 
 The tool is opt-in through the normal `tools:` list. Retrieval uses LightRAG's
 `POST /query/data` endpoint, which performs no LLM generation and returns
-structured entities, relationships, chunks, and references; DeerFlow keeps the
+structured entities, relationships, chunks, and references; InvestAgent keeps the
 chunks — the document text the selected mode already ranked as relevant — and
 formats them as citation-numbered text, dropping the graph objects to stay
 compact and keep the citation shape shared with the RAGFlow provider. `mode`
@@ -763,7 +763,7 @@ Kubernetes it must be reachable from the Gateway container or Pod.
 Internal identifiers (chunk IDs and the response-local reference IDs) are
 never exposed to the Agent; citations use the operator-readable `file_path`.
 This integration is retrieval-only. Document insertion, indexing, and graph
-mutation remain in LightRAG and are not exposed as Agent tools or DeerFlow
+mutation remain in LightRAG and are not exposed as Agent tools or InvestAgent
 APIs.
 
 ### Tool Groups
@@ -828,7 +828,7 @@ Notes:
   - **Events:** `run_completed`, `run_failed`, `run_unmet` (goal missed), `task_paused` (automatic pause after three missed goals), `task_stopped` (paused by the agent because its stop condition was met) and `task_finished` (all `max_runs` done or `end_at` reached).
   - **One message per occurrence:** when one occurrence produces several events, only the first of `task_stopped` > `task_paused` > `task_finished` > `run_failed` > `run_unmet` > `run_completed` is sent, and that message still says how the last run went ("The last run failed." / "didn't meet the goal"). A one-time task sends only its run's outcome, never a separate `task_finished`.
   - **Transactional:** notices are queued by the finalization observer in the same database transaction that records the outcome and are deduplicated per occurrence (or per end time for a task that ends between runs), so an occurrence finalized by crash or lease recovery notifies exactly once. Plain manual "run now" trials and interrupted runs stay silent; a trial that pauses or finishes the task still sends that notice. Occurrences that end without a finished run (launch error, queue timeout, interrupted by a restart) stay silent.
-  - **Text:** the task title, what happened, a one-line result (the same run summary the tasks page shows, redacted, only when the agent replied) and "Open DeerFlow → Scheduled tasks for details." Notices carry no task, run or thread IDs, no timestamps and no links: most deployments run on localhost or a LAN, where a link would be dead on the phone that receives it.
+  - **Text:** the task title, what happened, a one-line result (the same run summary the tasks page shows, redacted, only when the agent replied) and "Open InvestAgent → Scheduled tasks for details." Notices carry no task, run or thread IDs, no timestamps and no links: most deployments run on localhost or a LAN, where a link would be dead on the phone that receives it.
   - **Language:** the owner's web UI language (the `locale` user preference, which the web app keeps in sync), else `channel_connections.notification_locale` (`en-US` or `zh-CN`, default `en-US`; startup-scoped). Auth-disabled installs always use the config value.
   - **Delivery:** channel/transport outages park rows without consuming the retry budget, for up to about a day; platform rejections exhaust ~15 minutes of counted retries then settle `failed`. The worker re-checks the binding right before sending: a target the owner has disconnected since enqueue is dropped as `failed`, never pushed.
 
@@ -927,7 +927,7 @@ Every IM channel except GitHub connects outbound to its platform (Telegram long 
 
 ### Credentials encryption key (`DEER_FLOW_CREDENTIALS_KEY`)
 
-DeerFlow encrypts credentials it stores at rest (today: per-connection IM channel credentials in the `channel_credentials` table, the IM bot credentials an admin enters in the web UI, in `channel_runtime_configs`, and the rotating tokens of MCP servers using the OAuth `refresh_token` grant, in `mcp_oauth_tokens` — see [MCP_SERVER.md](MCP_SERVER.md#refresh-token-rotation-across-restarts-and-replicas)) with a deployment key read **only** from the environment — there is no `config.yaml` key, and it is never derived from `AUTH_JWT_SECRET`.
+InvestAgent encrypts credentials it stores at rest (today: per-connection IM channel credentials in the `channel_credentials` table, the IM bot credentials an admin enters in the web UI, in `channel_runtime_configs`, and the rotating tokens of MCP servers using the OAuth `refresh_token` grant, in `mcp_oauth_tokens` — see [MCP_SERVER.md](MCP_SERVER.md#refresh-token-rotation-across-restarts-and-replicas)) with a deployment key read **only** from the environment — there is no `config.yaml` key, and it is never derived from `AUTH_JWT_SECRET`.
 
 ```bash
 # Generate a key (urlsafe base64 of 32 random bytes, a Fernet key):
@@ -1013,7 +1013,7 @@ Tavily search and fetch initialize their HTTPS clients on a worker thread so TLS
 
 For Tavily, `include_domains` and `exclude_domains` are deployment-only options
 read from the `web_search` tool entry and passed directly to `TavilyClient.search`.
-For a non-empty `include_domains`, DeerFlow also sends `include_domains_mode: filter`
+For a non-empty `include_domains`, InvestAgent also sends `include_domains_mode: filter`
 so Tavily restricts results to those domains rather than merely boosting them.
 Either list may be configured independently. Omitted options are not added to the SDK
 call; explicit empty lists are forwarded as `[]`, meaning no inclusion restriction
@@ -1378,7 +1378,7 @@ tools:
 ```
 
 Set `thinking: true` to enable DeepSeek's multi-step thinking search. This
-controls the model inside the search tool independently of the main DeerFlow
+controls the model inside the search tool independently of the main InvestAgent
 model. Boolean strings such as `"false"` are accepted for environment-variable
 configuration. The default model is `deepseek-flash`; use a model that supports
 DeepSeek's server-side web tools. See the official
@@ -1448,7 +1448,7 @@ DEER_FLOW_RUN_LIVE_TESTS=1 uv run pytest tests/test_deepseek_search_live.py -q
 Browserless, Crawl4AI, Firecrawl, and fastCRW perform navigation, redirects,
 DNS resolution, and subresource loading in the backend's own network namespace.
 Checking the submitted URL in the Gateway cannot constrain these later requests.
-For `web_fetch`, and Browserless `web_capture`, DeerFlow therefore refuses to
+For `web_fetch`, and Browserless `web_capture`, InvestAgent therefore refuses to
 delegate to a private, loopback, or otherwise unverifiable backend by default.
 HTTP(S) backend endpoints resolving only to public addresses do not require an
 isolation acknowledgement.
@@ -1576,7 +1576,7 @@ externalized to `.tool-results`. To allow larger pages, raise
 
 ### Sandbox
 
-DeerFlow supports multiple sandbox execution modes. Configure your preferred mode in `config.yaml`:
+InvestAgent supports multiple sandbox execution modes. Configure your preferred mode in `config.yaml`:
 
 **Local Workspace** (provides workspace file tools):
 ```yaml
@@ -1594,7 +1594,7 @@ sandbox:
 
 For AIO images on the supported semver line (`1.9.3` through the recommended
 `1.11.0` image), `sandbox.bash_command_timeout` is enforced server-side through
-the `hard_timeout` API when the image exposes it. DeerFlow's legacy frozen
+the `hard_timeout` API when the image exposes it. InvestAgent's legacy frozen
 `all-in-one-sandbox:latest` image predates that API, so only the host-side
 request is bounded there. On supported semver AIO images, `list_dir` uses a 60
 second server-side hard timeout with a 65 second no-retry host envelope; the
@@ -1603,9 +1603,9 @@ ambiguous commands are never replayed, and a partial `list_dir` result is never
 returned as a complete listing.
 
 Explicit AIO shell/bash session creation is a separate control-plane
-operation. DeerFlow bounds those create requests to 5 seconds with SDK
+operation. InvestAgent bounds those create requests to 5 seconds with SDK
 retries disabled. If a response cannot prove whether creation committed,
-DeerFlow does not replay the create or execute on that session id. The
+InvestAgent does not replay the create or execute on that session id. The
 affected creation plane is quarantined, bounded best-effort session cleanup
 is attempted, and the container is recycled instead of being returned to the
 warm pool. Session-level cleanup does not clear that quarantine because a
@@ -1630,7 +1630,7 @@ which must drain startup and release the owner even if no sandbox ID was publish
 
 `prewarm_max_concurrent` is a positive integer, default `1`. It bounds pending
 and ready-but-unused prewarms for each provider instance in a process. When
-full, DeerFlow skips speculation without queuing or delaying foreground tools.
+full, InvestAgent skips speculation without queuing or delaying foreground tools.
 The limit is not a total-container cap or a deployment-wide quota; multiple
 Gateway processes have separate budgets. Other providers and synchronous
 embedded calls keep their existing acquisition behavior. Restart after changing
@@ -1673,10 +1673,10 @@ sandbox:
    provisioner_url: http://provisioner:8002
 ```
 
-When using Docker development (`make docker-start`), DeerFlow starts the `provisioner` service only if this provisioner mode is configured. In local or plain Docker sandbox modes, `provisioner` is skipped.
+When using Docker development (`make docker-start`), InvestAgent starts the `provisioner` service only if this provisioner mode is configured. In local or plain Docker sandbox modes, `provisioner` is skipped.
 
 Remote/provisioner backends default to explicit file synchronization because
-DeerFlow cannot infer whether their `/mnt/user-data` mount points reference the
+InvestAgent cannot infer whether their `/mnt/user-data` mount points reference the
 same storage as the Gateway. When the deployment guarantees that both sides use
 the same thread user-data directories, opt out of that extra transfer:
 
@@ -1731,7 +1731,7 @@ provider in `config.yaml`.
 
 Notes specific to `E2BSandboxProvider`:
 
-- Each DeerFlow thread is bound to its E2B sandbox via metadata
+- Each InvestAgent thread is bound to its E2B sandbox via metadata
   (`deer_flow_user`, `deer_flow_thread`, `deer_flow_skills_root`). Startup and
   periodic reconciliation probe every bounded candidate, adopt one healthy
   canonical sandbox, and reap duplicates after a grace period. A sandbox whose
@@ -1961,7 +1961,7 @@ sandbox:
       read_only: true
 ```
 
-If the configured `host_path` is not visible to the gateway process, DeerFlow logs an error and ignores that mount.
+If the configured `host_path` is not visible to the gateway process, InvestAgent logs an error and ignores that mount.
 
 **Option 2: Docker Sandbox** (isolated, more secure):
 ```yaml
@@ -1977,7 +1977,7 @@ sandbox:
       read_only: false
 ```
 
-When you configure `sandbox.mounts`, DeerFlow exposes those `container_path` values in the agent prompt so the agent can discover and operate on mounted directories directly instead of assuming everything must live under `/mnt/user-data`. See [Skills and sandbox paths](#skills-and-sandbox-paths) for Windows, WSL, and Docker path examples.
+When you configure `sandbox.mounts`, InvestAgent exposes those `container_path` values in the agent prompt so the agent can discover and operate on mounted directories directly instead of assuming everything must live under `/mnt/user-data`. See [Skills and sandbox paths](#skills-and-sandbox-paths) for Windows, WSL, and Docker path examples.
 
 Trailing slashes in `container_path` values are normalized when the config is loaded (`/mnt/reports/` behaves like `/mnt/reports`) — this applies to both `sandbox.mounts[].container_path` and `skills.container_path` — and the container root `/` or an empty value is rejected; mount a specific directory instead.
 
@@ -2004,7 +2004,7 @@ traffic. `allowlist` uses the same bridge and a trusted sidecar that supports
 HTTP and HTTPS CONNECT only. Exact domains and leading wildcards such as
 `*.pythonhosted.org` are accepted; URLs, ports, and a catch-all `*` are
 rejected. Traffic that ignores proxy environment variables still has no route
-out of the internal bridge. DeerFlow also sets the upstream AIO image's
+out of the internal bridge. InvestAgent also sets the upstream AIO image's
 `PROXY_SERVER`/`PROXY_EXCLUDE` variables so its Chromium service uses the same
 policy sidecar; standard upper/lower-case HTTP, HTTPS, and ALL proxy variables
 cover shell and package-manager clients.
@@ -2032,7 +2032,7 @@ require strict origin-level HTTPS isolation should use `isolated` mode or an
 operator-managed TLS-inspecting egress gateway.
 
 With `approval: prompt`, a denied public domain becomes a Human Input card with
-**Deny**, **Allow temporarily**, and **Allow for this sandbox** choices. DeerFlow
+**Deny**, **Allow temporarily**, and **Allow for this sandbox** choices. InvestAgent
 does not replay the failed command after approval because it may already have
 performed local side effects; the agent must retry it explicitly. Non-interactive
 runs auto-deny without opening a card or waiting for input.
@@ -2067,7 +2067,7 @@ restricted modes.
 
 Restricted modes currently require the local Docker backend and Docker Engine
 28 or newer. They fail closed on Apple Container, provisioner mode, and older
-engines. DeerFlow applies Engine 28's isolated bridge gateway mode to both IPv4
+engines. InvestAgent applies Engine 28's isolated bridge gateway mode to both IPv4
 and IPv6 so the sandbox cannot reach services bound to either host-side bridge
 address. The sandbox, sidecar, internal network, and egress network carry a
 digest of the effective policy, proxy source, and image reference; startup and
@@ -2077,12 +2077,12 @@ mode also carry stable identity and mode labels. After a Gateway restart,
 changing between `open` and a restricted mode is therefore reported as an
 incompatible persisted sandbox and replaced only after the normal ownership,
 orphan-grace, and teardown fences. Unlabelled open containers from older
-DeerFlow versions are recognized when they use the configured image and retain
+InvestAgent versions are recognized when they use the configured image and retain
 their published API port. Docker Desktop is detected
 from the daemon, not the Gateway process, so Docker-outside-of-Docker deployments
 handle its synthetic DNS range correctly. The policy sidecar publishes only its
 fixed sandbox-API relay back to the Gateway; the sandbox API itself is not
-published. DeerFlow generates a separate relay token for each sandbox, requires
+published. InvestAgent generates a separate relay token for each sandbox, requires
 it on every new relay connection, reconstructs it from Docker during discovery,
 and injects it only into Gateway control-plane clients. The token is excluded
 from `SandboxInfo` serialization, representations, and command logs.
@@ -2091,9 +2091,9 @@ require supply-chain pinning.
 
 #### Sandbox container network exposure and hardening
 
-The sandbox HTTP API (`/v1/shell/*` and friends) has no authentication: anyone who can reach a published sandbox port can execute arbitrary commands in that sandbox. For bare-metal Docker sandbox runs that use localhost, DeerFlow binds the sandbox port to `127.0.0.1` so it is not exposed on other host interfaces. For Docker-outside-of-Docker deployments that connect through `host.docker.internal`, the port is bound to the address that hostname actually resolves to — the daemon's `host-gateway-ip` mapping (customizable, possibly IPv6) — so the published port and the address the gateway connects to always match, and the port is no longer published on external network interfaces (previously it was bound to `0.0.0.0`). On Docker Desktop, resolving `host.docker.internal` yields an internal VM gateway address that the host OS cannot bind; because Docker Desktop forwards `host.docker.internal` to host loopback, DeerFlow defaults to `127.0.0.1` for `host.docker.internal` on Desktop daemons. Custom non-loopback sandbox hosts continue to bind their resolved address. If resolution fails, the Docker default bridge gateway (via `docker network inspect bridge`, falling back to `172.17.0.1`) is used as a best-effort bind and a warning is logged. Set `DEER_FLOW_SANDBOX_BIND_HOST` explicitly if your deployment needs a different bind address; setting it to `0.0.0.0` restores the legacy broad bind, which re-exposes the unauthenticated exec API on every interface and should be paired with an external firewall.
+The sandbox HTTP API (`/v1/shell/*` and friends) has no authentication: anyone who can reach a published sandbox port can execute arbitrary commands in that sandbox. For bare-metal Docker sandbox runs that use localhost, InvestAgent binds the sandbox port to `127.0.0.1` so it is not exposed on other host interfaces. For Docker-outside-of-Docker deployments that connect through `host.docker.internal`, the port is bound to the address that hostname actually resolves to — the daemon's `host-gateway-ip` mapping (customizable, possibly IPv6) — so the published port and the address the gateway connects to always match, and the port is no longer published on external network interfaces (previously it was bound to `0.0.0.0`). On Docker Desktop, resolving `host.docker.internal` yields an internal VM gateway address that the host OS cannot bind; because Docker Desktop forwards `host.docker.internal` to host loopback, InvestAgent defaults to `127.0.0.1` for `host.docker.internal` on Desktop daemons. Custom non-loopback sandbox hosts continue to bind their resolved address. If resolution fails, the Docker default bridge gateway (via `docker network inspect bridge`, falling back to `172.17.0.1`) is used as a best-effort bind and a warning is logged. Set `DEER_FLOW_SANDBOX_BIND_HOST` explicitly if your deployment needs a different bind address; setting it to `0.0.0.0` restores the legacy broad bind, which re-exposes the unauthenticated exec API on every interface and should be paired with an external firewall.
 
-Local Docker sandbox containers are also hardened by default: all Linux capabilities are dropped (`--cap-drop=ALL`) except a five-capability compatibility allowlist — `CHOWN`, `FOWNER`, `SETUID`, `SETGID`, and `DAC_OVERRIDE` — while privilege escalation across exec stays blocked with `no-new-privileges` and CPU/memory/PID resources are bounded. `CHOWN`/`SETUID`/`SETGID` support the runtime user handoff and `DAC_OVERRIDE` supports the root nginx master's writes to gem-owned logs. `FOWNER` is specifically required by the newer AIO 1.11.x startup path (regression-tested against the recommended 1.11.0 image), which runs `chmod /run/user/1000` after capabilities are dropped. Images that do not perform that `chmod` do not need `FOWNER`; DeerFlow deliberately does not guess a smaller set from mutable tags, digests, or arbitrary custom images, so the default compatibility allowlist remains version-agnostic.
+Local Docker sandbox containers are also hardened by default: all Linux capabilities are dropped (`--cap-drop=ALL`) except a five-capability compatibility allowlist — `CHOWN`, `FOWNER`, `SETUID`, `SETGID`, and `DAC_OVERRIDE` — while privilege escalation across exec stays blocked with `no-new-privileges` and CPU/memory/PID resources are bounded. `CHOWN`/`SETUID`/`SETGID` support the runtime user handoff and `DAC_OVERRIDE` supports the root nginx master's writes to gem-owned logs. `FOWNER` is specifically required by the newer AIO 1.11.x startup path (regression-tested against the recommended 1.11.0 image), which runs `chmod /run/user/1000` after capabilities are dropped. Images that do not perform that `chmod` do not need `FOWNER`; InvestAgent deliberately does not guess a smaller set from mutable tags, digests, or arbitrary custom images, so the default compatibility allowlist remains version-agnostic.
 
 A custom image that is already fully initialized as a non-root user and needs none of those compatibility capabilities should set `DEER_FLOW_SANDBOX_IMAGE_STARTUP_CAPS=0` to drop the whole set. This is an all-or-nothing opt-out, not a per-capability selector: an older or custom root-initialized image that does not need `FOWNER` may still require `CHOWN`, `SETUID`, `SETGID`, or `DAC_OVERRIDE` and should therefore leave the compatibility set enabled. Retained capabilities remain available for the container's lifetime and can let sandboxed code change ownership or mode on accessible bind-mounted paths, impersonate mounted-file UIDs/GIDs, or bypass discretionary access checks. `no-new-privileges` does **not** mitigate that existing-capability risk — it only blocks gaining new privileges across exec. One hardening knob is relaxed by default: the shipped AIO image runs with `seccomp=unconfined` because its Chromium browser does not start under Docker's default seccomp profile (syscall filtering is disabled — see the two seccomp variables below to change that). The following environment variables (set them in the gateway process, e.g. via `.env` loaded by docker-compose, or the gateway service `environment:`) tune or disable each knob:
 
@@ -2101,12 +2101,12 @@ A custom image that is already fully initialized as a non-root user and needs no
 | --- | --- | --- |
 | `DEER_FLOW_SANDBOX_BIND_HOST` | loopback (localhost or Docker Desktop with `host.docker.internal`) / host-gateway-ip / bridge gateway | Host interface for the sandbox `-p` publish. Must be an IP literal (bare or bracketed IPv6) or a hostname, which is resolved to an address first — Docker publish specs do not accept hostnames. `0.0.0.0` restores the legacy broad bind (risky). |
 | `DEER_FLOW_SANDBOX_SECCOMP_UNCONFINED` | on | The shipped AIO image's Chromium browser does not start under Docker's default seccomp profile (see the upstream agent-infra sandbox FAQ), so `seccomp=unconfined` remains the default. Set to `0` to run with the built-in profile — passed explicitly as `seccomp=builtin`, so a daemon configured with a different default cannot weaken the opt-out — and only for images verified to start and pass browser checks with it. |
-| `DEER_FLOW_SANDBOX_IMAGE_STARTUP_CAPS` | on | Keeps the five-capability compatibility set (`CHOWN`/`FOWNER`/`SETUID`/`SETGID`/`DAC_OVERRIDE`). `FOWNER` specifically covers the newer AIO 1.11.x startup `chmod /run/user/1000` path (tested with 1.11.0); images without that step do not need `FOWNER`, but DeerFlow does not infer per-image capability subsets from tags/digests/custom images. Set to `0` only for images that need none of the five — the switch drops the entire set. |
+| `DEER_FLOW_SANDBOX_IMAGE_STARTUP_CAPS` | on | Keeps the five-capability compatibility set (`CHOWN`/`FOWNER`/`SETUID`/`SETGID`/`DAC_OVERRIDE`). `FOWNER` specifically covers the newer AIO 1.11.x startup `chmod /run/user/1000` path (tested with 1.11.0); images without that step do not need `FOWNER`, but InvestAgent does not infer per-image capability subsets from tags/digests/custom images. Set to `0` only for images that need none of the five — the switch drops the entire set. |
 | `DEER_FLOW_SANDBOX_SECCOMP_PROFILE` | unset | Path to a custom seccomp profile (e.g. a restricted, Chromium-compatible one built from Docker's default plus the namespace syscalls Chromium needs). Takes precedence over the unconfined default. |
 | `DEER_FLOW_SANDBOX_MEMORY` | `2g` | `--memory` limit per sandbox container. `0`/`none` disables the limit. |
 | `DEER_FLOW_SANDBOX_CPUS` | `2` | `--cpus` limit per sandbox container. `0`/`none` disables the limit. |
 | `DEER_FLOW_SANDBOX_PIDS_LIMIT` | `512` | `--pids-limit` per sandbox container (fork-bomb guard). `0`/`none` disables the limit. |
-| `DEER_FLOW_SANDBOX_CONTAINER_USER` | unset (image default) | Passed through as `--user` (e.g. `1000:1000`). The default AIO image's user is upstream-controlled, so DeerFlow does not force one; set this only if you know your image's runtime user. |
+| `DEER_FLOW_SANDBOX_CONTAINER_USER` | unset (image default) | Passed through as `--user` (e.g. `1000:1000`). The default AIO image's user is upstream-controlled, so InvestAgent does not force one; set this only if you know your image's runtime user. |
 | `DEER_FLOW_SANDBOX_NETWORK` | unset (daemon default network) | Legacy `open`-mode escape hatch passed through as `--network`. Prefer `sandbox.network` for managed isolation. `host`, `container:<name>`, and `none` are rejected at startup. Restricted modes ignore this variable and use their own per-sandbox internal network. |
 
 These hardening flags are Docker-only; Apple Container (`container` runtime) keeps its previous, unhardened invocation and therefore supports only `network.mode: open`. On macOS, an `open` Gateway normally prefers Apple Container, but it keeps using Docker while the configured sandbox prefix has managed Docker sandboxes so startup reconciliation can safely replace resources left by a restricted-mode deployment before the runtime changes.
@@ -2122,13 +2122,13 @@ continue to use the normal environment proxy configuration.
 Each concurrently running native subagent uses one persistent AIO shell session.
 The semver AIO images from `1.9.3` through `1.11.0` default
 `MAX_SHELL_SESSIONS` to 10 and evict the oldest idle session when an eleventh is
-created. If `subagent_runtime.max_running` is greater than nine, DeerFlow sets
+created. If `subagent_runtime.max_running` is greater than nine, InvestAgent sets
 the container limit to `max_running + 1`; the extra slot leaves room for the lead
 agent's shell. This applies to both locally created containers and provisioner
 Pods. Lower concurrency keeps the image's own default unchanged.
 
 The separate `bash.exec` API uses its own `AIO_BASH_MAX_SESSIONS` pool rather
-than `MAX_SHELL_SESSIONS`. DeerFlow nevertheless creates and closes an explicit
+than `MAX_SHELL_SESSIONS`. InvestAgent nevertheless creates and closes an explicit
 transient bash session around every env-bearing command, so request-scoped
 secrets and completed command sessions are not retained.
 
@@ -2136,7 +2136,7 @@ You may set `sandbox.environment.MAX_SHELL_SESSIONS` explicitly. It must be a
 positive integer at least as large as `subagent_runtime.max_running + 1`, or the
 provider fails at startup with the conflicting values. The setting is applied
 when a sandbox is created. Persisted local containers and provisioner Pods report
-their effective value; DeerFlow replaces one whose capacity is below the current
+their effective value; InvestAgent replaces one whose capacity is below the current
 requirement instead of reusing it. Reuse checks also apply when no explicit
 override is needed for new containers: a previously configured lower limit must
 still fit the current concurrency. The Gateway waits for existing ownership and
@@ -2151,7 +2151,7 @@ an error and does not authorize replacement.
 
 ### Building a Custom AIO Sandbox Image
 
-`AioSandboxProvider` talks to the sandbox container through the `agent-sandbox` SDK. The Dockerfile for the default `enterprise-public-cn-beijing.cr.volces.com/vefaas-public/all-in-one-sandbox:latest` image is not part of this repository; DeerFlow treats that image as an upstream AIO sandbox runtime.
+`AioSandboxProvider` talks to the sandbox container through the `agent-sandbox` SDK. The Dockerfile for the default `enterprise-public-cn-beijing.cr.volces.com/vefaas-public/all-in-one-sandbox:latest` image is not part of this repository; InvestAgent treats that image as an upstream AIO sandbox runtime.
 
 For persistent system or language dependencies, extend the published image and keep its startup command intact:
 
@@ -2159,7 +2159,7 @@ For persistent system or language dependencies, extend the published image and k
 FROM enterprise-public-cn-beijing.cr.volces.com/vefaas-public/all-in-one-sandbox:latest
 
 USER root
-# Example user dependency; not required by DeerFlow itself.
+# Example user dependency; not required by InvestAgent itself.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends graphviz \
     && rm -rf /var/lib/apt/lists/*
@@ -2180,11 +2180,11 @@ sandbox:
 
 In provisioner mode, sandbox Pods are created by the provisioner service, so configure the provisioner `SANDBOX_IMAGE` environment variable instead of `sandbox.image`. See the [Provisioner Setup Guide](../../docker/provisioner/README.md#custom-sandbox-image).
 
-If you rebuild the runtime from scratch instead of extending the published image, it must expose the same HTTP API used by `agent-sandbox`. DeerFlow currently depends on:
+If you rebuild the runtime from scratch instead of extending the published image, it must expose the same HTTP API used by `agent-sandbox`. InvestAgent currently depends on:
 
 - `sandbox.get_context()`, including `home_dir`
 - `shell.exec_command(...)`
-- `bash.exec(...)` — only exercised for per-command environment injection (skills that declare `required-secrets`). The `/v1/bash/*` routes exist since upstream all-in-one-sandbox `1.9.3`; on older images (including a `latest` tag still frozen on the `1.0.0.x` line) DeerFlow fails fast with an actionable error instead of surfacing the raw 404. Pin `sandbox.image` to `1.9.3` or newer (e.g. `1.11.0`) and recreate the sandbox container to use `required-secrets` with the AIO sandbox.
+- `bash.exec(...)` — only exercised for per-command environment injection (skills that declare `required-secrets`). The `/v1/bash/*` routes exist since upstream all-in-one-sandbox `1.9.3`; on older images (including a `latest` tag still frozen on the `1.0.0.x` line) InvestAgent fails fast with an actionable error instead of surfacing the raw 404. Pin `sandbox.image` to `1.9.3` or newer (e.g. `1.11.0`) and recreate the sandbox container to use `required-secrets` with the AIO sandbox.
 - `file.read_file(...)`
 - `file.write_file(...)`, including base64 writes for binary content
 - streamed `file.download_file(...)`
@@ -2195,9 +2195,9 @@ If you rebuild the runtime from scratch instead of extending the published image
 Custom images must also keep these compatibility constraints:
 
 - The container should listen on the configured sandbox port, `8080` by default.
-- `/mnt/user-data` must remain writable because DeerFlow mounts thread workspace, uploads, and outputs there.
-- `home_dir` comes from the sandbox context endpoint; do not assume DeerFlow hardcodes it.
-- Shell command handling must remain compatible with serialized `exec_command` calls. DeerFlow serializes shell access on the host side to avoid corrupting the sandbox's persistent shell session.
+- `/mnt/user-data` must remain writable because InvestAgent mounts thread workspace, uploads, and outputs there.
+- `home_dir` comes from the sandbox context endpoint; do not assume InvestAgent hardcodes it.
+- Shell command handling must remain compatible with serialized `exec_command` calls. InvestAgent serializes shell access on the host side to avoid corrupting the sandbox's persistent shell session.
 
 ### Skills
 
@@ -2219,7 +2219,7 @@ Choose paths from the filesystem of the process that reads them:
 | Setting | Meaning |
 | --- | --- |
 | `skills.path` | Source directory read by the Gateway, containing `public/` and any legacy `custom/` skills. It is not the path the agent uses. |
-| `skills.container_path` | Agent-facing skills root, normally `/mnt/skills`. DeerFlow prepares the enabled skill views beneath this root; do not add a second `sandbox.mounts` entry for skills. |
+| `skills.container_path` | Agent-facing skills root, normally `/mnt/skills`. InvestAgent prepares the enabled skill views beneath this root; do not add a second `sandbox.mounts` entry for skills. |
 | `sandbox.mounts[].host_path` | Existing absolute source directory. With `LocalSandboxProvider`, it must be visible to the Gateway process. With local AIO Docker, it must be available to the Docker daemon creating the sandbox. |
 | `sandbox.mounts[].container_path` | Absolute POSIX path used by agent tools, such as `/mnt/shared`, on every host OS. Local mode maps it to the source; AIO Docker bind-mounts the source there. |
 
@@ -2282,7 +2282,7 @@ mount examples do not configure Kubernetes PVCs or remote sandbox storage.
 For the AIO provider (including the Kubernetes provisioner) and E2B,
 `skills.container_path` is captured when the provider starts and must be one
 canonical absolute, non-root POSIX path. Do not use redundant separators,
-`.`/`..`, or a path that contains or sits below DeerFlow's reserved mounts
+`.`/`..`, or a path that contains or sits below InvestAgent's reserved mounts
 (`/mnt/user-data`, `/mnt/acp-workspace`, or `/mnt/integrations/lark-cli`).
 Restart the Gateway after changing it so sandbox identities and mounts use the
 same root. E2B also records the root in remote metadata and refuses to adopt a
@@ -2335,11 +2335,11 @@ The default GitHub API rate limits are quite restrictive. For frequent project r
 
 **Configuration Steps**:
 1. Uncomment the `GITHUB_TOKEN` line in the `.env` file and add your personal access token
-2. Restart the DeerFlow service to apply changes
+2. Restart the InvestAgent service to apply changes
 
 ## Environment Variables
 
-DeerFlow supports environment variable substitution using the `$` prefix:
+InvestAgent supports environment variable substitution using the `$` prefix:
 
 ```yaml
 models:
@@ -2455,7 +2455,7 @@ The configuration file should be placed in the **project root directory** (`deer
 
 ## Configuration Priority
 
-DeerFlow searches for configuration in this order:
+InvestAgent searches for configuration in this order:
 
 1. Path specified in code via `config_path` argument
 2. Path from `DEER_FLOW_CONFIG_PATH` environment variable
@@ -2465,7 +2465,7 @@ DeerFlow searches for configuration in this order:
 ## Security Notes
 ### Sandbox Isolation and the Docker Socket (DooD)
 
-DeerFlow executes agent-generated shell/code through a configurable sandbox
+InvestAgent executes agent-generated shell/code through a configurable sandbox
 (`sandbox.use` in `config.yaml`). The isolation guarantees differ by mode, and
 one mode requires mounting the host Docker socket. Understand the trade-offs
 before exposing an instance to untrusted input.
@@ -2481,7 +2481,7 @@ before exposing an instance to untrusted input.
 Mounting `/var/run/docker.sock` into a container grants that container
 **root-equivalent control of the host**: anything able to reach the socket can
 start a new container that bind-mounts the host filesystem and escape. This
-matters for DeerFlow because the gateway executes model-generated commands, so a
+matters for InvestAgent because the gateway executes model-generated commands, so a
 prompt injection or any in-container code-execution primitive could pivot to the
 host through the socket.
 
@@ -2504,7 +2504,7 @@ To keep this off the default attack surface:
 
 ### CLI Credential Mounts (Claude Code / Codex / MiniMax Code)
 
-DeerFlow can reuse your Claude Code / Codex CLI subscription login as a model
+InvestAgent can reuse your Claude Code / Codex CLI subscription login as a model
 provider (`ClaudeChatModel`, the Codex provider) or for ACP agents that run the
 CLI in-container. The Compose stack used to bind-mount the **entire** `~/.claude`
 and `~/.codex` directories (read-only) into the gateway container in **every**
@@ -2523,7 +2523,7 @@ with the least exposure that fits your setup:
 
 The Gateway credential loader checks environment variables **before** the
 default credential files, so the env-token paths need no bind mount at all. ACP
-adapters authenticate independently of DeerFlow via their own documented env —
+adapters authenticate independently of InvestAgent via their own documented env —
 for example the common `claude-code-acp` adapter starts as
 `ANTHROPIC_API_KEY=… claude-code-acp` and honors `CLAUDE_CONFIG_DIR` to redirect
 its config directory, so it needs no `~/.claude` mount at all. Prefer the
@@ -2536,14 +2536,14 @@ Gateway runs, install it with `npm install --global @minimax-ai/code`, run
 `mcode login`, and configure `acp_agents.mcode` with `command: mcode` and
 `args: ["acp"]`. The executable and its authenticated runtime must be available
 inside the Gateway environment; a host-only installation is not visible to a
-Docker container. DeerFlow forwards enabled MCP servers to the MCode session.
+Docker container. InvestAgent forwards enabled MCP servers to the MCode session.
 Leave `auto_approve_permissions` disabled for untrusted tasks, and enable it
 only when the agent is expected to edit files or run commands for a trusted
 task.
 
 Pi can run as an external coding agent through the community `pi-acp` adapter.
 The adapter launches the separate `pi` executable, so install both packages in
-the Gateway environment before starting DeerFlow. `pi-acp` currently requires
+the Gateway environment before starting InvestAgent. `pi-acp` currently requires
 Node.js 22+ and pi 0.81.0+:
 
 ```bash
