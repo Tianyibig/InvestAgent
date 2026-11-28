@@ -38,6 +38,11 @@ Never upgrade "not established" into "false", or a high score into "verified".
 
 Score = rounded mean of item weights. Empty chain → 0.
 
+`stock-quote` prints use this same scale. Cite a successful print as
+`@data:akshare` or `@data:tencent_delayed` (tier 80). Do not tag scraped or
+delayed quotes `@official`. The quote record's `source_tier` is checked
+against this table in the stock-quote tests.
+
 ## Workflow
 
 1. Separate **one claim** (one sentence). Multi-part claims → multiple runs.

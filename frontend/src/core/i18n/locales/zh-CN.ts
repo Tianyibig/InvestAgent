@@ -477,6 +477,15 @@ export const zhCN: Translations = {
     subject: "标的",
   },
 
+  researchQuote: {
+    region: "研究行情",
+    asOf: "截至",
+    tier: "档位",
+    delayed: "延时",
+    dataNotOfficial: "数据源，非官方",
+    unavailable: "暂无报价",
+  },
+
   artifactTable: {
     title: "表格预览",
     header: "首行作为表头",
